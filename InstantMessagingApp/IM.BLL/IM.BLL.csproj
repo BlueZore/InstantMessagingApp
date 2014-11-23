@@ -52,6 +52,7 @@
     <Compile Include="IM_GroupBLL.cs" />
     <Compile Include="IM_GroupMemberBLL.cs" />
     <Compile Include="IM_NewsBLL.cs" />
+    <Compile Include="IM_TalkBLL.cs" />
     <Compile Include="IM_TeamBLL.cs" />
     <Compile Include="IM_TeamMemberBLL.cs" />
     <Compile Include="IM_UserBLL.cs" />

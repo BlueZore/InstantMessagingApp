@@ -55,5 +55,25 @@ namespace InstantMessagingApp
 
             return json;
         }
+
+        /// <summary>
+        /// 发送聊天内容
+        /// </summary>
+        /// <param name="SendUserID"></param>
+        /// <param name="ReceiveUserID"></param>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string sendUserTalk(string SendUserID, string ReceiveUserID, string Note)
+        {
+            IM_TalkInfo talkModel = new IM_TalkInfo();
+            talkModel.SendUserID = new Guid(SendUserID);
+            talkModel.ReceiveUserID = new Guid(ReceiveUserID);
+            talkModel.Note = Note;
+            talkModel.Type = 0;
+            talkModel.State = 0;
+            new IM_TalkBLL().Add(talkModel);
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+        }
     }
 }

@@ -179,12 +179,25 @@
             float: left;
         }
 
-        .talk {
+        #talk {
             width: 314px;
             height: 100%;
             background-image: url(/Image/talkbg.png);
             float: left;
+            position: relative;
+            display: none;
         }
+
+        .talk {
+            position: absolute;
+        }
+
+            .talk textarea {
+                width: 100%;
+                height: 100%;
+                font-size: 12px;
+                padding: 2px;
+            }
 
         .talk_re_note {
             margin-top: 30px;
@@ -194,6 +207,37 @@
             height: 230px;
             background-color: #ffffff;
             float: left;
+        }
+
+            .talk_re_note li {
+                list-style: none;
+                float: left;
+                padding: 2px;
+            }
+
+        .otheruser_note p {
+            color: #7bff3e;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .otheruser_note span {
+            color: #424242;
+            text-align: left;
+            font-size: 11px;
+        }
+
+
+        .curruser_note p {
+            color: #54A6D6;
+            text-align: right;
+            font-size: 12px;
+        }
+
+        .curruser_note span {
+            color: #424242;
+            text-align: right;
+            font-size: 11px;
         }
 
         .talk_op {
@@ -248,6 +292,7 @@
                 list-style: none;
                 color: #ffffff;
                 font-size: 12px;
+                cursor: pointer;
             }
 
                 .talktab li.talktab_li_selected {
@@ -262,6 +307,7 @@
             margin-right: 1px;
             margin-top: -153px;
             position: relative;
+            display: none;
         }
 
         .ULLayer {
@@ -363,22 +409,88 @@
                 return false;
             });
 
-            $("#ULLayer").delegate(".header a", "click", function () {
-                $(this).parents(".ULLayer").remove();
+            //显示聊天窗口
+            $("#TeamListDIV").delegate("li", "dblclick", function () {
+                //窗口
+                $("#talk>div").hide();
+                var html = "<div class='talk' talkID='" + $(this).attr("uID") + "'><div class='talk_re_note'></div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+                $("#talk").html($("#talk").html() + html);
+                $("#talk").show();
+
+                //页签
+                $(".talktab li").removeClass("talktab_li_selected");
+                html = "<li class='talktab_li_selected' talkTabID='" + $(this).attr("uID") + "'>" + $(this).find("span").html() + "</li>";
+                $(".talktab").html($(".talktab").html() + html);
+            });
+
+            //页签切换控制显示聊天窗口
+            $(".talktab").delegate("li", "click", function () {
+                $(".talktab li").removeClass("talktab_li_selected");
+                $(this).addClass("talktab_li_selected");
+                $("#talk>div").hide();
+                $("#talk").find("[talkID='" + $(this).attr("talkTabID") + "']").show();
+            });
+
+            //移除通话
+            $("#talk").delegate("button", "click", function () {
+                var talkID = $(this).parents(".talk").attr("talkID");
+                switch ($(this).html()) {
+                    case "关闭":
+                        $("[talkID='" + talkID + "']").remove();
+                        $("[talkTabID='" + talkID + "']").remove();
+
+                        if ($("#talk>div").size() > 0) {//第一页签显示
+                            $("#talk>div:eq(0)").show();
+                            $(".talktab>li:eq(0)").addClass("talktab_li_selected");
+                        }
+                        else {//隐藏整个聊天窗口
+                            $("#talk").hide();
+                        }
+                        break;
+                    case "发送":
+                        var note = $(this).parents(".talk").find("textarea").val();
+                        $.ajax({
+                            type: "post",
+                            contentType: "application/json",
+                            url: "/Common/Ajax.asmx/sendUserTalk",
+                            data: "{SendUserID:'" + talkID + "',ReceiveUserID:'" + $("#hidID").val() + "',Note:'" + note + "'}",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result.d != "") {
+                                    var html = "<li class='curruser_note'><p>" + $("#divSelfName").html() + " " + result.d + "</p><span>" + note + "</span></li>";
+
+                                    $(".talk_re_note").html($(".talk_re_note").html() + html);
+                                }
+                            }
+                        });
+                        break;
+                }
                 return false;
             });
 
+            //##########################################提示
+            //提示关闭
+            $("#ULLayer").delegate(".header a", "click", function () {
+                $(this).parents(".ULLayer").remove();
+                if ($(".ULLayer").size() == 0) { $("#ULLayer").hide(); }//判断是否要隐藏#ULLayer层
+                return false;
+            });
+
+            //提示查看
             $("#ULLayer").delegate(".footer a", "click", function () {
                 var ID = $(this).parents(".ULLayer").attr("newID");
                 layer.tab({
-                    area: ['300px', '300px'],
+                    area: ['340px', '270px'],
                     data: [
                         { title: '申请', content: '<iframe src=\"Iframe/ConfirmUser.aspx?ID=' + ID + '\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
                     ]
                 });
                 $(this).parents(".ULLayer").remove();
+                if ($(".ULLayer").size() == 0) { $("#ULLayer").hide(); }//判断是否要隐藏#ULLayer层
                 return false;
             });
+
+
 
             setInterval("getUserAboutNews()", 6000);
 
@@ -398,7 +510,10 @@
                         for (var i = 0; i < newsList.length; i++) {
                             html += "<ul class='ULLayer' newID='" + newsList[i].ID + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + newsList[i].Note + "”，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
                         }
-                        $("#ULLayer").html($("#ULLayer").html() + html);
+                        if (html.length > 0) {
+                            $("#ULLayer").html($("#ULLayer").html() + html);
+                            $("#ULLayer").show();
+                        }
                     }
                 }
             });
@@ -453,23 +568,33 @@
                 </div>
             </div>
 
-
             <div class="right">
-                <div class="talk">
-                    <div class="talk_re_note"></div>
-                    <div class="talk_op">
-                        <img src="Image/upload1.png" />
-                    </div>
-                    <div class="talk_note"></div>
-                    <div class="talk_run">
-                        <button>关闭</button>
-                        <button>发送</button>
-                    </div>
+                <div id="talk">
+                    <%--<div class="talk">
+                        <ul class="talk_re_note">
+                            <li class="otheruser_note">
+                                <p>XXXX 2014-11-23 13:00</p>
+                                <span>note</span>
+                            </li>
+                            <li class="curruser_note">
+                                <p>XXXX 2014-11-23 13:00</p>
+                                <span>note</span>
+                            </li>
+                        </ul>
+                        <div class="talk_op">
+                            <img src="Image/upload1.png" />
+                        </div>
+                        <div class="talk_note"></div>
+                        <div class="talk_run">
+                            <button>关闭</button>
+                            <button>发送</button>
+                        </div>
+                    </div>--%>
                 </div>
                 <ul class="talktab">
-                    <li>用户A</li>
+                    <%--<li>用户A</li>
                     <li class="talktab_li_selected">用户B</li>
-                    <li>用户C</li>
+                    <li>用户C</li>--%>
                 </ul>
             </div>
 
