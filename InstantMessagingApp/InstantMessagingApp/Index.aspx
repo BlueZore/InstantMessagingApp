@@ -511,6 +511,7 @@
                 dataType: "json",
                 success: function (result) {
                     if (result.d != "") {
+                        //加载消息
                         var newsList = eval(result.d)[0].NewsList;
                         var html = "";
                         for (var i = 0; i < newsList.length; i++) {
@@ -521,11 +522,12 @@
                             $("#ULLayer").show();
                         }
 
+                        //加载聊天
                         var talkList = eval(result.d)[0].TalkList;
                         html = "";
                         for (var i = 0; i < talkList.length; i++) {
                             var $talk = $("#talk").find("[talkID='" + talkList[i].SendUserID + "']");
-                            if ($talk.size() > 0) {
+                            if ($talk.size() > 0) {//写入聊天窗口
                                 html = "<li class='otheruser_note'><p>" + talkList[i].SendUserName + " " + talkList[i].CreateDate + "</p> <span>" + talkList[i].Note + "</span></li>";
                                 $talk.find(".talk_re_note").html($talk.find(".talk_re_note").html() + html);
                             }
