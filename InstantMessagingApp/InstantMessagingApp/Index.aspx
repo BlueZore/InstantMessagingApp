@@ -207,12 +207,15 @@
             height: 230px;
             background-color: #ffffff;
             float: left;
+            overflow: auto;
+            overflow-x: hidden;
         }
 
             .talk_re_note li {
                 list-style: none;
                 float: left;
                 padding: 2px;
+                width: 100%;
             }
 
         .otheruser_note p {
@@ -230,13 +233,13 @@
 
         .curruser_note p {
             color: #54A6D6;
-            text-align: right;
+            text-align: left;
             font-size: 12px;
         }
 
         .curruser_note span {
             color: #424242;
-            text-align: right;
+            text-align: left;
             font-size: 11px;
         }
 
@@ -276,17 +279,18 @@
 
         .talktab {
             float: left;
-            width: 46px;
+            width: 53px;
             height: 100px;
             padding-top: 50px;
         }
 
             .talktab li {
                 background-image: url(/Image/tab2.png);
+                background-repeat: no-repeat;
                 padding-left: 6px;
                 padding-top: 5px;
                 height: 22px;
-                width: 40px;
+                width: 46px;
                 float: left;
                 margin-top: 10px;
                 list-style: none;
@@ -297,6 +301,7 @@
 
                 .talktab li.talktab_li_selected {
                     background-image: url(/Image/tab1.png);
+                    background-repeat: no-repeat;
                     color: #454444;
                 }
 
@@ -453,13 +458,14 @@
                             type: "post",
                             contentType: "application/json",
                             url: "/Common/Ajax.asmx/sendUserTalk",
-                            data: "{SendUserID:'" + talkID + "',ReceiveUserID:'" + $("#hidID").val() + "',Note:'" + note + "'}",
+                            data: "{SendUserID:'" + $("#hidID").val() + "',ReceiveUserID:'" + talkID + "',Note:'" + note + "'}",
                             dataType: "json",
                             success: function (result) {
                                 if (result.d != "") {
                                     var html = "<li class='curruser_note'><p>" + $("#divSelfName").html() + " " + result.d + "</p><span>" + note + "</span></li>";
 
                                     $(".talk_re_note").html($(".talk_re_note").html() + html);
+                                    $(this).parents(".talk").find("textarea").val("");
                                 }
                             }
                         });
@@ -508,12 +514,30 @@
                         var newsList = eval(result.d)[0].NewsList;
                         var html = "";
                         for (var i = 0; i < newsList.length; i++) {
-                            html += "<ul class='ULLayer' newID='" + newsList[i].ID + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + newsList[i].Note + "”，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
+                            html += "<ul class='ULLayer' newID='" + newsList[i].ID + "' sendID='" + newsList[i].SendUserID + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + newsList[i].Note + "”，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
                         }
                         if (html.length > 0) {
                             $("#ULLayer").html($("#ULLayer").html() + html);
                             $("#ULLayer").show();
                         }
+
+                        var talkList = eval(result.d)[0].TalkList;
+                        html = "";
+                        for (var i = 0; i < talkList.length; i++) {
+                            var $talk = $("#talk").find("[talkID='" + talkList[i].SendUserID + "']");
+                            if ($talk.size() > 0) {
+                                html = "<li class='otheruser_note'><p>" + talkList[i].SendUserName + " " + talkList[i].CreateDate + "</p> <span>" + talkList[i].Note + "</span></li>";
+                                $talk.find(".talk_re_note").html($talk.find(".talk_re_note").html() + html);
+                            }
+                            else {
+
+                                html += "<ul class='ULLayer' newID='" + newsList[i].ID + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + newsList[i].Note + "”，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
+                            }
+                        }
+                        //if (html.length > 0) {
+                        //    $("#ULLayer").html($("#ULLayer").html() + html);
+                        //    $("#ULLayer").show();
+                        //}
                     }
                 }
             });

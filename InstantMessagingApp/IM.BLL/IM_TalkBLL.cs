@@ -73,7 +73,24 @@ namespace IM.BLL
 
         #endregion  BasicMethod
         #region  ExtensionMethod
+        /// <summary>
+        /// 修改状态
+        /// <param name="ID">实体</param>
+        /// <param name="State">实体</param>
+        /// </summary>
+        public bool UpdateForState(Guid ID, int State)
+        {
+            return dal.UpdateForState(ID, State);
+        }
 
+        /// <summary>
+        /// 获取聊天信息
+        /// <param name="UserID">ReceiveUserID</param>
+        /// </summary>
+        public List<IM_TalkInfo> GetList(Guid UserID)
+        {
+            return dal.GetList(UserID);
+        }
         #endregion  ExtensionMethod
     }
 }

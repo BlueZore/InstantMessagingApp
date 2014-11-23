@@ -82,6 +82,7 @@
     <Content Include="Iframe\NewGroup.aspx" />
     <Content Include="Iframe\NewTeam.aspx" />
     <Content Include="Image\error.jpg" />
+    <Content Include="Image\tab3.png" />
     <Content Include="JS\jquery-1.11.1.js" />
     <Content Include="JS\jquery-1.11.1.min.js" />
     <Content Include="JS\layer\extend\layer.ext.js" />

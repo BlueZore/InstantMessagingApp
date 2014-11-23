@@ -50,8 +50,28 @@ namespace InstantMessagingApp
                 jsonItem += ",Note:'" + newsModel.Note + "'";
                 jsonItem += "}";
             }
-            jsonItem = "NewsList:[" + (jsonItem.Length == 0 ? "" : jsonItem.Substring(1)) + "]";
-            json = "[{" + jsonItem + "}]";
+            json = "NewsList:[" + (jsonItem.Length == 0 ? "" : jsonItem.Substring(1)) + "]";
+
+            jsonItem = "";
+            IM_TalkBLL talkBLL = new IM_TalkBLL();
+            List<IM_TalkInfo> talkList = talkBLL.GetList(new Guid(UserID));
+            foreach (IM_TalkInfo talkModel in talkList)
+            {
+                talkBLL.UpdateForState(talkModel.ID, 1);
+                jsonItem += ",{";
+                jsonItem += "ID:'" + talkModel.ID + "'";
+                jsonItem += ",SendUserName:'" + talkModel.SendUserName + "'";
+                jsonItem += ",SendUserID:'" + talkModel.SendUserID + "'";
+                jsonItem += ",Note:'" + talkModel.Note + "'";
+                jsonItem += ",Type:'" + talkModel.Type + "'";
+                jsonItem += ",CreateDate:'" + talkModel.CreateDate + "'";
+                jsonItem += "}";
+            }
+            json += ",TalkList:[" + (jsonItem.Length == 0 ? "" : jsonItem.Substring(1)) + "]";
+
+            json = "[{" + json + "}]";
+
+
 
             return json;
         }

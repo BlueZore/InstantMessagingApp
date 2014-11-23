@@ -20,6 +20,9 @@ namespace IM.Model
         public static string State_Field = "State";
         public static string CreateDate_Field = "CreateDate";
 
+        public static string SendUserName_Field = "SendUserName";
+        public static string ReceiveUserName_Field = "ReceiveUserName";
+
         private Guid _id;
         private Guid _senduserid;
         private Guid _receiveuserid;
@@ -27,6 +30,9 @@ namespace IM.Model
         private int? _type;
         private int? _state;
         private DateTime? _createdate = DateTime.Now;
+
+        private string _sendusername;
+        private string _receiveusername;
 
         /// <summary>
         /// 
@@ -89,6 +95,25 @@ namespace IM.Model
         {
             set { _createdate = value; }
             get { return _createdate; }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SendUserName
+        {
+            set { _sendusername = value; }
+            get { return _sendusername; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ReceiveUserName
+        {
+            set { _receiveusername = value; }
+            get { return _receiveusername; }
         }
 
         #endregion Model
