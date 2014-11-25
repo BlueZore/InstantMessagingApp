@@ -438,7 +438,8 @@
 
             //移除通话
             $("#talk").delegate("button", "click", function () {
-                var talkID = $(this).parents(".talk").attr("talkID");
+                var $talk = $(this).parents(".talk");
+                var talkID = $talk.attr("talkID");
                 switch ($(this).html()) {
                     case "关闭":
                         $("[talkID='" + talkID + "']").remove();
@@ -453,7 +454,8 @@
                         }
                         break;
                     case "发送":
-                        var note = $(this).parents(".talk").find("textarea").val();
+                        var $textArea = $talk.find("textarea");
+                        var note = $textArea.val();
                         $.ajax({
                             type: "post",
                             contentType: "application/json",
@@ -464,8 +466,9 @@
                                 if (result.d != "") {
                                     var html = "<li class='curruser_note'><p>" + $("#divSelfName").html() + " " + result.d + "</p><span>" + note + "</span></li>";
 
-                                    $(".talk_re_note").html($(".talk_re_note").html() + html);
-                                    $(this).parents(".talk").find("textarea").val("");
+                                    $talk.find(".talk_re_note").html($(".talk_re_note").html() + html);
+                                    $talk.find(".talk_re_note").attr("scrollTop", "1000000");
+                                    $textArea.val("");
                                 }
                             }
                         });
@@ -485,12 +488,55 @@
             //提示查看
             $("#ULLayer").delegate(".footer a", "click", function () {
                 var ID = $(this).parents(".ULLayer").attr("newID");
-                layer.tab({
-                    area: ['340px', '270px'],
-                    data: [
-                        { title: '申请', content: '<iframe src=\"Iframe/ConfirmUser.aspx?ID=' + ID + '\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
-                    ]
-                });
+                if (ID != undefined) {//消息
+                    layer.tab({
+                        area: ['340px', '270px'],
+                        data: [
+                            { title: '申请', content: '<iframe src=\"Iframe/ConfirmUser.aspx?ID=' + ID + '\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
+                        ]
+                    });
+                }
+                else {//聊天
+                    ID = $(this).parents(".ULLayer").attr("UL_talkID");
+                    if (ID != undefined) {
+                        //窗口
+                        $("#talk>div").hide();
+                        var html = "<div class='talk' talkID='" + ID + "'><div class='talk_re_note'>加载中...</div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+                        $("#talk").html($("#talk").html() + html);
+                        $("#talk").show();
+
+                        //页签
+                        $(".talktab li").removeClass("talktab_li_selected");
+                        html = "<li class='talktab_li_selected' talkTabID='" + ID + "'>" + $(this).parents(".ULLayer").attr("UL_talkName") + "</li>";
+                        $(".talktab").html($(".talktab").html() + html);
+
+
+                        $.ajax({
+                            type: "post",
+                            contentType: "application/json",
+                            url: "/Common/Ajax.asmx/sendUserTalkRec",
+                            data: "{SendUserID:'" + ID + "',ReceiveUserID:'" + $("#hidID").val() + "'}",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result.d != "") {
+
+                                    //加载聊天
+                                    var talkList = eval(result.d)[0].TalkList;
+                                    var html = "";
+                                    for (var i = 0; i < talkList.length; i++) {
+                                        var $talk = $("#talk").find("[talkID='" + ID + "']");
+                                        if ($talk.size() > 0) {//写入聊天窗口
+                                            html += "<li class='otheruser_note'><p>" + talkList[i].SendUserName + " " + talkList[i].CreateDate + "</p> <span>" + talkList[i].Note + "</span></li>";
+
+                                        }
+                                    }
+                                    $talk.find(".talk_re_note").html(html);
+                                    $talk.find(".talk_re_note").attr("scrollTop","1000000");
+                                }
+                            }
+                        });
+                    }
+                }
                 $(this).parents(".ULLayer").remove();
                 if ($(".ULLayer").size() == 0) { $("#ULLayer").hide(); }//判断是否要隐藏#ULLayer层
                 return false;
@@ -532,14 +578,13 @@
                                 $talk.find(".talk_re_note").html($talk.find(".talk_re_note").html() + html);
                             }
                             else {
-
-                                html += "<ul class='ULLayer' newID='" + newsList[i].ID + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + newsList[i].Note + "”，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
+                                if ($("[UL_talkID='" + talkList[i].SendUserID + "']").size() == 0) {//在ULLayer没有发送用户的提示，显示提示框
+                                    html += "<ul class='ULLayer' UL_talkID='" + talkList[i].SendUserID + "' UL_talkName='" + talkList[i].SendUserName + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + talkList[i].SendUserName + "”向你发出聊天申请！</li><li class='footer'><a>查看</a></li></ul>";
+                                    $("#ULLayer").html($("#ULLayer").html() + html);
+                                    $("#ULLayer").show();
+                                }
                             }
                         }
-                        //if (html.length > 0) {
-                        //    $("#ULLayer").html($("#ULLayer").html() + html);
-                        //    $("#ULLayer").show();
-                        //}
                     }
                 }
             });

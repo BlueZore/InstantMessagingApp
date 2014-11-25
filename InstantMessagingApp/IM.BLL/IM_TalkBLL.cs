@@ -91,6 +91,17 @@ namespace IM.BLL
         {
             return dal.GetList(UserID);
         }
+
+        /// <summary>
+        /// 获取聊天信息
+        /// <param name="SendUserID">SendUserID</param>
+        /// <param name="ReceiveUserID">ReceiveUserID</param>
+        /// <param name="State">State</param>
+        /// </summary>
+        public List<IM_TalkInfo> GetList(Guid SendUserID, Guid ReceiveUserID, int State)
+        {
+            return dal.GetList(SendUserID, ReceiveUserID, State);
+        }
         #endregion  ExtensionMethod
     }
 }
