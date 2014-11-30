@@ -51,7 +51,7 @@ namespace InstantMessagingApp
 
             btnOK.Enabled = ddlTeam.Enabled = btnReject.Enabled = false;
 
-            Response.Write("<script>Window.onload = function () {window.parent.window.addUser('" + newModel.SendUserID.ToString() + "','" + ddlTeam.SelectedValue + "');}</script>");
+            Response.Write("<script>Window.onload = function () {window.parent.window.addUserForTeam('" + newModel.SendUserID.ToString() + "','" + ddlTeam.SelectedValue + "');}</script>");
         }
 
         protected void btnReject_Click(object sender, EventArgs e)

@@ -34,7 +34,7 @@ namespace InstantMessagingApp
 
             //添加好友提示
             queryBuilder.AddFilter("ReceiveUserID", "=", UserID);
-            queryBuilder.AddFilter("BusinessType", "=", "1");
+            //queryBuilder.AddFilter("BusinessType", "=", "1");
             queryBuilder.AddFilter("State", "=", "0");
             queryBuilder.AddOrderASC("CreateDate");
             IM_NewsBLL newsBLL = new IM_NewsBLL();
@@ -47,6 +47,7 @@ namespace InstantMessagingApp
                 jsonItem += "ID:'" + newsModel.ID + "'";
                 jsonItem += ",SendUserID:'" + newsModel.SendUserID + "'";
                 jsonItem += ",ReceiveUserID:'" + newsModel.ReceiveUserID + "'";
+                jsonItem += ",BusinessType:'" + newsModel.BusinessType + "'";
                 jsonItem += ",Note:'" + newsModel.Note + "'";
                 jsonItem += "}";
             }

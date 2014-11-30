@@ -22,6 +22,7 @@ namespace IM.Model
 
         public static string TeamID_Field = "TeamID";
         public static string TeamName_Field = "TeamName";
+        public static string State_Field = "State";
 
         private Guid _id;
         private string _sys_userid;
@@ -33,6 +34,7 @@ namespace IM.Model
 
         private Guid _teamid;
         private string _teamname;
+        private int? _state;
 
         /// <summary>
         /// 
@@ -113,6 +115,15 @@ namespace IM.Model
         {
             set { _teamname = value; }
             get { return _teamname; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? State
+        {
+            set { _state = value; }
+            get { return _state; }
         }
         #endregion Model
 

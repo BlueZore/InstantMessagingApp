@@ -25,5 +25,10 @@ namespace InstantMessagingApp
             txtGroupName.Text = string.Empty;
             lbError.Text = "完成添加";
         }
+
+        protected void btnReturn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("GroupView.aspx");
+        }
     }
 }

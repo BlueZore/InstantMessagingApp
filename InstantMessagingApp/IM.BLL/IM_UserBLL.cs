@@ -92,6 +92,16 @@ namespace IM.BLL
         {
             return dal.GetNoAddUserList(ID, UserName);
         }
+
+        /// <summary>
+        /// 获取未添加用户
+        /// <param name="UserID"></param>
+        /// <param name="GroupID"></param>
+        /// </summary>
+        public List<IM_UserInfo> GetNoAddGroupList(Guid UserID, Guid GroupID)
+        {
+            return dal.GetNoAddGroupList(UserID, GroupID);
+        }
         #endregion  ExtensionMethod
     }
 }

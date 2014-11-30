@@ -305,6 +305,57 @@ and ID<>@ID and UserName like '%" + UserName + @"%' order by UserName
             }
             return list;
         }
+
+        /// <summary>
+        /// 获取未添加用户
+        /// <param name="UserID"></param>
+        /// <param name="GroupID"></param>
+        /// </summary>
+        public List<IM_UserInfo> GetNoAddGroupList(Guid UserID, Guid GroupID)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"
+select [IM_User].ID,[IM_User].UserName,(case when [IM_Group].UserID is null then 0 else 1 end) as State from [dbo].[IM_Team]
+inner join [dbo].[IM_TeamMember]
+on [IM_Team].ID=[IM_TeamMember].[TeamID]
+inner join [dbo].[IM_User]
+on [IM_TeamMember].[UserID]=[IM_User].ID
+left join (select [IM_GroupMember].UserID,[IM_Group].UserID as SelfID from [dbo].[IM_Group]
+inner join [dbo].[IM_GroupMember]
+on [IM_Group].ID=[IM_GroupMember].[GroupID]
+where [IM_Group].[UserID]=@UserID and [IM_Group].ID=@GroupID)[IM_Group]
+on SelfID=[IM_Team].UserID
+where [IM_Team].UserID=@UserID 
+");
+            SqlParameter[] parameters = {
+					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16),
+                    new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier,16)};
+            parameters[0].Value = UserID;
+            parameters[1].Value = GroupID;
+            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            List<IM_UserInfo> list = new List<IM_UserInfo>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                IM_UserInfo model = new IM_UserInfo();
+                if (row != null)
+                {
+                    if (row["ID"] != null && row["ID"].ToString() != "")
+                    {
+                        model.ID = new Guid(row["ID"].ToString());
+                    }
+                    if (row["UserName"] != null)
+                    {
+                        model.UserName = row["UserName"].ToString();
+                    }
+                    if (row["State"] != null && row["State"].ToString() != "")
+                    {
+                        model.State = int.Parse(row["State"].ToString());
+                    }
+                }
+                list.Add(model);
+            }
+            return list;
+        }
         #endregion  ExtensionMethod
     }
 }

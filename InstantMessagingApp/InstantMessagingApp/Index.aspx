@@ -399,7 +399,7 @@
                         { title: '添加好友', content: '<iframe src=\"Iframe/AddUser.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' },
                         { title: '添加群', content: '' },
                         { title: '新建组', content: '<iframe src=\"Iframe/NewTeam.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' },
-                        { title: '新建群', content: '<iframe src=\"Iframe/NewGroup.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
+                        { title: '新建群', content: '<iframe src=\"Iframe/GroupView.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
                     ]
                 });
             });
@@ -456,6 +456,7 @@
                     case "发送":
                         var $textArea = $talk.find("textarea");
                         var note = $textArea.val();
+                        if ($.trim(note).length == 0) return false;//发空过滤
                         $.ajax({
                             type: "post",
                             contentType: "application/json",
@@ -531,7 +532,7 @@
                                         }
                                     }
                                     $talk.find(".talk_re_note").html(html);
-                                    $talk.find(".talk_re_note").attr("scrollTop","1000000");
+                                    $talk.find(".talk_re_note").attr("scrollTop", "1000000");
                                 }
                             }
                         });
@@ -561,7 +562,7 @@
                         var newsList = eval(result.d)[0].NewsList;
                         var html = "";
                         for (var i = 0; i < newsList.length; i++) {
-                            html += "<ul class='ULLayer' newID='" + newsList[i].ID + "' sendID='" + newsList[i].SendUserID + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + newsList[i].Note + "”，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
+                            html += "<ul class='ULLayer' newID='" + newsList[i].ID + "' sendID='" + newsList[i].SendUserID + "' BusinessType='" + newsList[i].BusinessType + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + newsList[i].Note + "”，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
                         }
                         if (html.length > 0) {
                             $("#ULLayer").html($("#ULLayer").html() + html);
@@ -591,6 +592,10 @@
         }
 
         function addUserForTeam(userID, teamID) {
+            //alert("OK");
+        }
+
+        function addGroup(userID, groupID) {
             //alert("OK");
         }
     </script>

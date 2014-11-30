@@ -10,7 +10,7 @@
 namespace InstantMessagingApp {
     
     
-    public partial class NewGroup {
+    public partial class ConfirmGroup {
         
         /// <summary>
         /// form1 控件。
@@ -22,39 +22,30 @@ namespace InstantMessagingApp {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// txtGroupName 控件。
+        /// lbNews 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGroupName;
+        protected global::System.Web.UI.WebControls.Label lbNews;
         
         /// <summary>
-        /// btnAdd 控件。
+        /// btnOK 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAdd;
+        protected global::System.Web.UI.WebControls.Button btnOK;
         
         /// <summary>
-        /// btnReturn 控件。
+        /// btnReject 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnReturn;
-        
-        /// <summary>
-        /// lbError 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbError;
+        protected global::System.Web.UI.WebControls.Button btnReject;
     }
 }

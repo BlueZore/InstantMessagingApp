@@ -78,7 +78,9 @@
     <Content Include="Common\Ajax.asmx" />
     <Content Include="Iframe\AddGroup.aspx" />
     <Content Include="Iframe\AddUser.aspx" />
+    <Content Include="Iframe\ConfirmGroup.aspx" />
     <Content Include="Iframe\ConfirmUser.aspx" />
+    <Content Include="Iframe\GroupView.aspx" />
     <Content Include="Iframe\NewGroup.aspx" />
     <Content Include="Iframe\NewTeam.aspx" />
     <Content Include="Image\error.jpg" />
@@ -161,12 +163,26 @@
     <Compile Include="Iframe\AddUser.aspx.designer.cs">
       <DependentUpon>AddUser.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Iframe\ConfirmGroup.aspx.cs">
+      <DependentUpon>ConfirmGroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Iframe\ConfirmGroup.aspx.designer.cs">
+      <DependentUpon>ConfirmGroup.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Iframe\ConfirmUser.aspx.cs">
       <DependentUpon>ConfirmUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Iframe\ConfirmUser.aspx.designer.cs">
       <DependentUpon>ConfirmUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Iframe\GroupView.aspx.cs">
+      <DependentUpon>GroupView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Iframe\GroupView.aspx.designer.cs">
+      <DependentUpon>GroupView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Iframe\NewGroup.aspx.cs">
       <DependentUpon>NewGroup.aspx</DependentUpon>
