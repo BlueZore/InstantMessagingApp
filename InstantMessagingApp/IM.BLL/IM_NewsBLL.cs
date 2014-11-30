@@ -29,9 +29,9 @@ namespace IM.BLL
         /// <param name="ID">ID</param>
         /// <param name="State">State</param>
         /// </summary>
-        public bool UpdateForState(Guid ID, int State)
+        public bool UpdateForState(Guid ID, int state)
         {
-            return dal.UpdateForState(ID, State);
+            return dal.UpdateForState(ID, state);
         }
 
         /// <summary>

@@ -154,7 +154,7 @@ namespace IM.DAL
         /// 得到一个对象实体
         /// <param name="ID">ID</param>
         /// </summary>
-        public IM_UserInfo GetModel(string Sys_UserID)
+        public IM_UserInfo GetModel(string sys_UserID)
         {
 
             StringBuilder strSql = new StringBuilder();
@@ -162,7 +162,7 @@ namespace IM.DAL
             strSql.Append(" where Sys_UserID=@Sys_UserID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@Sys_UserID", SqlDbType.VarChar,50)			};
-            parameters[0].Value = Sys_UserID;
+            parameters[0].Value = sys_UserID;
 
             IM_UserInfo model = new IM_UserInfo();
             DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
@@ -284,7 +284,7 @@ namespace IM.DAL
         /// 获取未添加用户
         /// <param name="QueryBuilder"></param>
         /// </summary>
-        public List<IM_UserInfo> GetNoAddUserList(Guid ID, string UserName)
+        public List<IM_UserInfo> GetNoAddUserList(Guid ID, string userName)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"
@@ -292,7 +292,7 @@ select * from [dbo].[IM_User] where ID not in (
 select [IM_TeamMember].UserID from [dbo].[IM_Team]
 inner join [dbo].[IM_TeamMember]
 on [IM_Team].ID=[IM_TeamMember].[TeamID] where [IM_Team].UserID=@ID)
-and ID<>@ID and UserName like '%" + UserName + @"%' order by UserName
+and ID<>@ID and UserName like '%" + userName + @"%' order by UserName
 ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.UniqueIdentifier)			};
@@ -311,7 +311,7 @@ and ID<>@ID and UserName like '%" + UserName + @"%' order by UserName
         /// <param name="UserID"></param>
         /// <param name="GroupID"></param>
         /// </summary>
-        public List<IM_UserInfo> GetNoAddGroupList(Guid UserID, Guid GroupID)
+        public List<IM_UserInfo> GetNoAddGroupList(Guid userID, Guid groupID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"
@@ -330,8 +330,8 @@ where [IM_Team].UserID=@UserID
             SqlParameter[] parameters = {
 					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16),
                     new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier,16)};
-            parameters[0].Value = UserID;
-            parameters[1].Value = GroupID;
+            parameters[0].Value = userID;
+            parameters[1].Value = groupID;
             DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
             List<IM_UserInfo> list = new List<IM_UserInfo>();
             foreach (DataRow row in ds.Tables[0].Rows)

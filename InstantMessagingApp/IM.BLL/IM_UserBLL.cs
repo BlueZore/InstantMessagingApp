@@ -56,10 +56,10 @@ namespace IM.BLL
         /// 得到一个对象实体
         /// <param name="ID">ID</param>
         /// </summary>
-        public IM_UserInfo GetModel(string Sys_UserID)
+        public IM_UserInfo GetModel(string sys_UserID)
         {
 
-            return dal.GetModel(Sys_UserID);
+            return dal.GetModel(sys_UserID);
         }
 
         /// <summary>
@@ -88,9 +88,9 @@ namespace IM.BLL
         /// 获取未添加用户
         /// <param name="QueryBuilder"></param>
         /// </summary>
-        public List<IM_UserInfo> GetNoAddUserList(Guid ID, string UserName)
+        public List<IM_UserInfo> GetNoAddUserList(Guid ID, string userName)
         {
-            return dal.GetNoAddUserList(ID, UserName);
+            return dal.GetNoAddUserList(ID, userName);
         }
 
         /// <summary>
@@ -98,9 +98,9 @@ namespace IM.BLL
         /// <param name="UserID"></param>
         /// <param name="GroupID"></param>
         /// </summary>
-        public List<IM_UserInfo> GetNoAddGroupList(Guid UserID, Guid GroupID)
+        public List<IM_UserInfo> GetNoAddGroupList(Guid userID, Guid groupID)
         {
-            return dal.GetNoAddGroupList(UserID, GroupID);
+            return dal.GetNoAddGroupList(userID, groupID);
         }
         #endregion  ExtensionMethod
     }

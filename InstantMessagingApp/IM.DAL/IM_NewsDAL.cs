@@ -59,7 +59,7 @@ namespace IM.DAL
         /// <param name="ID">ID</param>
         /// <param name="State">State</param>
         /// </summary>
-        public bool UpdateForState(Guid ID, int State)
+        public bool UpdateForState(Guid ID, int state)
         {
             StringBuilder strSql = new StringBuilder();
             int n = 0;
@@ -69,7 +69,7 @@ namespace IM.DAL
             SqlParameter[] parameters = {
 					new SqlParameter("@State", SqlDbType.Int,4),
 					new SqlParameter("@ID", SqlDbType.UniqueIdentifier,16)};
-            parameters[n++].Value = State;
+            parameters[n++].Value = state;
             parameters[n++].Value = ID;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);

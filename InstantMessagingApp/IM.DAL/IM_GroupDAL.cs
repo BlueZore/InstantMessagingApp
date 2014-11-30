@@ -26,13 +26,15 @@ namespace IM.DAL
             StringBuilder strSql = new StringBuilder();
             int n = 0;
             strSql.Append("insert into IM_Group(");
-            strSql.Append("UserID,GroupName,OrderIndex)");
+            strSql.Append("ID,UserID,GroupName,OrderIndex)");
             strSql.Append(" values (");
-            strSql.Append("@UserID,@GroupName,@OrderIndex)");
+            strSql.Append("@ID,@UserID,@GroupName,@OrderIndex)");
             SqlParameter[] parameters = {
+                    new SqlParameter("@ID", SqlDbType.UniqueIdentifier,16),
 					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16),
 					new SqlParameter("@GroupName", SqlDbType.NVarChar,50),
 					new SqlParameter("@OrderIndex", SqlDbType.Int,4)};
+            parameters[n++].Value = model.ID;
             parameters[n++].Value = model.UserID;
             parameters[n++].Value = model.GroupName;
             parameters[n++].Value = model.OrderIndex;
@@ -231,7 +233,29 @@ namespace IM.DAL
 
         #endregion  BasicMethod
         #region  ExtensionMethod
-
+        /// <summary>
+        /// 获取群
+        /// <param name="userID"></param>
+        /// </summary>
+        public List<IM_GroupInfo> GetListGroupForUser(Guid userID)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"
+select [IM_Group].* from [dbo].[IM_GroupMember]
+inner join [dbo].[IM_Group]
+on [IM_GroupMember].GroupID=[IM_Group].ID
+where [IM_GroupMember].UserID=@UserID order by [IM_Group].GroupName asc ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16)			};
+            parameters[0].Value = userID;
+            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            List<IM_GroupInfo> list = new List<IM_GroupInfo>();
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                list.Add(DataRowToModel(dr));
+            }
+            return list;
+        }
         #endregion  ExtensionMethod
     }
 }

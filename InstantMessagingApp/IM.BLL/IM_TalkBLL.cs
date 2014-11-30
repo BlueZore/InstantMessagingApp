@@ -78,18 +78,18 @@ namespace IM.BLL
         /// <param name="ID">实体</param>
         /// <param name="State">实体</param>
         /// </summary>
-        public bool UpdateForState(Guid ID, int State)
+        public bool UpdateForState(Guid ID, int state)
         {
-            return dal.UpdateForState(ID, State);
+            return dal.UpdateForState(ID, state);
         }
 
         /// <summary>
         /// 获取聊天信息
         /// <param name="UserID">ReceiveUserID</param>
         /// </summary>
-        public List<IM_TalkInfo> GetList(Guid UserID)
+        public List<IM_TalkInfo> GetList(Guid userID)
         {
-            return dal.GetList(UserID);
+            return dal.GetList(userID);
         }
 
         /// <summary>
@@ -98,9 +98,9 @@ namespace IM.BLL
         /// <param name="ReceiveUserID">ReceiveUserID</param>
         /// <param name="State">State</param>
         /// </summary>
-        public List<IM_TalkInfo> GetList(Guid SendUserID, Guid ReceiveUserID, int State)
+        public List<IM_TalkInfo> GetList(Guid sendUserID, Guid receiveUserID, int state)
         {
-            return dal.GetList(SendUserID, ReceiveUserID, State);
+            return dal.GetList(sendUserID, receiveUserID, state);
         }
         #endregion  ExtensionMethod
     }

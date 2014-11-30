@@ -173,6 +173,10 @@
                     margin-left: 7px;
                 }
 
+        #GroupListDIV {
+            display: none;
+        }
+
         .right {
             width: 367px;
             height: 425px;
@@ -490,10 +494,16 @@
             $("#ULLayer").delegate(".footer a", "click", function () {
                 var ID = $(this).parents(".ULLayer").attr("newID");
                 if (ID != undefined) {//消息
+                    var businessType = $(this).parents(".ULLayer").attr("BusinessType");
+                    var tmpSrc = "";
+                    switch (businessType) {//判断跳转页
+                        case "1": tmpSrc = "ConfirmUser"; break;
+                        case "2": tmpSrc = "ConfirmGroup"; break;
+                    }
                     layer.tab({
                         area: ['340px', '270px'],
                         data: [
-                            { title: '申请', content: '<iframe src=\"Iframe/ConfirmUser.aspx?ID=' + ID + '\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
+                            { title: '申请', content: '<iframe src=\"Iframe/' + tmpSrc + '.aspx?ID=' + ID + '\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
                         ]
                     });
                 }
@@ -627,6 +637,20 @@
                             </div>
                         </div>
                         <div class="team" id="TeamListDIV" runat="server">
+                            <%--<div class="team_item">
+                                <div class="team_item_info">
+                                    <img src="/Image/sanjian.png" />
+                                    <span>好友</span>
+                                </div>
+                                <ul class="team_user">
+                                    <li>
+                                        <img src="/Image/userpic2.png" />
+                                        <span>用户A</span>
+                                    </li>
+                                </ul>
+                            </div>--%>
+                        </div>
+                        <div class="team" id="GroupListDIV" runat="server">
                             <%--<div class="team_item">
                                 <div class="team_item_info">
                                     <img src="/Image/sanjian.png" />

@@ -254,7 +254,7 @@ namespace IM.DAL
         /// <param name="ID">实体</param>
         /// <param name="State">实体</param>
         /// </summary>
-        public bool UpdateForState(Guid ID, int State)
+        public bool UpdateForState(Guid ID, int state)
         {
             StringBuilder strSql = new StringBuilder();
             int n = 0;
@@ -264,7 +264,7 @@ namespace IM.DAL
             SqlParameter[] parameters = {
 					new SqlParameter("@State", SqlDbType.Int,4),
 					new SqlParameter("@ID", SqlDbType.UniqueIdentifier,16)};
-            parameters[n++].Value = State;
+            parameters[n++].Value = state;
             parameters[n++].Value = ID;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
@@ -282,7 +282,7 @@ namespace IM.DAL
         /// 获取聊天信息
         /// <param name="UserID">ReceiveUserID</param>
         /// </summary>
-        public List<IM_TalkInfo> GetList(Guid UserID)
+        public List<IM_TalkInfo> GetList(Guid userID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"
@@ -292,7 +292,7 @@ on [IM_Talk].[SendUserID]=[IM_User].ID
 where [ReceiveUserID]=@UserID and State=0 ");
             SqlParameter[] parameters = {
 					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16)			};
-            parameters[0].Value = UserID;
+            parameters[0].Value = userID;
             DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
             List<IM_TalkInfo> list = new List<IM_TalkInfo>();
             foreach (DataRow row in ds.Tables[0].Rows)
@@ -349,7 +349,7 @@ where [ReceiveUserID]=@UserID and State=0 ");
         /// <param name="ReceiveUserID">ReceiveUserID</param>
         /// <param name="State">State</param>
         /// </summary>
-        public List<IM_TalkInfo> GetList(Guid SendUserID, Guid ReceiveUserID, int State)
+        public List<IM_TalkInfo> GetList(Guid sendUserID, Guid receiveUserID, int state)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"
@@ -361,9 +361,9 @@ where [ReceiveUserID]=@ReceiveUserID and SendUserID=@SendUserID and State=@State
 					new SqlParameter("@SendUserID", SqlDbType.UniqueIdentifier,16),
                     new SqlParameter("@ReceiveUserID", SqlDbType.UniqueIdentifier,16),
                     new SqlParameter("@State", SqlDbType.Int,4)};
-            parameters[0].Value = SendUserID;
-            parameters[1].Value = ReceiveUserID;
-            parameters[2].Value = State;
+            parameters[0].Value = sendUserID;
+            parameters[1].Value = receiveUserID;
+            parameters[2].Value = state;
             DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
             List<IM_TalkInfo> list = new List<IM_TalkInfo>();
             foreach (DataRow row in ds.Tables[0].Rows)

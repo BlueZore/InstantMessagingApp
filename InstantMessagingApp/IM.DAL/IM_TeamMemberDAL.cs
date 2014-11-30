@@ -232,7 +232,7 @@ namespace IM.DAL
         /// <param name="SendUser">发送用户</param>
         /// <param name="CurrUser">当前用户</param>
         /// </summary>
-        public bool AddForSendUser(Guid SendUser,Guid CurrUser)
+        public bool AddForSendUser(Guid sendUser,Guid currUser)
         {
             StringBuilder strSql = new StringBuilder();
             int n = 0;
@@ -247,8 +247,8 @@ namespace IM.DAL
                     new SqlParameter("@SendUser", SqlDbType.UniqueIdentifier,16),
 					new SqlParameter("@CurrUser", SqlDbType.UniqueIdentifier,16)};
 
-            parameters[n++].Value = SendUser;
-            parameters[n++].Value = CurrUser;
+            parameters[n++].Value = sendUser;
+            parameters[n++].Value = currUser;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -265,7 +265,7 @@ namespace IM.DAL
         /// 获取所有组中成员
         /// <param name="UserID"></param>
         /// </summary>
-        public List<IM_UserInfo> GetAllTeamMemberList(Guid UserID)
+        public List<IM_UserInfo> GetAllTeamMemberList(Guid userID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"select [IM_User].*,TeamID,TeamName from [dbo].[IM_TeamMember]
@@ -277,7 +277,7 @@ namespace IM.DAL
                             order by [IM_User].UserName asc");
             SqlParameter[] parameters = {
 					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16)			};
-            parameters[0].Value = UserID;
+            parameters[0].Value = userID;
             DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
             List<IM_UserInfo> list = new List<IM_UserInfo>();
             foreach (DataRow row in ds.Tables[0].Rows)

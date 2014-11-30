@@ -34,9 +34,9 @@ namespace IM.DAL
 					new SqlParameter("@GroupID", SqlDbType.UniqueIdentifier,16),
 					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16),
 					new SqlParameter("@OrderIndex", SqlDbType.Int,4)};
-            parameters[n++].Value = Guid.NewGuid();
-            parameters[n++].Value = Guid.NewGuid();
-            parameters[n++].Value = Guid.NewGuid();
+            parameters[n++].Value = model.ID;
+            parameters[n++].Value = model.GroupID;
+            parameters[n++].Value = model.UserID;
             parameters[n++].Value = model.OrderIndex;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);

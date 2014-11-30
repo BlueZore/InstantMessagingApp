@@ -80,18 +80,18 @@ namespace IM.BLL
         /// <param name="SendUser">发送用户</param>
         /// <param name="CurrUser">当前用户</param>
         /// </summary>
-        public bool AddForSendUser(Guid SendUser,Guid CurrUser)
+        public bool AddForSendUser(Guid sendUser,Guid currUser)
         {
-            return dal.AddForSendUser(SendUser,CurrUser);
+            return dal.AddForSendUser(sendUser,currUser);
         }
 
         /// <summary>
         /// 获取所有组中成员
         /// <param name="UserID"></param>
         /// </summary>
-        public List<IM_UserInfo> GetAllTeamMemberList(Guid UserID)
+        public List<IM_UserInfo> GetAllTeamMemberList(Guid userID)
         {
-            return dal.GetAllTeamMemberList(UserID);
+            return dal.GetAllTeamMemberList(userID);
         }
         #endregion  ExtensionMethod
     }

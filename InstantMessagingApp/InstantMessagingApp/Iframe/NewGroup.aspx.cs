@@ -19,9 +19,15 @@ namespace InstantMessagingApp
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             IM_GroupInfo groupModel = new IM_GroupInfo();
+            groupModel.ID = Guid.NewGuid();
             groupModel.GroupName = txtGroupName.Text;
             groupModel.UserID = userInfo.UserID;
             new IM_GroupBLL().Add(groupModel);
+            IM_GroupMemberInfo groupMemberModel = new IM_GroupMemberInfo();
+            groupMemberModel.ID = Guid.NewGuid();
+            groupMemberModel.GroupID = groupModel.ID;
+            groupMemberModel.UserID = groupModel.UserID;
+            new IM_GroupMemberBLL().Add(groupMemberModel);
             txtGroupName.Text = string.Empty;
             lbError.Text = "完成添加";
         }

@@ -33,8 +33,9 @@ namespace InstantMessagingApp
 
             //当前用户添加对方
             IM_GroupMemberInfo groupMemberModel = new IM_GroupMemberInfo();
+            groupMemberModel.ID = Guid.NewGuid();
             groupMemberModel.GroupID = new Guid(newModel.BusinessID);
-            groupMemberModel.UserID = newModel.SendUserID;
+            groupMemberModel.UserID = newModel.ReceiveUserID;
             groupMemberBLL.Add(groupMemberModel);
 
             btnOK.Enabled = btnReject.Enabled = false;
