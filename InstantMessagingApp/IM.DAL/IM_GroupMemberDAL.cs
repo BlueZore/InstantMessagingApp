@@ -226,6 +226,61 @@ namespace IM.DAL
 
         #endregion  BasicMethod
         #region  ExtensionMethod
+        /// <summary>
+        /// 获取组成员
+        /// <param name="userID"></param>
+        /// </summary>
+        public List<IM_GroupMemberInfo> GetListAllMenberForUser(Guid userID)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"
+select [IM_GroupMember].*,UserName,Pic from [IM_GroupMember]
+inner join
+(select * from [IM_GroupMember] where UserID=@UserID)a
+on [IM_GroupMember].GroupID=a.GroupID
+inner join [dbo].[IM_User]
+on [IM_GroupMember].UserID=[IM_User].ID
+
+");
+            SqlParameter[] parameters = {
+					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16)			};
+            parameters[0].Value = userID;
+            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            List<IM_GroupMemberInfo> list = new List<IM_GroupMemberInfo>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                IM_GroupMemberInfo model = new IM_GroupMemberInfo();
+                if (row != null)
+                {
+                    if (row["ID"] != null && row["ID"].ToString() != "")
+                    {
+                        model.ID = new Guid(row["ID"].ToString());
+                    }
+                    if (row["GroupID"] != null && row["GroupID"].ToString() != "")
+                    {
+                        model.GroupID = new Guid(row["GroupID"].ToString());
+                    }
+                    if (row["UserID"] != null && row["UserID"].ToString() != "")
+                    {
+                        model.UserID = new Guid(row["UserID"].ToString());
+                    }
+                    if (row["OrderIndex"] != null && row["OrderIndex"].ToString() != "")
+                    {
+                        model.OrderIndex = int.Parse(row["OrderIndex"].ToString());
+                    }
+                    if (row["UserName"] != null && row["UserName"].ToString() != "")
+                    {
+                        model.UserName = row["UserName"].ToString();
+                    }
+                    if (row["Pic"] != null && row["Pic"].ToString() != "")
+                    {
+                        model.Pic = row["Pic"].ToString();
+                    }
+                }
+                list.Add(model);
+            }
+            return list;
+        }
 
         #endregion  ExtensionMethod
     }

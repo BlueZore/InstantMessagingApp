@@ -50,6 +50,8 @@
     <Compile Include="IM_GroupMemberDAL.cs" />
     <Compile Include="IM_NewsDAL.cs" />
     <Compile Include="IM_TalkDAL.cs" />
+    <Compile Include="IM_TalkGroupDAL.cs" />
+    <Compile Include="IM_TalkGroupHintDAL.cs" />
     <Compile Include="IM_TeamDAL.cs" />
     <Compile Include="IM_TeamMemberDAL.cs" />
     <Compile Include="IM_UserDAL.cs" />

@@ -12,7 +12,6 @@ namespace InstantMessagingApp
 {
     public partial class Login : BasePager
     {
-        string Sys_UserID = "38790CE0-8524-4450-9C04-7DA5BD521435";
 
         protected void Page_Load(object sender, EventArgs e)
         {

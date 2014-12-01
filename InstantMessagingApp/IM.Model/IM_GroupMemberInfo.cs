@@ -16,11 +16,15 @@ namespace IM.Model
         public static string GroupID_Field = "GroupID";
         public static string UserID_Field = "UserID";
         public static string OrderIndex_Field = "OrderIndex";
+        public static string UserName_Field = "UserName";
+        public static string Pic_Field = "Pic";
 
         private Guid _id;
         private Guid _groupid;
         private Guid _userid;
         private int? _orderindex;
+        private string _username;
+        private string _pic;
 
         /// <summary>
         /// 
@@ -58,6 +62,23 @@ namespace IM.Model
             get { return _orderindex; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UserName
+        {
+            set { _username = value; }
+            get { return _username; }
+        }
+
+        /// <summary>
+        /// 头像
+        /// </summary>
+        public string Pic
+        {
+            set { _pic = value; }
+            get { return _pic; }
+        }
         #endregion Model
 
     }

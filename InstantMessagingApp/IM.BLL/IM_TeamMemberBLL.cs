@@ -77,8 +77,8 @@ namespace IM.BLL
         
         /// <summary>
         /// 增加一条数据
-        /// <param name="SendUser">发送用户</param>
-        /// <param name="CurrUser">当前用户</param>
+        /// <param name="sendUser">发送用户</param>
+        /// <param name="currUser">当前用户</param>
         /// </summary>
         public bool AddForSendUser(Guid sendUser,Guid currUser)
         {
@@ -87,7 +87,7 @@ namespace IM.BLL
 
         /// <summary>
         /// 获取所有组中成员
-        /// <param name="UserID"></param>
+        /// <param name="userID"></param>
         /// </summary>
         public List<IM_UserInfo> GetAllTeamMemberList(Guid userID)
         {

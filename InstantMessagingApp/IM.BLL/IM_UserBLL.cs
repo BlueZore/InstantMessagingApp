@@ -54,7 +54,7 @@ namespace IM.BLL
 
         /// <summary>
         /// 得到一个对象实体
-        /// <param name="ID">ID</param>
+        /// <param name="sys_UserID">sys_UserID</param>
         /// </summary>
         public IM_UserInfo GetModel(string sys_UserID)
         {
@@ -86,7 +86,8 @@ namespace IM.BLL
 
         /// <summary>
         /// 获取未添加用户
-        /// <param name="QueryBuilder"></param>
+        /// <param name="ID"></param>
+        /// <param name="userName"></param>
         /// </summary>
         public List<IM_UserInfo> GetNoAddUserList(Guid ID, string userName)
         {
@@ -95,8 +96,8 @@ namespace IM.BLL
 
         /// <summary>
         /// 获取未添加用户
-        /// <param name="UserID"></param>
-        /// <param name="GroupID"></param>
+        /// <param name="userID"></param>
+        /// <param name="groupID"></param>
         /// </summary>
         public List<IM_UserInfo> GetNoAddGroupList(Guid userID, Guid groupID)
         {

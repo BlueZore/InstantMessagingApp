@@ -75,8 +75,8 @@ namespace IM.BLL
         #region  ExtensionMethod
         /// <summary>
         /// 修改状态
-        /// <param name="ID">实体</param>
-        /// <param name="State">实体</param>
+        /// <param name="ID"></param>
+        /// <param name="state"></param>
         /// </summary>
         public bool UpdateForState(Guid ID, int state)
         {
@@ -85,7 +85,7 @@ namespace IM.BLL
 
         /// <summary>
         /// 获取聊天信息
-        /// <param name="UserID">ReceiveUserID</param>
+        /// <param name="userID">userID</param>
         /// </summary>
         public List<IM_TalkInfo> GetList(Guid userID)
         {
@@ -94,9 +94,9 @@ namespace IM.BLL
 
         /// <summary>
         /// 获取聊天信息
-        /// <param name="SendUserID">SendUserID</param>
-        /// <param name="ReceiveUserID">ReceiveUserID</param>
-        /// <param name="State">State</param>
+        /// <param name="sendUserID">sendUserID</param>
+        /// <param name="receiveUserID">receiveUserID</param>
+        /// <param name="state">state</param>
         /// </summary>
         public List<IM_TalkInfo> GetList(Guid sendUserID, Guid receiveUserID, int state)
         {

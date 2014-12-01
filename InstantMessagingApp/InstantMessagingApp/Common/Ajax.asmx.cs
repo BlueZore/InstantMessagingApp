@@ -85,16 +85,45 @@ namespace InstantMessagingApp
         /// <param name="note"></param>
         /// <returns></returns>
         [WebMethod]
-        public string sendUserTalk(string SendUserID, string ReceiveUserID, string Note)
+        public string sendUserTalk(string SendUserID, string ReceiveUserID, string Type, string Note)
         {
-            IM_TalkInfo talkModel = new IM_TalkInfo();
-            talkModel.SendUserID = new Guid(SendUserID);
-            talkModel.ReceiveUserID = new Guid(ReceiveUserID);
-            talkModel.Note = Note;
-            talkModel.Type = 0;
-            talkModel.State = 0;
-            new IM_TalkBLL().Add(talkModel);
-            return DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            switch (Type)
+            {
+                case "1":
+                    IM_TalkInfo talkModel = new IM_TalkInfo();
+                    talkModel.SendUserID = new Guid(SendUserID);
+                    talkModel.ReceiveUserID = new Guid(ReceiveUserID);
+                    talkModel.Note = Note;
+                    talkModel.Type = 0;
+                    talkModel.State = 0;
+                    new IM_TalkBLL().Add(talkModel);
+                    return DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+                case "2"://ReceiveUserID为GroupID
+                    IM_TalkGroupInfo talkGroupModel = new IM_TalkGroupInfo();
+                    talkGroupModel.ID = Guid.NewGuid();
+                    talkGroupModel.SendUserID = new Guid(SendUserID);
+                    talkGroupModel.GroupID = new Guid(ReceiveUserID);
+                    talkGroupModel.Note = Note;
+                    talkGroupModel.Type = 0;
+                    new IM_TalkGroupBLL().Add(talkGroupModel);
+
+                    QueryBuilder queryBuilder = new QueryBuilder();
+                    queryBuilder.AddFilter(IM_GroupMemberInfo.GroupID_Field, "=", ReceiveUserID);
+                    List<IM_GroupMemberInfo> groupMemberList = new IM_GroupMemberBLL().GetList(queryBuilder);
+                    IM_TalkGroupHintBLL talkGroupHintBLL = new IM_TalkGroupHintBLL();
+                    foreach (IM_GroupMemberInfo tmpModel in groupMemberList)
+                    {
+                        IM_TalkGroupHintInfo talkGroupHintModel = new IM_TalkGroupHintInfo();
+                        talkGroupHintModel.ID = Guid.NewGuid();
+                        talkGroupHintModel.TalkGroupID = talkGroupModel.ID;
+                        talkGroupHintModel.GroupID = talkGroupModel.GroupID;
+                        talkGroupHintModel.UserID = tmpModel.UserID;
+                        talkGroupHintModel.State = 0;
+                        talkGroupHintBLL.Add(talkGroupHintModel);
+                    }
+                    return DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            }
+            return "";
         }
 
         /// <summary>

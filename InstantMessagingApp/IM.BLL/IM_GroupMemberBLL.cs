@@ -73,7 +73,14 @@ namespace IM.BLL
 
         #endregion  BasicMethod
         #region  ExtensionMethod
-
+        /// <summary>
+        /// 获取组成员
+        /// <param name="userID"></param>
+        /// </summary>
+        public List<IM_GroupMemberInfo> GetListAllMenberForUser(Guid userID)
+        {
+            return dal.GetListAllMenberForUser(userID);
+        }
         #endregion  ExtensionMethod
     }
 }

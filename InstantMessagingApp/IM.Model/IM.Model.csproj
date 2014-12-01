@@ -43,6 +43,8 @@
     <Compile Include="IM_GroupInfo.cs" />
     <Compile Include="IM_GroupMemberInfo.cs" />
     <Compile Include="IM_NewsInfo.cs" />
+    <Compile Include="IM_TalkGroupHintInfo.cs" />
+    <Compile Include="IM_TalkGroupInfo.cs" />
     <Compile Include="IM_TalkInfo.cs" />
     <Compile Include="IM_TeamInfo.cs" />
     <Compile Include="IM_TeamMemberInfo.cs" />

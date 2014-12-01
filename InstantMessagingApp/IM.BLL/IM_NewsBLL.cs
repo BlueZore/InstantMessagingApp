@@ -27,7 +27,7 @@ namespace IM.BLL
         /// <summary>
         /// 更新一条数据
         /// <param name="ID">ID</param>
-        /// <param name="State">State</param>
+        /// <param name="state">state</param>
         /// </summary>
         public bool UpdateForState(Guid ID, int state)
         {

@@ -410,9 +410,9 @@
 
             //用户组菜单
             $("#TeamListDIV .team_user:eq(0)").show();
-            $("#TeamListDIV").delegate(".team_item_info", "click", function () {
-                $("#TeamListDIV .team_user").hide();
-                $("#TeamListDIV .team_item_info img").attr("src", "/Image/sanjian.png");
+            $("#TeamListDIV,#GroupListDIV").delegate(".team_item_info", "click", function () {
+                $(".team .team_user").hide();
+                $(".team .team_item_info img").attr("src", "/Image/sanjian.png");
                 $(this).next().show();
                 $(this).find("img").attr("src", "/Image/sanjian2.png");
                 return false;
@@ -421,14 +421,28 @@
             //显示聊天窗口
             $("#TeamListDIV").delegate("li", "dblclick", function () {
                 //窗口
-                $("#talk>div").hide();
-                var html = "<div class='talk' talkID='" + $(this).attr("uID") + "'><div class='talk_re_note'></div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+                $("#talk>div").hide();//talkType='1'单聊
+                var html = "<div class='talk' talkID='" + $(this).attr("uID") + "' talkType='1'><div class='talk_re_note'></div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
                 $("#talk").html($("#talk").html() + html);
                 $("#talk").show();
 
                 //页签
                 $(".talktab li").removeClass("talktab_li_selected");
                 html = "<li class='talktab_li_selected' talkTabID='" + $(this).attr("uID") + "'>" + $(this).find("span").html() + "</li>";
+                $(".talktab").html($(".talktab").html() + html);
+            });
+
+            //显示群聊窗口
+            $("#GroupListDIV").delegate(".team_item_info", "dblclick", function () {
+                //窗口
+                $("#talk>div").hide();//talkType='2'群聊
+                var html = "<div class='talk' talkID='" + $(this).attr("gID") + "' talkType='2'><div class='talk_re_note'></div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+                $("#talk").html($("#talk").html() + html);
+                $("#talk").show();
+
+                //页签
+                $(".talktab li").removeClass("talktab_li_selected");
+                html = "<li class='talktab_li_selected' talkTabID='" + $(this).attr("gID") + "'>" + $(this).find("span").html() + "</li>";
                 $(".talktab").html($(".talktab").html() + html);
             });
 
@@ -457,15 +471,16 @@
                             $("#talk").hide();
                         }
                         break;
-                    case "发送":
+                    case "发送"://支持单聊和群聊，通过talkType控制
                         var $textArea = $talk.find("textarea");
                         var note = $textArea.val();
+                        var talkType = $talk.attr("talkType");
                         if ($.trim(note).length == 0) return false;//发空过滤
                         $.ajax({
                             type: "post",
                             contentType: "application/json",
                             url: "/Common/Ajax.asmx/sendUserTalk",
-                            data: "{SendUserID:'" + $("#hidID").val() + "',ReceiveUserID:'" + talkID + "',Note:'" + note + "'}",
+                            data: "{SendUserID:'" + $("#hidID").val() + "',ReceiveUserID:'" + talkID + "',Type:'" + talkType + "',Note:'" + note + "'}",
                             dataType: "json",
                             success: function (result) {
                                 if (result.d != "") {
@@ -553,7 +568,13 @@
                 return false;
             });
 
-
+            $(".left_op_menu").delegate("li", "click", function () {//切换左侧页签
+                $(".left_op_menu li").removeClass("left_op_menu_li_selected");
+                $(".left_user .team").hide();
+                var $index = $(".left_op_menu li").index($(this));
+                $(".left_op_menu li:eq(" + $index + ")").addClass("left_op_menu_li_selected");
+                $(".left_user .team:eq(" + $index + ")").show();
+            });
 
             setInterval("getUserAboutNews()", 6000);
 

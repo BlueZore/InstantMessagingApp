@@ -41,7 +41,7 @@ namespace InstantMessagingApp
             DataBind();
         }
 
-        void DataBind()
+        public override void DataBind()
         {
             QueryBuilder querybuilder=new QueryBuilder();
             querybuilder.AddOrderDESC("UserName");
