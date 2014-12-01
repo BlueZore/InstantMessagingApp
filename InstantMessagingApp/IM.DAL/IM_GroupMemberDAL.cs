@@ -180,7 +180,6 @@ namespace IM.DAL
             strSql.Append(" ID,GroupID,UserID,OrderIndex ");
             strSql.Append(" FROM IM_GroupMember ");
             strSql.Append(queryBuilder.Where);
-            strSql.Append(queryBuilder.Order);
             DataSet ds = DbHelperSQL.Query(strSql.ToString());
             List<IM_GroupMemberInfo> list = new List<IM_GroupMemberInfo>();
             foreach (DataRow dr in ds.Tables[0].Rows)

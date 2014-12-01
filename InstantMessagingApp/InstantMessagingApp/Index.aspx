@@ -525,6 +525,8 @@
                 else {//聊天
                     ID = $(this).parents(".ULLayer").attr("UL_talkID");
                     if (ID != undefined) {
+                        var talkType = $(this).parents(".ULLayer").attr(" UL_talkType");
+
                         //窗口
                         $("#talk>div").hide();
                         var html = "<div class='talk' talkID='" + ID + "'><div class='talk_re_note'>加载中...</div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
@@ -611,7 +613,25 @@
                             }
                             else {
                                 if ($("[UL_talkID='" + talkList[i].SendUserID + "']").size() == 0) {//在ULLayer没有发送用户的提示，显示提示框
-                                    html += "<ul class='ULLayer' UL_talkID='" + talkList[i].SendUserID + "' UL_talkName='" + talkList[i].SendUserName + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + talkList[i].SendUserName + "”向你发出聊天申请！</li><li class='footer'><a>查看</a></li></ul>";
+                                    html += "<ul class='ULLayer' UL_talkID='" + talkList[i].SendUserID + "' UL_talkName='" + talkList[i].SendUserName + "' UL_talkType='1'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + talkList[i].SendUserName + "”向你发出聊天申请！</li><li class='footer'><a>查看</a></li></ul>";
+                                    $("#ULLayer").html($("#ULLayer").html() + html);
+                                    $("#ULLayer").show();
+                                }
+                            }
+                        }
+
+                        //加载群聊
+                        var talkGroupList = eval(result.d)[0].TalkGroupList;
+                        html = "";
+                        for (var i = 0; i < talkGroupList.length; i++) {
+                            var $talk = $("#talk").find("[talkID='" + talkGroupList[i].GroupID + "']");
+                            if ($talk.size() > 0) {//写入聊天窗口
+                                html = "<li class='otheruser_note'><p>" + talkGroupList[i].UserName + " " + talkGroupList[i].CreateDate + "</p> <span>" + talkGroupList[i].Note + "</span></li>";
+                                $talk.find(".talk_re_note").html($talk.find(".talk_re_note").html() + html);
+                            }
+                            else {
+                                if ($("[UL_talkID='" + talkGroupList[i].GroupID + "']").size() == 0) {//在ULLayer没有发送用户的提示，显示提示框
+                                    html += "<ul class='ULLayer' UL_talkID='" + talkGroupList[i].GroupID + "' UL_talkName='" + talkGroupList[i].GroupName + "' UL_talkType='2'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + talkGroupList[i].GroupName + "”群有人聊天！</li><li class='footer'><a>查看</a></li></ul>";
                                     $("#ULLayer").html($("#ULLayer").html() + html);
                                     $("#ULLayer").show();
                                 }

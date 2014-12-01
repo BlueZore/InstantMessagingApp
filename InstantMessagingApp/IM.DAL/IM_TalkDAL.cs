@@ -345,9 +345,9 @@ where [ReceiveUserID]=@UserID and State=0 ");
 
         /// <summary>
         /// 获取聊天信息
-        /// <param name="SendUserID">SendUserID</param>
-        /// <param name="ReceiveUserID">ReceiveUserID</param>
-        /// <param name="State">State</param>
+        /// <param name="sendUserID">sendUserID</param>
+        /// <param name="receiveUserID">receiveUserID</param>
+        /// <param name="state">state</param>
         /// </summary>
         public List<IM_TalkInfo> GetList(Guid sendUserID, Guid receiveUserID, int state)
         {
