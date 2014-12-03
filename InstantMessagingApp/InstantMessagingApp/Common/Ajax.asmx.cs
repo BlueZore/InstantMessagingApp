@@ -78,7 +78,7 @@ namespace InstantMessagingApp
             List<IM_TalkGroupInfo> talkGroupList = talkGroupBLL.GetList(new Guid(UserID));
             foreach (IM_TalkGroupInfo talkGroupModel in talkGroupList)
             {
-                talkGroupHintBLL.UpdateForState(talkGroupModel.ID,new Guid(UserID), 1);
+                talkGroupHintBLL.UpdateForState(talkGroupModel.ID, new Guid(UserID), 1);
                 jsonItem += ",{";
                 jsonItem += "ID:'" + talkGroupModel.ID + "'";
                 jsonItem += ",GroupName:'" + talkGroupModel.GroupName + "'";
@@ -150,31 +150,55 @@ namespace InstantMessagingApp
         /// <summary>
         /// 发送聊天内容
         /// </summary>
-        /// <param name="SendUserID"></param>
+        /// <param name="SendUserID">群聊中是GroupID</param>
         /// <param name="ReceiveUserID"></param>
         /// <param name="note"></param>
         /// <returns></returns>
         [WebMethod]
-        public string sendUserTalkRec(string SendUserID, string ReceiveUserID)
+        public string sendUserTalkRec(string SendUserID, string ReceiveUserID, string TalkType)
         {
             string json = "";
             string jsonItem = "";
 
-            IM_TalkBLL talkBLL = new IM_TalkBLL();
-            List<IM_TalkInfo> talkList = talkBLL.GetList(new Guid(SendUserID), new Guid(ReceiveUserID), 1);
-            foreach (IM_TalkInfo talkModel in talkList)
+            switch (TalkType)
             {
-                talkBLL.UpdateForState(talkModel.ID, 2);
-                jsonItem += ",{";
-                jsonItem += "ID:'" + talkModel.ID + "'";
-                jsonItem += ",SendUserName:'" + talkModel.SendUserName + "'";
-                jsonItem += ",SendUserID:'" + talkModel.SendUserID + "'";
-                jsonItem += ",Note:'" + talkModel.Note + "'";
-                jsonItem += ",Type:'" + talkModel.Type + "'";
-                jsonItem += ",CreateDate:'" + talkModel.CreateDate + "'";
-                jsonItem += "}";
+                case "1"://单聊
+                    IM_TalkBLL talkBLL = new IM_TalkBLL();
+                    List<IM_TalkInfo> talkList = talkBLL.GetList(new Guid(SendUserID), new Guid(ReceiveUserID), 1);
+                    foreach (IM_TalkInfo talkModel in talkList)
+                    {
+                        talkBLL.UpdateForState(talkModel.ID, 2);
+                        jsonItem += ",{";
+                        jsonItem += "ID:'" + talkModel.ID + "'";
+                        jsonItem += ",SendUserName:'" + talkModel.SendUserName + "'";
+                        jsonItem += ",SendUserID:'" + talkModel.SendUserID + "'";
+                        jsonItem += ",Note:'" + talkModel.Note + "'";
+                        jsonItem += ",Type:'" + talkModel.Type + "'";
+                        jsonItem += ",CreateDate:'" + talkModel.CreateDate + "'";
+                        jsonItem += "}";
+                    }
+                    json += "TalkList:[" + (jsonItem.Length == 0 ? "" : jsonItem.Substring(1)) + "]";
+                    break;
+                case "2"://群聊
+                    IM_TalkGroupBLL talkGroupBLL = new IM_TalkGroupBLL();
+                    IM_TalkGroupHintBLL talkGroupHintBLL = new IM_TalkGroupHintBLL();
+                    List<IM_TalkGroupInfo> talkGroupList = talkGroupBLL.GetList(new Guid(SendUserID), new Guid(ReceiveUserID));
+                    foreach (IM_TalkGroupInfo talkGroupModel in talkGroupList)
+                    {
+                        talkGroupHintBLL.UpdateForState(talkGroupModel.ID, new Guid(ReceiveUserID), 2);
+                        jsonItem += ",{";
+                        jsonItem += "ID:'" + talkGroupModel.ID + "'";
+                        jsonItem += ",SendUserName:'" + talkGroupModel.UserName + "'";
+                        jsonItem += ",SendUserID:'" + talkGroupModel.SendUserID + "'";
+                        jsonItem += ",Note:'" + talkGroupModel.Note + "'";
+                        jsonItem += ",Type:'" + talkGroupModel.Type + "'";
+                        jsonItem += ",CreateDate:'" + talkGroupModel.CreateDate + "'";
+                        jsonItem += "}";
+                    }
+                    json += "TalkList:[" + (jsonItem.Length == 0 ? "" : jsonItem.Substring(1)) + "]";
+                    break;
             }
-            json += "TalkList:[" + (jsonItem.Length == 0 ? "" : jsonItem.Substring(1)) + "]";
+
 
             json = "[{" + json + "}]";
 

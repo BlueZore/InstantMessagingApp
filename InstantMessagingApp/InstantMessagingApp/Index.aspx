@@ -525,11 +525,11 @@
                 else {//聊天
                     ID = $(this).parents(".ULLayer").attr("UL_talkID");
                     if (ID != undefined) {
-                        var talkType = $(this).parents(".ULLayer").attr(" UL_talkType");
+                        var talkType = $(this).parents(".ULLayer").attr("UL_talkType");//区分群聊
 
                         //窗口
                         $("#talk>div").hide();
-                        var html = "<div class='talk' talkID='" + ID + "'><div class='talk_re_note'>加载中...</div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+                        var html = "<div class='talk' talkID='" + ID + "' talkType='" + talkType + "'><div class='talk_re_note'>加载中...</div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
                         $("#talk").html($("#talk").html() + html);
                         $("#talk").show();
 
@@ -543,7 +543,7 @@
                             type: "post",
                             contentType: "application/json",
                             url: "/Common/Ajax.asmx/sendUserTalkRec",
-                            data: "{SendUserID:'" + ID + "',ReceiveUserID:'" + $("#hidID").val() + "'}",
+                            data: "{SendUserID:'" + ID + "',ReceiveUserID:'" + $("#hidID").val() + "',TalkType:'" + talkType + "'}",
                             dataType: "json",
                             success: function (result) {
                                 if (result.d != "") {
@@ -559,7 +559,7 @@
                                         }
                                     }
                                     $talk.find(".talk_re_note").html(html);
-                                    $talk.find(".talk_re_note").attr("scrollTop", "1000000");
+                                    $talk.find(".talk_re_note").attr("scrollTop", $talk.find(".talk_re_note").height());//控制显示内容距底
                                 }
                             }
                         });
