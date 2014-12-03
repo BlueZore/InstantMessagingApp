@@ -213,6 +213,7 @@
             float: left;
             overflow: auto;
             overflow-x: hidden;
+            font-size: 12px;
         }
 
             .talk_re_note li {
@@ -746,6 +747,9 @@
 
         <asp:HiddenField ID="hidID" runat="server" />
 
+
+        <p>上传</p>
+        <p>聊天记录查询</p>
     </form>
 </body>
 </html>
