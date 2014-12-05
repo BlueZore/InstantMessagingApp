@@ -85,6 +85,7 @@
     <Content Include="Iframe\NewTeam.aspx" />
     <Content Include="Image\error.jpg" />
     <Content Include="Image\tab3.png" />
+    <Content Include="Image\upload.png" />
     <Content Include="JS\jquery-1.11.1.js" />
     <Content Include="JS\jquery-1.11.1.min.js" />
     <Content Include="JS\layer\extend\layer.ext.js" />
@@ -99,8 +100,16 @@
     <Content Include="JS\layer\skin\default\xubox_title0.png" />
     <Content Include="JS\layer\skin\layer.css" />
     <Content Include="JS\layer\skin\layer.ext.css" />
+    <Content Include="JS\uploadify\cancel.png" />
+    <Content Include="JS\uploadify\jquery.uploadify.min.js" />
+    <Content Include="JS\uploadify\swfobject.js" />
+    <Content Include="JS\uploadify\uploadify.css" />
+    <Content Include="JS\uploadify\uploadify.js" />
+    <Content Include="JS\uploadify\uploadify.swf" />
     <Content Include="Login.aspx" />
     <Content Include="packages.config" />
+    <Content Include="JS\uploadify\Uploadify 3.2 参数.docx" />
+    <Content Include="Common\UploadHandler.ashx" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -148,6 +157,9 @@
     </Compile>
     <Compile Include="Common\BasePager.cs">
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\UploadHandler.ashx.cs">
+      <DependentUpon>UploadHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Iframe\AddGroup.aspx.cs">
       <DependentUpon>AddGroup.aspx</DependentUpon>
@@ -227,6 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CSS\" />
+    <Folder Include="UpLoadFiles\Files\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

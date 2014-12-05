@@ -651,6 +651,10 @@
             //alert("OK");
         }
     </script>
+    <link href="/JS/uploadify/uploadify.css" rel="stylesheet" />
+    <script src="/JS/uploadify/swfobject.js"></script>
+    <script src="/JS/uploadify/jquery.uploadify.min.js"></script>
+    <script src="/JS/uploadify/uploadify.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -743,9 +747,26 @@
             <div id="ULLayer">
             </div>
         </div>
+        <div class="fm_main_top">
+            <div class="fm_main_top_left">
+                <div id="file_upload">
+                </div>
+            </div>
+        </div>
+        <div class="fm_main_queue">
+            <div class="fm_main_queue_head">
+                <span>上传完成</span>
 
+                <a class="fm_main_queue_head_close"></a>
+                <a class="fm_main_queue_head_max"></a>
+                <a class="fm_main_queue_head_min"></a>
+            </div>
+            <div id="uploadfileQueue">
+            </div>
+        </div>
 
         <asp:HiddenField ID="hidID" runat="server" />
+        <asp:HiddenField ID="hidReceiveID" runat="server" Value="6AC2AEED-DB26-4AD5-BEE8-292CEFEA9356" />
 
 
         <p>上传</p>

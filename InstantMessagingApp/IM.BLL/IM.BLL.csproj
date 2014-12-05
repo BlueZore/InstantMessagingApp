@@ -49,6 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IM_FileBLL.cs" />
     <Compile Include="IM_GroupBLL.cs" />
     <Compile Include="IM_GroupMemberBLL.cs" />
     <Compile Include="IM_NewsBLL.cs" />
