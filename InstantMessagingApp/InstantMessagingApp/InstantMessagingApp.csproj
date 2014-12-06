@@ -87,7 +87,7 @@
     <Content Include="Iframe\TalkRecDetail.aspx" />
     <Content Include="Iframe\TalkRecView.aspx" />
     <Content Include="Image\error.jpg" />
-    <Content Include="Image\news.png" />
+    <Content Include="Image\leftmenu3.png" />
     <Content Include="Image\tab3.png" />
     <Content Include="Image\upload.png" />
     <Content Include="JS\jquery-1.11.1.js" />

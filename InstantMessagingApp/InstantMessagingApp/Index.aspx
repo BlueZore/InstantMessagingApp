@@ -98,6 +98,25 @@
             background-image: url(/Image/search.png);
         }
 
+            .searchadd_search input {
+                background-color: transparent;
+                border-width: 0;
+                color: #fff;
+                display: block;
+                font-size: 10px;
+                height: 18px;
+                padding-left: 10px;
+                width: 115px;
+                float: left;
+            }
+
+            .searchadd_search a {
+                display: block;
+                float: left;
+                height: 18px;
+                width: 18px;
+            }
+
         .searchadd_add {
             width: 17px;
             height: 17px;
@@ -174,6 +193,10 @@
                 }
 
         #GroupListDIV {
+            display: none;
+        }
+
+        #FoundListDIV {
             display: none;
         }
 
@@ -432,7 +455,7 @@
             });
 
             //显示聊天窗口
-            $("#TeamListDIV").delegate("li", "dblclick", function () {
+            $("#TeamListDIV,#FoundListDIV").delegate("li", "dblclick", function () {
                 //窗口
                 $("#talk>div").hide();//talkType='1'单聊
                 var html = "<div class='talk' talkID='" + $(this).attr("uID") + "' talkType='1'><div class='talk_re_note'></div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
@@ -584,12 +607,46 @@
                 return false;
             });
 
+            //切换左侧页签
             $(".left_op_menu").delegate("li", "click", function () {//切换左侧页签
+                var $index = $(".left_op_menu li").index($(this));
+                switch ($index) {
+                    case 0:
+                    case 1:
+                        $(".left_op_menu li").removeClass("left_op_menu_li_selected");
+                        $(".left_user .team").hide();
+                        $(".left_op_menu li:eq(" + $index + ")").addClass("left_op_menu_li_selected");
+                        $(".left_user .team:eq(" + $index + ")").show();
+                        break;
+                    case 2:
+                        layer.tab({
+                            area: ['500px', '340px'],
+                            data: [
+                                { title: '聊天记录', content: '<iframe src=\"Iframe/TalkRecView.aspx\" frameborder=\"no\" width=\"100%\" height=\"330px\" />' }
+                            ]
+                        });
+                        break;
+                }
+            });
+
+            //用户搜索
+            $(".searchadd_search").delegate("a", "click", function () {
+                var $userList = $("#TeamListDIV li");//好友集合
+                var html = "";
+                $("#FoundListDIV ul").html("");//清空结果
+                var search = $.trim($(".searchadd_search input").val());
+                if (search.length == 0) return false;//空不搜索
+                $userList.each(function () {
+                    //alert($(this).find("span").html().indexOf(search));
+                    if ($(this).find("span").html().indexOf(search) > -1) {//好友核对
+                        html += "<li uid=\"" + $(this).attr("uid") + "\"><img width=\"17px\" height=\"17\" src=\"" + $(this).find("img").attr("src") + "\"><span>" + $(this).find("span").html() + "</span></li>";
+                    }
+                });
+                $("#FoundListDIV ul").html(html);
                 $(".left_op_menu li").removeClass("left_op_menu_li_selected");
                 $(".left_user .team").hide();
-                var $index = $(".left_op_menu li").index($(this));
-                $(".left_op_menu li:eq(" + $index + ")").addClass("left_op_menu_li_selected");
-                $(".left_user .team:eq(" + $index + ")").show();
+                $("#FoundListDIV,#FoundListDIV .team_user").show();
+                return false;
             });
 
             setInterval("getUserAboutNews()", 6000);
@@ -687,10 +744,16 @@
                         <li>
                             <img src="Image/leftmenu2.png" />
                         </li>
+                        <li>
+                            <img src="Image/leftmenu3.png" />
+                        </li>
                     </ul>
                     <div class="left_user">
                         <div class="searchadd">
-                            <div class="searchadd_search"></div>
+                            <div class="searchadd_search">
+                                <input style="background-color: transparent" />
+                                <a>&nbsp;</a>
+                            </div>
                             <div class="searchadd_add">
                                 <img src="/Image/adduser.png" />
                             </div>
@@ -722,6 +785,15 @@
                                     </li>
                                 </ul>
                             </div>--%>
+                        </div>
+                        <div class="team" id="FoundListDIV" runat="server">
+                            <div class="team_item">
+                                <div class="team_item_info">
+                                    <span>搜索结果</span>
+                                </div>
+                                <ul class="team_user">
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -775,10 +847,6 @@
 
         <asp:HiddenField ID="hidID" runat="server" />
         <asp:HiddenField ID="hidReceiveID" runat="server" Value="6AC2AEED-DB26-4AD5-BEE8-292CEFEA9356" />
-
-
-        <p>上传</p>
-        <p>聊天记录查询</p>
     </form>
 </body>
 </html>
