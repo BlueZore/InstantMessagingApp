@@ -9,6 +9,10 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
     margin-bottom: 1em;
     margin-top: 13px;
     float: left;
+    display: none;
+    position: fixed;
+    margin-top: 261px;
+    margin-left: 6px;
 }
 
 .uploadify-button {

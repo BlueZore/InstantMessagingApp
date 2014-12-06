@@ -248,11 +248,23 @@
             font-size: 11px;
         }
 
+        .talk_re_note a {
+            margin-left: 10px;
+            color: #54A6D6;
+            text-decoration: underline;
+        }
+
+            .talk_re_note a:hover {
+                color: #ff6a00;
+                text-decoration: none;
+            }
+
         .talk_op {
             margin-top: 5px;
             margin-left: 10px;
             margin-bottom: 5px;
             float: left;
+            height: 20px;
         }
 
             .talk_op img {
@@ -423,9 +435,9 @@
             $("#TeamListDIV").delegate("li", "dblclick", function () {
                 //窗口
                 $("#talk>div").hide();//talkType='1'单聊
-                var html = "<div class='talk' talkID='" + $(this).attr("uID") + "' talkType='1'><div class='talk_re_note'></div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+                var html = "<div class='talk' talkID='" + $(this).attr("uID") + "' talkType='1'><div class='talk_re_note'></div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
                 $("#talk").html($("#talk").html() + html);
-                $("#talk").show();
+                $("#talk,.uploadify").show();
 
                 //页签
                 $(".talktab li").removeClass("talktab_li_selected");
@@ -437,9 +449,9 @@
             $("#GroupListDIV").delegate(".team_item_info", "dblclick", function () {
                 //窗口
                 $("#talk>div").hide();//talkType='2'群聊
-                var html = "<div class='talk' talkID='" + $(this).attr("gID") + "' talkType='2'><div class='talk_re_note'></div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+                var html = "<div class='talk' talkID='" + $(this).attr("gID") + "' talkType='2'><div class='talk_re_note'></div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
                 $("#talk").html($("#talk").html() + html);
-                $("#talk").show();
+                $("#talk,.uploadify").show();
 
                 //页签
                 $(".talktab li").removeClass("talktab_li_selected");
@@ -469,7 +481,8 @@
                             $(".talktab>li:eq(0)").addClass("talktab_li_selected");
                         }
                         else {//隐藏整个聊天窗口
-                            $("#talk").hide();
+                            $("#talk,.uploadify").hide();
+
                         }
                         break;
                     case "发送"://支持单聊和群聊，通过talkType控制
@@ -530,9 +543,9 @@
 
                         //窗口
                         $("#talk>div").hide();
-                        var html = "<div class='talk' talkID='" + ID + "' talkType='" + talkType + "'><div class='talk_re_note'>加载中...</div><div class='talk_op'><img src='Image/upload1.png' /></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+                        var html = "<div class='talk' talkID='" + ID + "' talkType='" + talkType + "'><div class='talk_re_note'>加载中...</div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
                         $("#talk").html($("#talk").html() + html);
-                        $("#talk").show();
+                        $("#talk,.uploadify").show();
 
                         //页签
                         $(".talktab li").removeClass("talktab_li_selected");
@@ -715,6 +728,8 @@
             </div>
 
             <div class="right">
+                <div id="file_upload">
+                </div>
                 <div id="talk">
                     <%--<div class="talk">
                         <ul class="talk_re_note">
@@ -728,7 +743,6 @@
                             </li>
                         </ul>
                         <div class="talk_op">
-                            <img src="Image/upload1.png" />
                         </div>
                         <div class="talk_note"></div>
                         <div class="talk_run">
@@ -745,12 +759,6 @@
             </div>
 
             <div id="ULLayer">
-            </div>
-        </div>
-        <div class="fm_main_top">
-            <div class="fm_main_top_left">
-                <div id="file_upload">
-                </div>
             </div>
         </div>
         <div class="fm_main_queue">

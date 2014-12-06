@@ -9,10 +9,10 @@
         multi: false,
         fileTypeDesc: '支持的格式：',
         fileTypeExts: '*.jpg;*.jpge;*.gif;*.png;*.docx;*.doc;*.rar;*.xlsx;*.xls;*.zip;*.txt;*.pdf',
-        formData: { 'ReceiveID': $("#hidReceiveID").val(), 'UserID': $("#hidID").val() },
+        formData: { 'ReceiveID': $("#hidReceiveID").val(), 'UserID': $("#hidID").val(), 'Type': 1 },
         removeTimeout: 10,
         fileSizeLimit: '500MB',
-        removeCompleted: false,
+        removeCompleted: true,
         width: 96,
         height: 28,
         //在config中设置下面的数值就可以上传大文件了呢！
@@ -44,12 +44,19 @@
         onFallback: function () {
             alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
         },
+        onUploadStart: function (file) {
+            $("#file_upload").uploadify("settings", "formData", { 'ReceiveID': $(".talk:visible").attr("talkID"), 'UserID': $("#hidID").val(), 'Type': $(".talk:visible").attr("talkType") });
+            //alert($("#file_upload").uploadify("settings", "formData"));
+        },
         //上传到服务器成功时，服务器返回相应信息到data里
         onUploadSuccess: function (file, data, response) {
             if (data != null) {
                 var arr = data.split('|');
-                var html = FileHtml(arr[0], arr[1], arr[2], 1, arr[3], arr[4]);
-                $(".fm_main_file_area").prepend(html);
+                if ($("[talkID='" + arr[0] + "']").size() > 0) {
+                    var html = "<li class='otheruser_note'><p>" + $("#divSelfName").html() + " " + arr[3] + "</p> <span>" + ("<a href='" + arr[2] + "' target='_blank'>" + arr[1] + "</a>") + "</span></li>";
+
+                    $("[talkID='" + arr[0] + "']").find(".talk_re_note").html($("[talkID='" + arr[0] + "']").find(".talk_re_note").html() + html);
+                }
             }
         },
         //选择文件后向队列中添加每个上传任务时都会触发

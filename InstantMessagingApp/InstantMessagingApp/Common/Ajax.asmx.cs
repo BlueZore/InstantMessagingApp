@@ -142,7 +142,7 @@ namespace InstantMessagingApp
                         talkGroupHintModel.State = 0;
                         talkGroupHintBLL.Add(talkGroupHintModel);
                     }
-                    return DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+                    return DateTime.Now.ToString();
             }
             return "";
         }

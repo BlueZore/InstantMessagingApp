@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\Ajax.asmx" />
+    <Content Include="CSS\AspNetPageStyle.css" />
     <Content Include="Iframe\AddGroup.aspx" />
     <Content Include="Iframe\AddUser.aspx" />
     <Content Include="Iframe\ConfirmGroup.aspx" />
@@ -83,7 +84,10 @@
     <Content Include="Iframe\GroupView.aspx" />
     <Content Include="Iframe\NewGroup.aspx" />
     <Content Include="Iframe\NewTeam.aspx" />
+    <Content Include="Iframe\TalkRecDetail.aspx" />
+    <Content Include="Iframe\TalkRecView.aspx" />
     <Content Include="Image\error.jpg" />
+    <Content Include="Image\news.png" />
     <Content Include="Image\tab3.png" />
     <Content Include="Image\upload.png" />
     <Content Include="JS\jquery-1.11.1.js" />
@@ -100,6 +104,25 @@
     <Content Include="JS\layer\skin\default\xubox_title0.png" />
     <Content Include="JS\layer\skin\layer.css" />
     <Content Include="JS\layer\skin\layer.ext.css" />
+    <Content Include="JS\zTree\demo.css" />
+    <Content Include="JS\zTree\img\diy\1_close.png" />
+    <Content Include="JS\zTree\img\diy\1_open.png" />
+    <Content Include="JS\zTree\img\diy\2.png" />
+    <Content Include="JS\zTree\img\diy\3.png" />
+    <Content Include="JS\zTree\img\diy\4.png" />
+    <Content Include="JS\zTree\img\diy\5.png" />
+    <Content Include="JS\zTree\img\diy\6.png" />
+    <Content Include="JS\zTree\img\diy\7.png" />
+    <Content Include="JS\zTree\img\diy\8.png" />
+    <Content Include="JS\zTree\img\diy\9.png" />
+    <Content Include="JS\zTree\img\line_conn.gif" />
+    <Content Include="JS\zTree\img\loading.gif" />
+    <Content Include="JS\zTree\img\zTreeStandard.gif" />
+    <Content Include="JS\zTree\img\zTreeStandard.png" />
+    <Content Include="JS\zTree\jquery-1.4.4.min.js" />
+    <Content Include="JS\zTree\jquery.ztree.core-3.5.min.js" />
+    <Content Include="JS\zTree\Tree001.js" />
+    <Content Include="JS\zTree\zTreeStyle.css" />
     <Content Include="JS\uploadify\cancel.png" />
     <Content Include="JS\uploadify\jquery.uploadify.min.js" />
     <Content Include="JS\uploadify\swfobject.js" />
@@ -210,6 +233,20 @@
     <Compile Include="Iframe\NewTeam.aspx.designer.cs">
       <DependentUpon>NewTeam.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Iframe\TalkRecDetail.aspx.cs">
+      <DependentUpon>TalkRecDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Iframe\TalkRecDetail.aspx.designer.cs">
+      <DependentUpon>TalkRecDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Iframe\TalkRecView.aspx.cs">
+      <DependentUpon>TalkRecView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Iframe\TalkRecView.aspx.designer.cs">
+      <DependentUpon>TalkRecView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -238,7 +275,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CSS\" />
     <Folder Include="UpLoadFiles\Files\" />
   </ItemGroup>
   <PropertyGroup>
