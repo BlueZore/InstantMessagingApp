@@ -70,7 +70,7 @@
 <body>
     <form id="form1" runat="server">
         <ul class="talk_re_note">
-            <asp:Repeater ID="rp" runat="server">
+            <asp:Repeater ID="talkRP" runat="server">
                 <ItemTemplate>
                     <%# Eval("SendUserID").ToString()==userInfo.UserID.ToString()?
                     "<li class=\"curruser_note\"><p>"+userInfo.UserName+" "+Eval("CreateDate").ToString()+"</p><span>"+Eval("Note").ToString()+"</span></li>"
@@ -79,6 +79,20 @@
                 </ItemTemplate>
             </asp:Repeater>
 
+            <asp:Repeater ID="talkGroupRP" runat="server" Visible="false">
+                <ItemTemplate>
+                    <%# Eval("SendUserID").ToString()==userInfo.UserID.ToString()?
+                    "<li class=\"curruser_note\"><p>"+userInfo.UserName+" "+Eval("CreateDate").ToString()+"</p><span>"+Eval("Note").ToString()+"</span></li>"
+                    :
+                    "<li class=\"otheruser_note\"><p>"+Eval("UserName").ToString()+" "+Eval("CreateDate").ToString()+"</p><span>"+Eval("Note").ToString()+"</span></li>" %>
+                </ItemTemplate>
+            </asp:Repeater>
+
+            <asp:Repeater ID="newsRP" runat="server" Visible="false">
+                <ItemTemplate>
+                    <%# "<li class=\"otheruser_note\"><p>"+Eval("UserName").ToString()+" "+Eval("CreateDate").ToString()+"</p><span>"+Eval("Note").ToString()+"</span></li>" %>
+                </ItemTemplate>
+            </asp:Repeater>
         </ul>
         <webdiyer:AspNetPager ID="Pager" CssClass="paginator" CurrentPageButtonClass="cpb"
             Width="100%" runat="server" OnPageChanged="Pager_PageChanged" FirstPageText="首页"

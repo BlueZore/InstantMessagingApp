@@ -91,6 +91,18 @@ namespace IM.BLL
         {
             return dal.GetList(groupID, userID);
         }
+
+        /// <summary>
+        /// 分页获取数据列表
+        /// <param name="GroupID"></param>
+        /// <param name="UserID"></param>
+        /// <param name="queryBuilder"></param>
+        /// <param name="iRecordCount"></param>
+        /// </summary>
+        public DataTable GetListByPage(string groupID, string userID, QueryBuilder queryBuilder, ref int iRecordCount)
+        {
+            return dal.GetListByPage(groupID, userID, queryBuilder, ref iRecordCount);
+        }
         #endregion  ExtensionMethod
     }
 }

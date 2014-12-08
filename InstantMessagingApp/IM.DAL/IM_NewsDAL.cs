@@ -242,7 +242,45 @@ namespace IM.DAL
 
         #endregion  BasicMethod
         #region  ExtensionMethod
-
+        /// <summary>
+        /// 分页获取数据列表
+        /// <param name="userID"></param>
+        /// <param name="queryBuilder"></param>
+        /// <param name="iRecordCount"></param>
+        /// </summary>
+        public DataTable GetListByPage(string userID, QueryBuilder queryBuilder, ref int iRecordCount)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            sbSql.Append(@"
+select [IM_News].*,UserName from [dbo].[IM_News]
+inner join [dbo].[IM_User]
+on [SendUserID]=[IM_User].ID
+where [ReceiveUserID]='" + userID + @"' and IsDelete=0
+");
+            IDataParameter[] para = new IDataParameter[] 
+			{
+				new SqlParameter("@PageIndex",SqlDbType.Int),
+				new SqlParameter("@PageSize",SqlDbType.Int),
+				new SqlParameter("@strSql",SqlDbType.VarChar),
+				new SqlParameter("@Field",SqlDbType.VarChar),
+				new SqlParameter("@OrderField",SqlDbType.VarChar)
+			};
+            para[0].Value = queryBuilder.PageIndex;
+            para[1].Value = queryBuilder.PageSize;
+            para[2].Value = sbSql.ToString();
+            para[3].Value = queryBuilder.OrderField;
+            para[4].Value = queryBuilder.OrderType;
+            DataSet ds = DbHelperSQL.RunProcedure("ExecutePaging", para, "IM_News");
+            try
+            {
+                iRecordCount = Convert.ToInt32(ds.Tables[1].Rows[0][0]);
+                return ds.Tables[0];
+            }
+            catch
+            {
+                return null;
+            }
+        }
         #endregion  ExtensionMethod
     }
 }

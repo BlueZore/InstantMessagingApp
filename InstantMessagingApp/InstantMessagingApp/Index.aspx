@@ -17,6 +17,7 @@
             width: 610px;
             height: 425px;
             background-image: url(/Image/bg.png);
+            float: left;
         }
 
         .left {
@@ -425,6 +426,14 @@
                 #ULLayer li.body span {
                     margin: 3px;
                 }
+
+        .warning {
+            color: #fa2020;
+            font-size: 12px;
+            margin-left: 100px;
+            margin-top: 50px;
+            float: left;
+        }
     </style>
     <script src="JS/jquery-1.11.1.min.js"></script>
     <script src="JS/layer/layer.min.js" type="text/javascript"></script>
@@ -847,6 +856,13 @@
 
         <asp:HiddenField ID="hidID" runat="server" />
         <asp:HiddenField ID="hidReceiveID" runat="server" Value="6AC2AEED-DB26-4AD5-BEE8-292CEFEA9356" />
+
+        <ul class="warning">
+            <li>加入群</li>
+            <li>添加组、用户、群及时显示</li>
+            <li>用户跨组移动</li>
+            <li>删除用户</li>
+        </ul>
     </form>
 </body>
 </html>

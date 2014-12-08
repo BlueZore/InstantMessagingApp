@@ -75,7 +75,16 @@ namespace IM.BLL
 
         #endregion  BasicMethod
         #region  ExtensionMethod
-
+        /// <summary>
+        /// 分页获取数据列表
+        /// <param name="userID"></param>
+        /// <param name="queryBuilder"></param>
+        /// <param name="iRecordCount"></param>
+        /// </summary>
+        public DataTable GetListByPage(string userID, QueryBuilder queryBuilder, ref int iRecordCount)
+        {
+            return dal.GetListByPage(userID, queryBuilder, ref  iRecordCount);
+        }
         #endregion  ExtensionMethod
     }
 }

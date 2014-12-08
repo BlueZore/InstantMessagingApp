@@ -225,7 +225,7 @@ namespace IM.DAL
         public DataTable GetListByPage(QueryBuilder queryBuilder, ref int iRecordCount)
         {
             StringBuilder sbSql = new StringBuilder();
-            sbSql.Append("SELECT * FROM IM_TalkGroup" + queryBuilder.Where);
+            sbSql.Append(@"SELECT * FROM IM_TalkGroup" + queryBuilder.Where);
             IDataParameter[] para = new IDataParameter[] 
 			{
 				new SqlParameter("@PageIndex",SqlDbType.Int),
@@ -391,6 +391,48 @@ order by [CreateDate] asc) and [GroupID]=@GroupID");
                 list.Add(model);
             }
             return list;
+        }
+
+        /// <summary>
+        /// 分页获取数据列表
+        /// <param name="GroupID"></param>
+        /// <param name="UserID"></param>
+        /// <param name="queryBuilder"></param>
+        /// <param name="iRecordCount"></param>
+        /// </summary>
+        public DataTable GetListByPage(string groupID, string userID, QueryBuilder queryBuilder, ref int iRecordCount)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            sbSql.Append(@"
+select [dbo].[IM_TalkGroup].*,UserName from [dbo].[IM_TalkGroup]
+inner join [dbo].[IM_TalkGroupHint]
+on [IM_TalkGroup].ID=[TalkGroupID]
+inner join [dbo].[IM_User]
+on [IM_User].ID=SendUserID
+where [IM_TalkGroup].GroupID='" + groupID + @"' and UserID='" + userID + @"' and IsDelete=0 ");
+            IDataParameter[] para = new IDataParameter[] 
+			{
+				new SqlParameter("@PageIndex",SqlDbType.Int),
+				new SqlParameter("@PageSize",SqlDbType.Int),
+				new SqlParameter("@strSql",SqlDbType.VarChar),
+				new SqlParameter("@Field",SqlDbType.VarChar),
+				new SqlParameter("@OrderField",SqlDbType.VarChar)
+			};
+            para[0].Value = queryBuilder.PageIndex;
+            para[1].Value = queryBuilder.PageSize;
+            para[2].Value = sbSql.ToString();
+            para[3].Value = queryBuilder.OrderField;
+            para[4].Value = queryBuilder.OrderType;
+            DataSet ds = DbHelperSQL.RunProcedure("ExecutePaging", para, "IM_TalkGroup");
+            try
+            {
+                iRecordCount = Convert.ToInt32(ds.Tables[1].Rows[0][0]);
+                return ds.Tables[0];
+            }
+            catch
+            {
+                return null;
+            }
         }
         #endregion  ExtensionMethod
     }
