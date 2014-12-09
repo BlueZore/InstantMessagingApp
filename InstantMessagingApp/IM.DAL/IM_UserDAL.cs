@@ -284,7 +284,7 @@ namespace IM.DAL
         /// 获取未添加用户
         /// <param name="QueryBuilder"></param>
         /// </summary>
-        public List<IM_UserInfo> GetNoAddUserList(Guid ID, string userName)
+        public List<IM_UserInfo> GetListForNoAddUser(Guid ID, string userName)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"
@@ -311,7 +311,7 @@ and ID<>@ID and UserName like '%" + userName + @"%' order by UserName
         /// <param name="UserID"></param>
         /// <param name="GroupID"></param>
         /// </summary>
-        public List<IM_UserInfo> GetNoAddGroupList(Guid userID, Guid groupID)
+        public List<IM_UserInfo> GetListForNoAddGroup(Guid userID, Guid groupID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"

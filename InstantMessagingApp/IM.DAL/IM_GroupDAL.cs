@@ -256,6 +256,32 @@ where [IM_GroupMember].UserID=@UserID order by [IM_Group].GroupName asc ");
             }
             return list;
         }
+
+        /// <summary>
+        /// 查找未添加群
+        /// <param name="userID"></param>
+        /// <param name="groupName"></param>
+        /// </summary>
+        public List<IM_GroupInfo> GetListForNoAddGroup(Guid userID, string groupName)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"
+select distinct [IM_Group].* from [dbo].[IM_Group]
+inner join [dbo].[IM_GroupMember]
+on [IM_Group].ID=[GroupID]
+where [IM_GroupMember].[UserID]<>@UserID and GroupName like '%" + groupName + @"%'
+order by GroupName asc");
+            SqlParameter[] parameters = {
+					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16)			};
+            parameters[0].Value = userID;
+            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            List<IM_GroupInfo> list = new List<IM_GroupInfo>();
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                list.Add(DataRowToModel(dr));
+            }
+            return list;
+        }
         #endregion  ExtensionMethod
     }
 }

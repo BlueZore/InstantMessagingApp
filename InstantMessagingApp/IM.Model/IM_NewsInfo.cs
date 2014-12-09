@@ -59,7 +59,7 @@ namespace IM.Model
         }
 
         /// <summary>
-        /// 1用户添加，2群添加
+        /// 1用户添加，2群添加，3申请加入群
         /// </summary>
         public int? BusinessType
         {

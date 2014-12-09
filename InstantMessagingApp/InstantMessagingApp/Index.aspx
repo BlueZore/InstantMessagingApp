@@ -446,7 +446,7 @@
                     area: ['520px', '300px'],
                     data: [
                         { title: '添加好友', content: '<iframe src=\"Iframe/AddUser.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' },
-                        { title: '添加群', content: '' },
+                        { title: '添加群', content: '<iframe src=\"Iframe/AddGroup.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' },
                         { title: '新建组', content: '<iframe src=\"Iframe/NewTeam.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' },
                         { title: '新建群', content: '<iframe src=\"Iframe/GroupView.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
                     ]
@@ -675,7 +675,7 @@
                         var newsList = eval(result.d)[0].NewsList;
                         var html = "";
                         for (var i = 0; i < newsList.length; i++) {
-                            html += "<ul class='ULLayer' newID='" + newsList[i].ID + "' sendID='" + newsList[i].SendUserID + "' BusinessType='" + newsList[i].BusinessType + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + newsList[i].Note + "”，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
+                            html += "<ul class='ULLayer' newID='" + newsList[i].ID + "' sendID='" + newsList[i].SendUserID + "' BusinessType='" + newsList[i].BusinessType + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>" + newsList[i].Note + "，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
                         }
                         if (html.length > 0) {
                             $("#ULLayer").html($("#ULLayer").html() + html);
@@ -858,7 +858,7 @@
         <asp:HiddenField ID="hidReceiveID" runat="server" Value="6AC2AEED-DB26-4AD5-BEE8-292CEFEA9356" />
 
         <ul class="warning">
-            <li>加入群</li>
+            <li style="text-decoration: line-through;">加入群</li>
             <li>添加组、用户、群及时显示</li>
             <li>用户跨组移动</li>
             <li>删除用户</li>

@@ -33,7 +33,7 @@ namespace InstantMessagingApp
         {
             if (ddlGroup.Items.Count > 0)
             {
-                gv.DataSource = new IM_UserBLL().GetNoAddGroupList(userInfo.UserID, new Guid(ddlGroup.SelectedValue));
+                gv.DataSource = new IM_UserBLL().GetListForNoAddGroup(userInfo.UserID, new Guid(ddlGroup.SelectedValue));
                 gv.DataBind();
             }
 

@@ -19,7 +19,7 @@ namespace InstantMessagingApp
 
         protected void btnFind_Click(object sender, EventArgs e)
         {
-            gv.DataSource = new IM_UserBLL().GetNoAddUserList(userInfo.UserID, txtUserName.Text);
+            gv.DataSource = new IM_UserBLL().GetListForNoAddUser(userInfo.UserID, txtUserName.Text);
             gv.DataBind();
         }
 

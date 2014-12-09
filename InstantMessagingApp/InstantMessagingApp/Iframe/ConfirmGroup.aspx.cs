@@ -35,7 +35,7 @@ namespace InstantMessagingApp
             IM_GroupMemberInfo groupMemberModel = new IM_GroupMemberInfo();
             groupMemberModel.ID = Guid.NewGuid();
             groupMemberModel.GroupID = new Guid(newModel.BusinessID);
-            groupMemberModel.UserID = newModel.ReceiveUserID;
+            groupMemberModel.UserID = newModel.BusinessType == 3 ? newModel.SendUserID : newModel.ReceiveUserID;//3为申请加入，所以添加发送方
             groupMemberBLL.Add(groupMemberModel);
 
             btnOK.Enabled = btnReject.Enabled = false;

@@ -47,7 +47,7 @@ namespace InstantMessagingApp
                 jsonItem += "ID:'" + newsModel.ID + "'";
                 jsonItem += ",SendUserID:'" + newsModel.SendUserID + "'";
                 jsonItem += ",ReceiveUserID:'" + newsModel.ReceiveUserID + "'";
-                jsonItem += ",BusinessType:'" + newsModel.BusinessType + "'";
+                jsonItem += ",BusinessType:'" + (newsModel.BusinessType == 3 ? 2 : newsModel.BusinessType) + "'";//修改加入群
                 jsonItem += ",Note:'" + newsModel.Note + "'";
                 jsonItem += "}";
             }

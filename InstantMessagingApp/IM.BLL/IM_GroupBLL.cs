@@ -81,6 +81,16 @@ namespace IM.BLL
         {
             return dal.GetListGroupForUser(userID);
         }
+
+        /// <summary>
+        /// 查找未添加群
+        /// <param name="userID"></param>
+        /// <param name="groupName"></param>
+        /// </summary>
+        public List<IM_GroupInfo> GetListForNoAddGroup(Guid userID, string groupName)
+        {
+            return dal.GetListForNoAddGroup(userID, groupName);
+        }
         #endregion  ExtensionMethod
     }
 }

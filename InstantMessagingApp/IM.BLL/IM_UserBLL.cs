@@ -89,9 +89,9 @@ namespace IM.BLL
         /// <param name="ID"></param>
         /// <param name="userName"></param>
         /// </summary>
-        public List<IM_UserInfo> GetNoAddUserList(Guid ID, string userName)
+        public List<IM_UserInfo> GetListForNoAddUser(Guid ID, string userName)
         {
-            return dal.GetNoAddUserList(ID, userName);
+            return dal.GetListForNoAddUser(ID, userName);
         }
 
         /// <summary>
@@ -99,9 +99,9 @@ namespace IM.BLL
         /// <param name="userID"></param>
         /// <param name="groupID"></param>
         /// </summary>
-        public List<IM_UserInfo> GetNoAddGroupList(Guid userID, Guid groupID)
+        public List<IM_UserInfo> GetListForNoAddGroup(Guid userID, Guid groupID)
         {
-            return dal.GetNoAddGroupList(userID, groupID);
+            return dal.GetListForNoAddGroup(userID, groupID);
         }
         #endregion  ExtensionMethod
     }
