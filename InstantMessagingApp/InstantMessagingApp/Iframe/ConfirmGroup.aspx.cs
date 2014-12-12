@@ -40,7 +40,9 @@ namespace InstantMessagingApp
 
             btnOK.Enabled = btnReject.Enabled = false;
 
-            Response.Write("<script>Window.onload = function () {window.parent.window.addGroup('" + newModel.SendUserID.ToString() + "','" + newModel.BusinessID + "');}</script>");
+            IM_GroupInfo groupModel = new IM_GroupBLL().GetModel(groupMemberModel.GroupID);
+
+            ClientScript.RegisterStartupScript(this.GetType(), "JS", "<script>window.onload = function () {window.parent.window.addGroup('" + groupMemberModel.GroupID + "','" + groupModel.GroupName + "');};</script>");
         }
 
         protected void btnReject_Click(object sender, EventArgs e)

@@ -315,17 +315,16 @@ and ID<>@ID and UserName like '%" + userName + @"%' order by UserName
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"
-select [IM_User].ID,[IM_User].UserName,(case when [IM_Group].UserID is null then 0 else 1 end) as State from [dbo].[IM_Team]
+select [IM_User].ID,[IM_User].UserName from [dbo].[IM_Team]
 inner join [dbo].[IM_TeamMember]
 on [IM_Team].ID=[IM_TeamMember].[TeamID]
 inner join [dbo].[IM_User]
 on [IM_TeamMember].[UserID]=[IM_User].ID
-left join (select [IM_GroupMember].UserID,[IM_Group].UserID as SelfID from [dbo].[IM_Group]
-inner join [dbo].[IM_GroupMember]
+where [IM_Team].UserID=@UserID and [IM_TeamMember].UserID not in
+(select [IM_GroupMember].UserID from [dbo].[IM_Group]
+left join [dbo].[IM_GroupMember]
 on [IM_Group].ID=[IM_GroupMember].[GroupID]
-where [IM_Group].[UserID]=@UserID and [IM_Group].ID=@GroupID)[IM_Group]
-on SelfID=[IM_Team].UserID
-where [IM_Team].UserID=@UserID 
+where [IM_Group].[UserID]=@UserID and [IM_Group].ID=@GroupID)
 ");
             SqlParameter[] parameters = {
 					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16),
@@ -346,10 +345,6 @@ where [IM_Team].UserID=@UserID
                     if (row["UserName"] != null)
                     {
                         model.UserName = row["UserName"].ToString();
-                    }
-                    if (row["State"] != null && row["State"].ToString() != "")
-                    {
-                        model.State = int.Parse(row["State"].ToString());
                     }
                 }
                 list.Add(model);

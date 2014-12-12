@@ -434,6 +434,40 @@
             margin-top: 50px;
             float: left;
         }
+
+        .fm_main_menu {
+            height: 52px;
+            width: 100px;
+            border-top: #d2d2d2 1px solid;
+            border-left: #d2d2d2 1px solid;
+            border-right: #d2d2d2 1px solid;
+            font-size: 12px;
+            position: absolute;
+            display: none;
+            z-index: 99;
+        }
+
+            .fm_main_menu li {
+                list-style: none;
+                border-bottom: #d2d2d2 1px solid;
+                background-color: #fff;
+                height: 25px;
+            }
+
+                .fm_main_menu li a {
+                    cursor: pointer;
+                    text-decoration: none;
+                    display: inline-block;
+                    padding-left: 25px;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+                    height: 18px;
+                    width: 75px;
+                }
+
+                    .fm_main_menu li a:hover {
+                        background-color: #e9e9e9;
+                    }
     </style>
     <script src="JS/jquery-1.11.1.min.js"></script>
     <script src="JS/layer/layer.min.js" type="text/javascript"></script>
@@ -658,6 +692,79 @@
                 return false;
             });
 
+
+            var userIDSelected = "";
+            var teamIDSelected = "";
+            //组成员鼠标右键层
+            $("#TeamListDIV").delegate("li", "contextmenu", function (e) {
+                if (e.which == 3) {
+                    //获取序号
+                    userIDSelected = $(this).attr("uid");
+                    teamIDSelected = $(this).parents().prev().attr("tid");
+                    $(".fm_main_menu").css({ "margin-top": e.clientY - 5, "margin-left": e.clientX - 5, "height": 52 }).show();
+                    $(".fm_main_menu").html("<li><a>移动</a></li><li><a>删除</a></li>");
+                }
+                return false;
+            });
+
+            //移动用户
+            $(".fm_main_menu").delegate("li:eq(0)", "click", function (e) {
+                switch($(this).find("a").html())
+                {
+                    case "移动":
+                        layer.tab({
+                            area: ['340px', '270px'],
+                            data: [
+                                { title: '移动用户', content: '<iframe src=\"Iframe/MoveUser.aspx?UserID=' + userIDSelected + '\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
+                            ]
+                        });
+                        break;
+                    case "查看成员":
+                        layer.tab({
+                            area: ['340px', '270px'],
+                            data: [
+                                { title: '查看成员', content: '<iframe src=\"Iframe/GroupMemberView.aspx?GroupID=' + groupIDSelected + '\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
+                            ]
+                        });
+                        break;
+                }
+                
+            });
+
+            //删除好友
+            $(".fm_main_menu").delegate("li:eq(1)", "click", function (e) {
+                $.ajax({
+                    type: "post",
+                    contentType: "application/json",
+                    url: "/Common/Ajax.asmx/DeleteUser",
+                    data: "{userID:'" + userIDSelected + "',teamID:'" + teamIDSelected + "'}",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.d == "1") {
+                            $("[uid='" + userIDSelected + "']").remove();
+                            $(".fm_main_menu").hide();
+                        }
+                    }
+                });
+            });
+
+            var groupIDSelected = "";
+            //组成员鼠标右键层
+            $("#GroupListDIV").delegate(".team_item_info", "contextmenu", function (e) {
+                if (e.which == 3) {
+                    //获取序号
+                    groupIDSelected = $(this).attr("gid");
+                    $(".fm_main_menu").css({ "margin-top": e.clientY - 5, "margin-left": e.clientX - 5, "height": 26 }).show();
+                    $(".fm_main_menu").html("<li><a>查看成员</a></li>");
+                }
+                return false;
+            });
+
+            //鼠标移出菜单层，隐藏
+            $("body").delegate(".fm_main_menu", "mouseleave", function () {
+                $(".fm_main_menu").hide();
+            });
+
             setInterval("getUserAboutNews()", 6000);
 
         });
@@ -722,12 +829,19 @@
             });
         }
 
-        function addUserForTeam(userID, teamID) {
-            //alert("OK");
+        function addUserForTeam(userID, teamID, userName, pic) {
+            var html = "<li uid='" + userID + "'><img width='17px' height='17' src='/UpLoadFiles" + pic + "'><span>" + userName + "</span></li>";
+            $("[tid='" + teamID + "']").next().append(html);
         }
 
-        function addGroup(userID, groupID) {
-            //alert("OK");
+        function addGroup(groupID, groupName) {
+            var html = "<div class='team_item'><div gid='" + groupID + "' class='team_item_info'><span>" + groupName + "</span></div></div>";
+            $("#GroupListDIV").append(html);
+        }
+
+        function addTeam(teamID, teamName) {
+            var html = "<div class='team_item'><div tid='" + teamID + "' class='team_item_info'><img src='/Image/sanjian.png'><span>"+teamName+"</span></div><ul class='team_user'></ul></div>";
+            $("#TeamListDIV").append(html);
         }
     </script>
     <link href="/JS/uploadify/uploadify.css" rel="stylesheet" />
@@ -737,6 +851,12 @@
 </head>
 <body>
     <form id="form1" runat="server">
+
+        <ul class="fm_main_menu">
+            <li><a>移动</a></li>
+            <li><a>删除</a></li>
+        </ul>
+
         <div class="main">
             <div class="left">
                 <div class="self">
@@ -856,13 +976,6 @@
 
         <asp:HiddenField ID="hidID" runat="server" />
         <asp:HiddenField ID="hidReceiveID" runat="server" Value="6AC2AEED-DB26-4AD5-BEE8-292CEFEA9356" />
-
-        <ul class="warning">
-            <li style="text-decoration: line-through;">加入群</li>
-            <li>添加组、用户、群及时显示</li>
-            <li>用户跨组移动</li>
-            <li>删除用户</li>
-        </ul>
     </form>
 </body>
 </html>

@@ -93,6 +93,26 @@ namespace IM.BLL
         {
             return dal.GetAllTeamMemberList(userID);
         }
+
+        /// <summary>
+        /// 删除成员
+        /// <param name="userID">userID</param>
+        /// <param name="teamID">teamID</param>
+        /// </summary>
+        public bool Delete(Guid userID, Guid teamID)
+        {
+            return dal.Delete(userID, teamID);
+        }
+
+        /// <summary>
+        /// 修改成员组
+        /// <param name="teamID">实体</param>
+        /// <param name="userID">实体</param>
+        /// </summary>
+        public bool Update(Guid teamID, Guid userID)
+        {
+            return dal.Update(teamID, userID);
+        }
         #endregion  ExtensionMethod
     }
 }

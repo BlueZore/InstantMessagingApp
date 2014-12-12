@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ConfirmUser.aspx.cs" Inherits="InstantMessagingApp.ConfirmUser" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MoveUser.aspx.cs" Inherits="InstantMessagingApp.MoveUser" %>
 
 <!DOCTYPE html>
 
@@ -24,22 +24,21 @@
             color: #ff0000;
         }
     </style>
-
-    
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="div_row">
-            <asp:Label ID="lbNews" runat="server" Font-Size="16px"></asp:Label>
+            <asp:HiddenField ID="hidUserID" runat="server" />
+            好友：<asp:Label ID="lbUserName" runat="server"></asp:Label>
+            <br />
+            移动到：<asp:DropDownList ID="ddlTeam" runat="server" Width="150px"></asp:DropDownList>
             <br />
             <br />
-            组：<asp:DropDownList ID="ddlTeam" runat="server"></asp:DropDownList>
+            <asp:Button ID="btnSave" runat="server" Text="确定" OnClick="btnSave_Click" />
             <br />
-            <br />
-            <asp:Button ID="btnOK" runat="server" Text="同意" OnClick="btnOK_Click" />
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="btnReject" runat="server" Text="拒绝" OnClick="btnReject_Click" />
+            <asp:Label ID="lbError" runat="server"></asp:Label>
         </div>
     </form>
 </body>
 </html>
+

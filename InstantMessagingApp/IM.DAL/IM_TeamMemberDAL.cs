@@ -232,7 +232,7 @@ namespace IM.DAL
         /// <param name="SendUser">发送用户</param>
         /// <param name="CurrUser">当前用户</param>
         /// </summary>
-        public bool AddForSendUser(Guid sendUser,Guid currUser)
+        public bool AddForSendUser(Guid sendUser, Guid currUser)
         {
             StringBuilder strSql = new StringBuilder();
             int n = 0;
@@ -326,6 +326,62 @@ namespace IM.DAL
                 }
             }
             return list;
+        }
+
+        /// <summary>
+        /// 删除成员
+        /// <param name="userID">userID</param>
+        /// <param name="teamID">teamID</param>
+        /// </summary>
+        public bool Delete(Guid userID, Guid teamID)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from IM_TeamMember where UserID=@UserID and TeamID=@TeamID ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16),	
+                    new SqlParameter("@TeamID", SqlDbType.UniqueIdentifier,16)};
+            parameters[0].Value = userID;
+            parameters[1].Value = teamID;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 修改成员组
+        /// <param name="teamID">实体</param>
+        /// <param name="userID">实体</param>
+        /// </summary>
+        public bool Update(Guid teamID, Guid userID)
+        {
+            StringBuilder strSql = new StringBuilder();
+            int n = 0;
+            strSql.Append("update IM_TeamMember set ");
+            strSql.Append("TeamID=@TeamID");
+            strSql.Append(" where UserID=@UserID ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@TeamID", SqlDbType.UniqueIdentifier,16),
+					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16)};
+            parameters[n++].Value = teamID;
+            parameters[n++].Value = userID;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion  ExtensionMethod
     }

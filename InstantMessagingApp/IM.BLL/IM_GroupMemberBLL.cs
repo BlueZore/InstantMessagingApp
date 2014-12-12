@@ -81,6 +81,16 @@ namespace IM.BLL
         {
             return dal.GetListAllMenberForUser(userID);
         }
+
+        /// <summary>
+        /// 获取群内成员
+        /// <param name="userID"></param>
+        /// <param name="groupID"></param>
+        /// </summary>
+        public List<IM_GroupMemberInfo> GetListForMenber(Guid userID, Guid groupID)
+        {
+            return dal.GetListForMenber(userID, groupID);
+        }
         #endregion  ExtensionMethod
     }
 }

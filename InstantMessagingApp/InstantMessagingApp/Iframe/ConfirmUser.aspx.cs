@@ -51,7 +51,9 @@ namespace InstantMessagingApp
 
             btnOK.Enabled = ddlTeam.Enabled = btnReject.Enabled = false;
 
-            Response.Write("<script>Window.onload = function () {window.parent.window.addUserForTeam('" + newModel.SendUserID.ToString() + "','" + ddlTeam.SelectedValue + "');}</script>");
+            IM_UserInfo userModel = new IM_UserBLL().GetModel(newModel.SendUserID);
+
+            ClientScript.RegisterStartupScript(this.GetType(), "JS", "<script>window.onload = function () { window.parent.window.addUserForTeam('" + newModel.SendUserID.ToString() + "','" + ddlTeam.SelectedValue + "','" + userModel.UserName + "','" + userModel.Pic + "');};</script>");
         }
 
         protected void btnReject_Click(object sender, EventArgs e)

@@ -26,13 +26,15 @@ namespace IM.DAL
             StringBuilder strSql = new StringBuilder();
             int n = 0;
             strSql.Append("insert into IM_Team(");
-            strSql.Append("UserID,TeamName,OrderIndex)");
+            strSql.Append("ID,UserID,TeamName,OrderIndex)");
             strSql.Append(" values (");
-            strSql.Append("@UserID,@TeamName,@OrderIndex)");
+            strSql.Append("@ID,@UserID,@TeamName,@OrderIndex)");
             SqlParameter[] parameters = {
+                    new SqlParameter("@ID", SqlDbType.UniqueIdentifier,16),
 					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16),
 					new SqlParameter("@TeamName", SqlDbType.NVarChar,50),
 					new SqlParameter("@OrderIndex", SqlDbType.Int,4)};
+            parameters[n++].Value = model.ID;
             parameters[n++].Value = model.UserID;
             parameters[n++].Value = model.TeamName;
             parameters[n++].Value = model.OrderIndex;

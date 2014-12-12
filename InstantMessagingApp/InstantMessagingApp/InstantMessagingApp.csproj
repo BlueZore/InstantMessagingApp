@@ -81,7 +81,9 @@
     <Content Include="Iframe\AddUser.aspx" />
     <Content Include="Iframe\ConfirmGroup.aspx" />
     <Content Include="Iframe\ConfirmUser.aspx" />
+    <Content Include="Iframe\GroupMemberView.aspx" />
     <Content Include="Iframe\GroupView.aspx" />
+    <Content Include="Iframe\MoveUser.aspx" />
     <Content Include="Iframe\NewGroup.aspx" />
     <Content Include="Iframe\NewTeam.aspx" />
     <Content Include="Iframe\TalkRecDetail.aspx" />
@@ -212,12 +214,26 @@
     <Compile Include="Iframe\ConfirmUser.aspx.designer.cs">
       <DependentUpon>ConfirmUser.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Iframe\GroupMemberView.aspx.cs">
+      <DependentUpon>GroupMemberView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Iframe\GroupMemberView.aspx.designer.cs">
+      <DependentUpon>GroupMemberView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Iframe\GroupView.aspx.cs">
       <DependentUpon>GroupView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Iframe\GroupView.aspx.designer.cs">
       <DependentUpon>GroupView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Iframe\MoveUser.aspx.cs">
+      <DependentUpon>MoveUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Iframe\MoveUser.aspx.designer.cs">
+      <DependentUpon>MoveUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Iframe\NewGroup.aspx.cs">
       <DependentUpon>NewGroup.aspx</DependentUpon>

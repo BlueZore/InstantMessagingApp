@@ -217,5 +217,16 @@ namespace InstantMessagingApp
         {
             new IM_TalkBLL().UpdateForState(new Guid(TalkID), 2);
         }
+
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string DeleteUser(string userID, string teamID)
+        {
+            return new IM_TeamMemberBLL().Delete(new Guid(userID), new Guid(teamID)) ? "1" : "0";
+        }
     }
 }
