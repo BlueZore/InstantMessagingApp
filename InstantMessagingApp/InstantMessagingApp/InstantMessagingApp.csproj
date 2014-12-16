@@ -71,6 +71,8 @@
   <ItemGroup>
     <Content Include="Common\Ajax.asmx" />
     <Content Include="CSS\AspNetPageStyle.css" />
+    <Content Include="Iframe\AboutUsDetail.aspx" />
+    <Content Include="Iframe\AboutUsView.aspx" />
     <Content Include="Iframe\AddGroup.aspx" />
     <Content Include="Iframe\AddUser.aspx" />
     <Content Include="Iframe\ConfirmGroup.aspx" />
@@ -82,6 +84,7 @@
     <Content Include="Iframe\NewTeam.aspx" />
     <Content Include="Iframe\TalkRecDetail.aspx" />
     <Content Include="Iframe\TalkRecView.aspx" />
+    <Content Include="Image\close.png" />
     <Content Include="Image\error.jpg" />
     <Content Include="Image\leftmenu3.png" />
     <Content Include="Image\leftmenu4.png" />
@@ -180,6 +183,20 @@
     </Compile>
     <Compile Include="Common\UploadHandler.ashx.cs">
       <DependentUpon>UploadHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Iframe\AboutUsDetail.aspx.cs">
+      <DependentUpon>AboutUsDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Iframe\AboutUsDetail.aspx.designer.cs">
+      <DependentUpon>AboutUsDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Iframe\AboutUsView.aspx.cs">
+      <DependentUpon>AboutUsView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Iframe\AboutUsView.aspx.designer.cs">
+      <DependentUpon>AboutUsView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Iframe\AddGroup.aspx.cs">
       <DependentUpon>AddGroup.aspx</DependentUpon>

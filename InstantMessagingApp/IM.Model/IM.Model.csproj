@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IM_AboutUsInfo.cs" />
     <Compile Include="IM_FileInfo.cs" />
     <Compile Include="IM_GroupInfo.cs" />
     <Compile Include="IM_GroupMemberInfo.cs" />

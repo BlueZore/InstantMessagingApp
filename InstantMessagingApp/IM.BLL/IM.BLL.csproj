@@ -43,6 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IM_AboutUsBLL.cs" />
     <Compile Include="IM_FileBLL.cs" />
     <Compile Include="IM_GroupBLL.cs" />
     <Compile Include="IM_GroupMemberBLL.cs" />

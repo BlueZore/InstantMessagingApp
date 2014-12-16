@@ -43,6 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IM_AboutUsDAL.cs" />
     <Compile Include="IM_FileDAL.cs" />
     <Compile Include="IM_GroupDAL.cs" />
     <Compile Include="IM_GroupMemberDAL.cs" />

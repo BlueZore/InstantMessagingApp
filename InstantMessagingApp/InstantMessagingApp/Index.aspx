@@ -353,7 +353,7 @@
             margin-right: 1px;
             margin-top: -153px;
             position: relative;
-            display: block;
+            display: none;
         }
 
         .ULLayer {
@@ -368,11 +368,12 @@
         }
 
             #ULLayer li.header {
-                background-color: #54A6D6;
-                color: #fff;
+                background-color: #ebf2fa;
+                color: #2689dc;
                 height: 25px;
                 line-height: 25px;
                 font-size: 14px;
+                border-bottom:1px solid #c9c9c9;
             }
 
                 #ULLayer li.header b {
@@ -382,6 +383,7 @@
 
                 #ULLayer li.header a {
                     margin-right: 5px;
+                    margin-top: 3px;
                     float: right;
                     text-decoration: none;
                     color: #ff6a00;
@@ -389,32 +391,33 @@
                 }
 
                     #ULLayer li.header a:hover {
-                        background-color: #54A6D6;
+                        color: #54A6D6;
                         text-decoration: none;
                         color: #fff;
                     }
 
             #ULLayer li.footer {
-                background-color: #54A6D6;
+                background-color: #ebf2fa;
                 height: 25px;
                 line-height: 25px;
                 text-align: right;
+                border-top:1px solid #c9c9c9;
             }
 
                 #ULLayer li.footer a {
                     margin-right: 5px;
                     text-decoration: none;
                     font-size: 14px;
-                    color: #fff;
+                    color: #2689dc;
                     cursor: pointer;
                 }
 
                     #ULLayer li.footer a:hover {
-                        background-color: #54A6D6;
+                        color: #54A6D6;
                     }
 
             #ULLayer li.body {
-                background-color: #fff;
+                background-color: #ebf2fa;
                 height: 100px;
                 font-size: 12px;
                 line-height: 25px;
@@ -668,6 +671,13 @@
                                 { title: '聊天记录', content: '<iframe src=\"Iframe/TalkRecView.aspx\" frameborder=\"no\" width=\"100%\" height=\"330px\" />' }
                             ]
                         });
+                    case 3:
+                        layer.tab({
+                            area: ['500px', '340px'],
+                            data: [
+                                { title: '新闻', content: '<iframe src=\"Iframe/AboutUsView.aspx\" frameborder=\"no\" width=\"100%\" height=\"330px\" />' }
+                            ]
+                        });
                         break;
                 }
             });
@@ -783,7 +793,7 @@
                         var newsList = eval(result.d)[0].NewsList;
                         var html = "";
                         for (var i = 0; i < newsList.length; i++) {
-                            html += "<ul class='ULLayer' newID='" + newsList[i].ID + "' sendID='" + newsList[i].SendUserID + "' BusinessType='" + newsList[i].BusinessType + "'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>" + newsList[i].Note + "，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
+                            html += "<ul class='ULLayer' newID='" + newsList[i].ID + "' sendID='" + newsList[i].SendUserID + "' BusinessType='" + newsList[i].BusinessType + "'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>" + newsList[i].Note + "，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
                         }
                         if (html.length > 0) {
                             $("#ULLayer").html($("#ULLayer").html() + html);
@@ -801,7 +811,7 @@
                             }
                             else {
                                 if ($("[UL_talkID='" + talkList[i].SendUserID + "']").size() == 0) {//在ULLayer没有发送用户的提示，显示提示框
-                                    html += "<ul class='ULLayer' UL_talkID='" + talkList[i].SendUserID + "' UL_talkName='" + talkList[i].SendUserName + "' UL_talkType='1'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + talkList[i].SendUserName + "”向你发出聊天申请！</li><li class='footer'><a>查看</a></li></ul>";
+                                    html += "<ul class='ULLayer' UL_talkID='" + talkList[i].SendUserID + "' UL_talkName='" + talkList[i].SendUserName + "' UL_talkType='1'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>“" + talkList[i].SendUserName + "”向你发出聊天申请！</li><li class='footer'><a>查看</a></li></ul>";
                                     $("#ULLayer").html($("#ULLayer").html() + html);
                                     $("#ULLayer").show();
                                 }
@@ -819,7 +829,7 @@
                             }
                             else {
                                 if ($("[UL_talkID='" + talkGroupList[i].GroupID + "']").size() == 0) {//在ULLayer没有发送用户的提示，显示提示框
-                                    html += "<ul class='ULLayer' UL_talkID='" + talkGroupList[i].GroupID + "' UL_talkName='" + talkGroupList[i].GroupName + "' UL_talkType='2'><li class='header'><b>系统提醒</b><a>关闭</a></li><li class='body'>“" + talkGroupList[i].GroupName + "”群有人聊天！</li><li class='footer'><a>查看</a></li></ul>";
+                                    html += "<ul class='ULLayer' UL_talkID='" + talkGroupList[i].GroupID + "' UL_talkName='" + talkGroupList[i].GroupName + "' UL_talkType='2'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>“" + talkGroupList[i].GroupName + "”群有人聊天！</li><li class='footer'><a>查看</a></li></ul>";
                                     $("#ULLayer").html($("#ULLayer").html() + html);
                                     $("#ULLayer").show();
                                 }
@@ -991,12 +1001,12 @@
             <%--<li style="text-decoration: line-through;">加入群</li>--%>
             <li style="text-decoration: line-through;">1.删除好友价格提示。</li>
             <li style="text-decoration: line-through;">2.左侧图标加tooltip。</li>
-            <li>3.左侧加一个新闻的图标。</li>
+            <li style="text-decoration: line-through;">3.左侧加一个新闻的图标。</li>
             <li>5.单开切换用户，接受消息时的cookie处理。</li>
             <li style="text-decoration: line-through;">6.创建新组后，移动好友。</li>
             <li>7.点击群名称，下面显示成员名单，右键可以删除成员。</li>
             <li>9.在人员和群上点右键的菜单项上，加一项详细资料，点击后出现div，里面显示基本信息</li>
-            <li>10.提示框颜色，提示关闭按钮样式</li>
+            <li style="text-decoration: line-through;">10.提示框颜色，提示关闭按钮样式</li>
             <li style="text-decoration: line-through;">11.把好友移动到另一个组，然后，使用该账户再次登陆，发现有重复姓名的。</li>
         </ul>
     </form>
