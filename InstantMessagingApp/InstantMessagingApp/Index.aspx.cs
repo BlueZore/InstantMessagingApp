@@ -67,21 +67,41 @@ namespace InstantMessagingApp
 
         private void LoadGroupAndUser()
         {
-            List<IM_GroupInfo> groupList = new IM_GroupBLL().GetListGroupForUser(userInfo.UserID);
+            QueryBuilder queryBuilder = new QueryBuilder();
+            queryBuilder.AddFilter("UserID", "=", userInfo.UserID.ToString());
+            queryBuilder.AddOrderASC("CreateDate");
+            List<IM_TeamInfo> teamList = new IM_TeamBLL().GetList(queryBuilder);
+            List<IM_UserInfo> userList = new IM_TeamMemberBLL().GetAllTeamMemberList(userInfo.UserID);
 
-            string groupHtml = "";
+            string teamHtml = "";
 
-            foreach (IM_GroupInfo groupModel in groupList)
+            foreach (IM_TeamInfo teamModel in teamList)
             {
-                groupHtml += @"
+                teamHtml += @"
 <div class='team_item'>
-    <div class='team_item_info' gID='" + groupModel.ID + @"'>
-        <span>" + groupModel.GroupName + @"</span>
+    <div class='team_item_info' tID='" + teamModel.ID + @"'>
+        <img src='/Image/sanjian.png' />
+        <span>" + teamModel.TeamName + @"</span>
     </div>
+    <ul class='team_user'>
+";
+                var tmpList = userList.Where(p => p.TeamID == teamModel.ID);
+                foreach (var item in tmpList)
+                {
+                    teamHtml += @"
+        <li uID='" + item.ID + @"'>
+            <img src='" + ("/UpLoadFiles" + (string.IsNullOrEmpty(item.Pic) ? "/UserPic/default.jpg" : item.Pic)) + @"' width='17px' height='17' />
+            <span>" + item.UserName + @"</span>
+        </li>
+";
+                }
+
+                teamHtml += @"
+    </ul>
 </div>
 ";
             }
-            GroupListDIV.InnerHtml = groupHtml;
+            TeamListDIV.InnerHtml = teamHtml;
         }
 
         protected void bntLine_Click(object sender, EventArgs e)

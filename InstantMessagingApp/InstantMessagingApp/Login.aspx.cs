@@ -17,17 +17,17 @@ namespace InstantMessagingApp
         {
             if (!IsPostBack)
             {
-                //ddlUser.DataTextField = "UserName";
-                //ddlUser.DataValueField = "ID";
-                //QueryBuilder queryBuilder = new QueryBuilder();
-                //queryBuilder.AddOrderASC("UserName");
-                //ddlUser.DataSource = new IM_UserBLL().GetList(queryBuilder);
-                //ddlUser.DataBind();
-                if (!string.IsNullOrEmpty(Request["UserID"]))
-                {
-                    _FWCookieAdd(CookieName, Request["UserID"], 0, false);
-                    Response.Redirect("~/Index.aspx");
-                }
+                ddlUser.DataTextField = "UserName";
+                ddlUser.DataValueField = "ID";
+                QueryBuilder queryBuilder = new QueryBuilder();
+                queryBuilder.AddOrderASC("UserName");
+                ddlUser.DataSource = new IM_UserBLL().GetList(queryBuilder);
+                ddlUser.DataBind();
+                //if (!string.IsNullOrEmpty(Request["UserID"]))
+                //{
+                //    _FWCookieAdd(CookieName, Request["UserID"], 0, false);
+                //    Response.Redirect("~/Index.aspx");
+                //}
             }
         }
 
@@ -35,8 +35,8 @@ namespace InstantMessagingApp
 
         protected void bntLine_Click(object sender, EventArgs e)
         {
-            //_FWCookieAdd(CookieName, ddlUser.SelectedValue, 0, false);
-            //Response.Redirect("~/Index.aspx");
+            _FWCookieAdd(CookieName, ddlUser.SelectedValue, 0, false);
+            Response.Redirect("~/Index.aspx");
         }
     }
 }

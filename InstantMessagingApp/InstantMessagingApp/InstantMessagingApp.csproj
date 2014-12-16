@@ -41,12 +41,6 @@
     <Reference Include="AspNetPager">
       <HintPath>..\..\DLL\AspNetPager.dll</HintPath>
     </Reference>
-    <Reference Include="IM.BLL">
-      <HintPath>..\IM.BLL\bin\Debug\IM.BLL.dll</HintPath>
-    </Reference>
-    <Reference Include="IM.Model">
-      <HintPath>..\IM.BLL\bin\Debug\IM.Model.dll</HintPath>
-    </Reference>
     <Reference Include="LitJson">
       <HintPath>..\..\DLL\LitJson.dll</HintPath>
     </Reference>
@@ -90,6 +84,7 @@
     <Content Include="Iframe\TalkRecView.aspx" />
     <Content Include="Image\error.jpg" />
     <Content Include="Image\leftmenu3.png" />
+    <Content Include="Image\leftmenu4.png" />
     <Content Include="Image\tab3.png" />
     <Content Include="Image\upload.png" />
     <Content Include="JS\jquery-1.11.1.js" />
@@ -292,6 +287,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UpLoadFiles\Files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IM.BLL\IM.BLL.csproj">
+      <Project>{502b7766-a0b4-4db9-a11b-b7aa9414fa4d}</Project>
+      <Name>IM.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IM.DAL\IM.DAL.csproj">
+      <Project>{6256bde7-9d3f-4c05-a4f9-579342f219c4}</Project>
+      <Name>IM.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IM.Model\IM.Model.csproj">
+      <Project>{d6c2bf18-1c0f-4b90-a614-cd7731c43b39}</Project>
+      <Name>IM.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

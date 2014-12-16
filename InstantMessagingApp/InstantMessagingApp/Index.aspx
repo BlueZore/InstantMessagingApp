@@ -353,7 +353,7 @@
             margin-right: 1px;
             margin-top: -153px;
             position: relative;
-            display: none;
+            display: block;
         }
 
         .ULLayer {
@@ -709,8 +709,7 @@
 
             //移动用户
             $(".fm_main_menu").delegate("li:eq(0)", "click", function (e) {
-                switch($(this).find("a").html())
-                {
+                switch ($(this).find("a").html()) {
                     case "移动":
                         layer.tab({
                             area: ['340px', '270px'],
@@ -728,24 +727,26 @@
                         });
                         break;
                 }
-                
+
             });
 
             //删除好友
             $(".fm_main_menu").delegate("li:eq(1)", "click", function (e) {
-                $.ajax({
-                    type: "post",
-                    contentType: "application/json",
-                    url: "/Common/Ajax.asmx/DeleteUser",
-                    data: "{userID:'" + userIDSelected + "',teamID:'" + teamIDSelected + "'}",
-                    dataType: "json",
-                    success: function (result) {
-                        if (result.d == "1") {
-                            $("[uid='" + userIDSelected + "']").remove();
-                            $(".fm_main_menu").hide();
+                if (confirm("确定删除？")) {
+                    $.ajax({
+                        type: "post",
+                        contentType: "application/json",
+                        url: "/Common/Ajax.asmx/DeleteUser",
+                        data: "{userID:'" + userIDSelected + "',teamID:'" + teamIDSelected + "'}",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.d == "1") {
+                                $("[uid='" + userIDSelected + "']").remove();
+                                $(".fm_main_menu").hide();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             });
 
             var groupIDSelected = "";
@@ -840,8 +841,14 @@
         }
 
         function addTeam(teamID, teamName) {
-            var html = "<div class='team_item'><div tid='" + teamID + "' class='team_item_info'><img src='/Image/sanjian.png'><span>"+teamName+"</span></div><ul class='team_user'></ul></div>";
+            var html = "<div class='team_item'><div tid='" + teamID + "' class='team_item_info'><img src='/Image/sanjian.png'><span>" + teamName + "</span></div><ul class='team_user'></ul></div>";
             $("#TeamListDIV").append(html);
+        }
+
+        function moveUser(teamID, userID) {
+            var $uid = $("[uid='" + userID + "']");
+            $("[uid='" + userID + "']").remove();
+            $("[tid='" + teamID + "']").next().append($uid);
         }
     </script>
     <link href="/JS/uploadify/uploadify.css" rel="stylesheet" />
@@ -867,14 +874,17 @@
                 </div>
                 <div class="left_op">
                     <ul class="left_op_menu">
-                        <li class="left_op_menu_li_selected">
+                        <li class="left_op_menu_li_selected" title="好友">
                             <img src="Image/leftmenu1.png" />
                         </li>
-                        <li>
+                        <li title="群">
                             <img src="Image/leftmenu2.png" />
                         </li>
-                        <li>
+                        <li title="聊天记录">
                             <img src="Image/leftmenu3.png" />
+                        </li>
+                        <li title="新闻">
+                            <img src="Image/leftmenu4.png" />
                         </li>
                     </ul>
                     <div class="left_user">
@@ -976,6 +986,19 @@
 
         <asp:HiddenField ID="hidID" runat="server" />
         <asp:HiddenField ID="hidReceiveID" runat="server" Value="6AC2AEED-DB26-4AD5-BEE8-292CEFEA9356" />
+
+        <ul class="warning">
+            <%--<li style="text-decoration: line-through;">加入群</li>--%>
+            <li style="text-decoration: line-through;">1.删除好友价格提示。</li>
+            <li style="text-decoration: line-through;">2.左侧图标加tooltip。</li>
+            <li>3.左侧加一个新闻的图标。</li>
+            <li>5.单开切换用户，接受消息时的cookie处理。</li>
+            <li style="text-decoration: line-through;">6.创建新组后，移动好友。</li>
+            <li>7.点击群名称，下面显示成员名单，右键可以删除成员。</li>
+            <li>9.在人员和群上点右键的菜单项上，加一项详细资料，点击后出现div，里面显示基本信息</li>
+            <li>10.提示框颜色，提示关闭按钮样式</li>
+            <li style="text-decoration: line-through;">11.把好友移动到另一个组，然后，使用该账户再次登陆，发现有重复姓名的。</li>
+        </ul>
     </form>
 </body>
 </html>

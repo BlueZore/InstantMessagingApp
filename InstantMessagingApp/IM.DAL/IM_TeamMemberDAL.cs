@@ -366,7 +366,7 @@ namespace IM.DAL
             int n = 0;
             strSql.Append("update IM_TeamMember set ");
             strSql.Append("TeamID=@TeamID");
-            strSql.Append(" where UserID=@UserID ");
+            strSql.Append(" where UserID=@UserID and TeamID<>@TeamID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@TeamID", SqlDbType.UniqueIdentifier,16),
 					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16)};

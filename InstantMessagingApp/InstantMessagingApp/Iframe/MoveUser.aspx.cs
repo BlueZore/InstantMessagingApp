@@ -31,7 +31,10 @@ namespace InstantMessagingApp
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            new IM_TeamMemberBLL().Update(new Guid(ddlTeam.SelectedValue), new Guid(hidUserID.Value));
+            if (new IM_TeamMemberBLL().Update(new Guid(ddlTeam.SelectedValue), new Guid(hidUserID.Value)))
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "JS", "<script>window.onload = function () {window.parent.window.moveUser('" + ddlTeam.SelectedValue + "','" + hidUserID.Value + "');};</script>");
+            }
             lbError.Text = "完成添加";
         }
     }

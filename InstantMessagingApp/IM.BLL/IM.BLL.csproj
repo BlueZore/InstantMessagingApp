@@ -31,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IM.DAL">
-      <HintPath>..\IM.DAL\bin\Debug\IM.DAL.dll</HintPath>
-    </Reference>
-    <Reference Include="IM.Model">
-      <HintPath>..\IM.DAL\bin\Debug\IM.Model.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -60,6 +54,16 @@
     <Compile Include="IM_TeamMemberBLL.cs" />
     <Compile Include="IM_UserBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IM.DAL\IM.DAL.csproj">
+      <Project>{6256bde7-9d3f-4c05-a4f9-579342f219c4}</Project>
+      <Name>IM.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IM.Model\IM.Model.csproj">
+      <Project>{d6c2bf18-1c0f-4b90-a614-cd7731c43b39}</Project>
+      <Name>IM.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
