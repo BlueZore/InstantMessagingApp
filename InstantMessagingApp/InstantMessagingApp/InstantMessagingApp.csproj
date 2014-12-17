@@ -71,6 +71,7 @@
   <ItemGroup>
     <Content Include="Common\Ajax.asmx" />
     <Content Include="CSS\AspNetPageStyle.css" />
+    <Content Include="CSS\Style.css" />
     <Content Include="Iframe\AboutUsDetail.aspx" />
     <Content Include="Iframe\AboutUsView.aspx" />
     <Content Include="Iframe\AddGroup.aspx" />
@@ -92,6 +93,7 @@
     <Content Include="Image\tab3.png" />
     <Content Include="Image\upload.png" />
     <Content Include="Image\userbg.jpg" />
+    <Content Include="JS\IM.js" />
     <Content Include="JS\jquery-1.11.1.js" />
     <Content Include="JS\jquery-1.11.1.min.js" />
     <Content Include="JS\layer\extend\layer.ext.js" />
