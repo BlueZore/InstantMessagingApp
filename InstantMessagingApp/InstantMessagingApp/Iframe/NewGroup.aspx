@@ -20,7 +20,7 @@
 
         .div_row {
             margin-left: 5px;
-            margin-top: 20px;
+            margin-top: 4px;
         }
 
         #lbError {
