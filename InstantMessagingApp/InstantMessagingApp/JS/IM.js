@@ -267,7 +267,7 @@
                 layer.tab({
                     area: ['340px', '270px'],
                     data: [
-                        { title: '移动用户', content: '<iframe src=\"Iframe/MoveUser.aspx?UserID=' + userIDSelected + '\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
+                        { title: '移动用户', content: '<iframe src=\"Iframe/MoveUser.aspx?UserID=' + userIDSelected + '&TeamID=' + teamIDSelected + '\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
                     ]
                 });
                 break;
@@ -402,7 +402,7 @@ function addUserForTeam(userID, teamID, userName, pic) {
 
 function addGroup(groupID, groupName) {
     if ($("[gid='" + groupID + "']").size() == 0) {
-        var html = "<div class='team_item'><div gid='" + groupID + "' class='team_item_info'><img style='margin-top: 3px; src='Image/leftmenu2.png'/><span>" + groupName + "</span></div></div>";
+        var html = "<div class='team_item'><div gid='" + groupID + "' class='team_item_info'><img src='Image/leftmenu2.png' style='margin-top: 3px;' /><span>" + groupName + "</span></div></div>";
         $("#GroupListDIV").append(html);
     }
 }

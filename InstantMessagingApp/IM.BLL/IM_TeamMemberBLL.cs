@@ -74,15 +74,15 @@ namespace IM.BLL
 
         #endregion  BasicMethod
         #region  ExtensionMethod
-        
+
         /// <summary>
         /// 增加一条数据
         /// <param name="sendUser">发送用户</param>
         /// <param name="currUser">当前用户</param>
         /// </summary>
-        public bool AddForSendUser(Guid sendUser,Guid currUser)
+        public bool AddForSendUser(Guid sendUser, Guid currUser)
         {
-            return dal.AddForSendUser(sendUser,currUser);
+            return dal.AddForSendUser(sendUser, currUser);
         }
 
         /// <summary>
@@ -107,11 +107,12 @@ namespace IM.BLL
         /// <summary>
         /// 修改成员组
         /// <param name="teamID">实体</param>
+        /// <param name="oldTeamID">实体</param>
         /// <param name="userID">实体</param>
         /// </summary>
-        public bool Update(Guid teamID, Guid userID)
+        public bool Update(Guid teamID, Guid oldTeamID, Guid userID)
         {
-            return dal.Update(teamID, userID);
+            return dal.Update(teamID, oldTeamID, userID);
         }
         #endregion  ExtensionMethod
     }

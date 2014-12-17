@@ -29,7 +29,7 @@ namespace IM.DAL
                              begin
                                     select -1 as ifCanDo
                                     return
-                             end");
+                             end ");
             strSql.Append("insert into IM_TeamMember(");
             strSql.Append("TeamID,UserID,OrderIndex)");
             strSql.Append(" values (");
@@ -363,19 +363,22 @@ namespace IM.DAL
         /// <summary>
         /// 修改成员组
         /// <param name="teamID">实体</param>
+        /// <param name="oldTeamID">实体</param>
         /// <param name="userID">实体</param>
         /// </summary>
-        public bool Update(Guid teamID, Guid userID)
+        public bool Update(Guid teamID, Guid oldTeamID, Guid userID)
         {
             StringBuilder strSql = new StringBuilder();
             int n = 0;
             strSql.Append("update IM_TeamMember set ");
             strSql.Append("TeamID=@TeamID");
-            strSql.Append(" where UserID=@UserID and TeamID<>@TeamID ");
+            strSql.Append(" where UserID=@UserID and TeamID=@OldTeamID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@TeamID", SqlDbType.UniqueIdentifier,16),
+                    new SqlParameter("@OldTeamID", SqlDbType.UniqueIdentifier,16),
 					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16)};
             parameters[n++].Value = teamID;
+            parameters[n++].Value = oldTeamID;
             parameters[n++].Value = userID;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);

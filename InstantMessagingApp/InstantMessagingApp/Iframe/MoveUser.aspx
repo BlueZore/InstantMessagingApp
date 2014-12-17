@@ -33,6 +33,7 @@
     <form id="form1" runat="server">
         <div class="div_row">
             <asp:HiddenField ID="hidUserID" runat="server" />
+            <asp:HiddenField ID="hidTeamID" runat="server" />
             好友：<asp:Label ID="lbUserName" runat="server"></asp:Label>
             <br />
             移动到：<asp:DropDownList ID="ddlTeam" runat="server" Width="150px"></asp:DropDownList>

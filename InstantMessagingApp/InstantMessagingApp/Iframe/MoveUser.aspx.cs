@@ -17,6 +17,7 @@ namespace InstantMessagingApp
             if (!IsPostBack)
             {
                 hidUserID.Value = Request["UserID"];
+                hidTeamID.Value = Request["TeamID"];
                 lbUserName.Text = new IM_UserBLL().GetModel(new Guid(hidUserID.Value)).UserName;
 
                 QueryBuilder queryBuilder = new QueryBuilder();
@@ -31,7 +32,7 @@ namespace InstantMessagingApp
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (new IM_TeamMemberBLL().Update(new Guid(ddlTeam.SelectedValue), new Guid(hidUserID.Value)))
+            if (new IM_TeamMemberBLL().Update(new Guid(ddlTeam.SelectedValue), new Guid(hidTeamID.Value), new Guid(hidUserID.Value)))
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "JS", "<script>window.onload = function () {window.parent.window.moveUser('" + ddlTeam.SelectedValue + "','" + hidUserID.Value + "');};</script>");
             }

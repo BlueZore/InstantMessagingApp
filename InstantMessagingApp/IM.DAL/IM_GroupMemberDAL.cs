@@ -29,7 +29,7 @@ namespace IM.DAL
                              begin
                                     select -1 as ifCanDo
                                     return
-                             end");
+                             end ");
             strSql.Append("insert into IM_GroupMember(");
             strSql.Append("ID,GroupID,UserID,OrderIndex)");
             strSql.Append(" values (");
