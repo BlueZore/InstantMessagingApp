@@ -29,6 +29,7 @@
             margin-left: 18px;
             margin-top: 19px;
             border: 1px solid #fff;
+            border-radius: 3px;
         }
 
             .userLayer_header_img img {
@@ -79,7 +80,8 @@
                     <asp:Image ID="imgPic" runat="server" />
                 </div>
                 <div class="userLayer_header_font">
-                    <asp:Label runat="server" ID="lbUserName1"></asp:Label></div>
+                    <asp:Label runat="server" ID="lbUserName1"></asp:Label>
+                </div>
             </div>
             <div class="userLayer_body">
                 <table>

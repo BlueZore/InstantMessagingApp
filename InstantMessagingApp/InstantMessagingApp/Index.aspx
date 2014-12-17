@@ -39,6 +39,7 @@
             float: left;
             margin-left: 12px;
             border: 1px solid #fff;
+            border-radius: 3px;
         }
 
         .self_name {
@@ -1028,18 +1029,7 @@
         <asp:HiddenField ID="hidID" runat="server" />
         <asp:HiddenField ID="hidReceiveID" runat="server" Value="6AC2AEED-DB26-4AD5-BEE8-292CEFEA9356" />
 
-        <ul class="warning">
-            <%--<li style="text-decoration: line-through;">加入群</li>--%>
-            <li style="text-decoration: line-through;">1.删除好友价格提示。</li>
-            <li style="text-decoration: line-through;">2.左侧图标加tooltip。</li>
-            <li style="text-decoration: line-through;">3.左侧加一个新闻的图标。</li>
-            <li>5.单开切换用户，接受消息时的cookie处理。</li>
-            <li style="text-decoration: line-through;">6.创建新组后，移动好友。</li>
-            <li style="text-decoration: line-through;">7.点击群名称，下面显示成员名单，右键可以删除成员。</li>
-            <li style="text-decoration: line-through;">9.在人员和群上点右键的菜单项上，加一项详细资料，点击后出现div，里面显示基本信息</li>
-            <li style="text-decoration: line-through;">10.提示框颜色，提示关闭按钮样式</li>
-            <li style="text-decoration: line-through;">11.把好友移动到另一个组，然后，使用该账户再次登陆，发现有重复姓名的。</li>
-        </ul>
+        
 
 
 
