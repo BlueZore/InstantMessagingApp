@@ -14,6 +14,10 @@
             font-family: 'Microsoft YaHei';
         }
 
+        body {
+            background-color: #ebf2fa;
+        }
+
         .div_row {
             margin-left: 5px;
             margin-top: 20px;

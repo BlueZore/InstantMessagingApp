@@ -15,6 +15,10 @@
             padding: 0px;
         }
 
+        body {
+            background-color: #ebf2fa;
+        }
+
         .talk_re_note {
             width: 267px;
             background-color: #ffffff;

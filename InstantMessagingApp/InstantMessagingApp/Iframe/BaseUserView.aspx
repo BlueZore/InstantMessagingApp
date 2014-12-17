@@ -12,6 +12,10 @@
             padding: 0px;
         }
 
+        body {
+            background-color: #ebf2fa;
+        }
+
         .userlayer {
             width: 300px;
             height: 220px;

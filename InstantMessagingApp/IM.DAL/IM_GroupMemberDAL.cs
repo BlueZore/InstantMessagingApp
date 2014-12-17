@@ -25,6 +25,11 @@ namespace IM.DAL
         {
             StringBuilder strSql = new StringBuilder();
             int n = 0;
+            strSql.Append(@"if exists(select 1 from IM_GroupMember where UserID=@UserID and GroupID=@GroupID)
+                             begin
+                                    select -1 as ifCanDo
+                                    return
+                             end");
             strSql.Append("insert into IM_GroupMember(");
             strSql.Append("ID,GroupID,UserID,OrderIndex)");
             strSql.Append(" values (");

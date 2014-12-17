@@ -11,6 +11,11 @@
     <script src="../JS/zTree/jquery-1.4.4.min.js"></script>
     <script src="/JS/zTree/jquery.ztree.core-3.5.min.js"></script>
     <script src="/JS/zTree/Tree001.js"></script>
+    <style>
+        body {
+            background-color: #ebf2fa;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">

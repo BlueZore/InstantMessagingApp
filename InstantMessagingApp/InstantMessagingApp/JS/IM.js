@@ -4,10 +4,10 @@
         layer.tab({
             area: ['520px', '300px'],
             data: [
-                { title: '添加好友', content: '<iframe src=\"Iframe/AddUser.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' },
-                { title: '添加群', content: '<iframe src=\"Iframe/AddGroup.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' },
-                { title: '新建组', content: '<iframe src=\"Iframe/NewTeam.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' },
-                { title: '新建群', content: '<iframe src=\"Iframe/GroupView.aspx\" frameborder=\"no\" width=\"100%\" height=\"270px\" />' }
+                { title: '添加好友', content: '<iframe src=\"Iframe/AddUser.aspx\" frameborder=\"no\" width=\"100%\" height=\"260px\" />' },
+                { title: '添加群', content: '<iframe src=\"Iframe/AddGroup.aspx\" frameborder=\"no\" width=\"100%\" height=\"260px\" />' },
+                { title: '新建组', content: '<iframe src=\"Iframe/NewTeam.aspx\" frameborder=\"no\" width=\"100%\" height=\"260px\" />' },
+                { title: '新建群', content: '<iframe src=\"Iframe/GroupView.aspx\" frameborder=\"no\" width=\"100%\" height=\"260px\" />' }
             ]
         });
     });
@@ -213,6 +213,7 @@
                         { title: '聊天记录', content: '<iframe src=\"Iframe/TalkRecView.aspx\" frameborder=\"no\" width=\"100%\" height=\"330px\" />' }
                     ]
                 });
+                break;
             case 3:
                 layer.tab({
                     area: ['500px', '340px'],
@@ -393,18 +394,24 @@ function getUserAboutNews() {
 }
 
 function addUserForTeam(userID, teamID, userName, pic) {
-    var html = "<li uid='" + userID + "'><img width='17px' height='17' src='/UpLoadFiles" + pic + "'><span>" + userName + "</span></li>";
-    $("[tid='" + teamID + "']").next().append(html);
+    if ($("[uid='" + userID + "']").size() == 0) {
+        var html = "<li uid='" + userID + "'><img width='17px' height='17' src='/UpLoadFiles" + pic + "'><span>" + userName + "</span></li>";
+        $("[tid='" + teamID + "']").next().append(html);
+    }
 }
 
 function addGroup(groupID, groupName) {
-    var html = "<div class='team_item'><div gid='" + groupID + "' class='team_item_info'><span>" + groupName + "</span></div></div>";
-    $("#GroupListDIV").append(html);
+    if ($("[gid='" + groupID + "']").size() == 0) {
+        var html = "<div class='team_item'><div gid='" + groupID + "' class='team_item_info'><img style='margin-top: 3px; src='Image/leftmenu2.png'/><span>" + groupName + "</span></div></div>";
+        $("#GroupListDIV").append(html);
+    }
 }
 
 function addTeam(teamID, teamName) {
-    var html = "<div class='team_item'><div tid='" + teamID + "' class='team_item_info'><img src='/Image/sanjian.png'><span>" + teamName + "</span></div><ul class='team_user'></ul></div>";
-    $("#TeamListDIV").append(html);
+    if ($("[tid='" + teamID + "']").size() == 0) {
+        var html = "<div class='team_item'><div tid='" + teamID + "' class='team_item_info'><img src='/Image/sanjian.png'><span>" + teamName + "</span></div><ul class='team_user'></ul></div>";
+        $("#TeamListDIV").append(html);
+    }
 }
 
 function moveUser(teamID, userID) {

@@ -44,29 +44,31 @@
 }
 
 .xubox_layer .xubox_tabtit {
-    display: block;
-    height: 34px;
+    background-color: #278cde;
     border-bottom: 1px solid #ccc;
-    background-color: #eee;
+    color: #fff;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    height: 34px;
 }
 
     .xubox_layer .xubox_tabtit span {
-        position: relative;
+        cursor: default;
         float: left;
-        width: 120px;
         height: 34px;
         line-height: 34px;
+        position: relative;
         text-align: center;
-        cursor: default;
+        width: 120px;
     }
 
         .xubox_layer .xubox_tabtit span.xubox_tabnow {
-            left: -1px;
-            _top: 1px;
-            height: 35px;
+            background-color: #ebf2fa;
             border-left: 1px solid #ccc;
             border-right: 1px solid #ccc;
-            background-color: #fff;
+            color: #2a2b2d;
+            height: 35px;
             z-index: 10;
         }
 
@@ -83,15 +85,20 @@
             display: block;
         }
 
+        .xubox_tab_main{
+            background-color: #ebf2fa;
+        }
+
 .xubox_tab_main li {
     list-style: none;
 }
 
 .xubox_layer .xubox_tabclose {
+    color: #fff;
+    cursor: pointer;
     position: absolute;
     right: 10px;
     top: 5px;
-    cursor: pointer;
 }
 
 /* photo模式 */
