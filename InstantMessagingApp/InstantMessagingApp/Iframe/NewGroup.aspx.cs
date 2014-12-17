@@ -30,6 +30,8 @@ namespace InstantMessagingApp
             new IM_GroupMemberBLL().Add(groupMemberModel);
             txtGroupName.Text = string.Empty;
             lbError.Text = "完成添加";
+
+            ClientScript.RegisterStartupScript(this.GetType(), "JS", "<script>window.onload = function () {window.parent.window.addGroup('" + groupModel.ID + "','" + groupModel.GroupName + "');};</script>");
         }
 
         protected void btnReturn_Click(object sender, EventArgs e)

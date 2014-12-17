@@ -91,6 +91,16 @@ namespace IM.BLL
         {
             return dal.GetListForMenber(userID, groupID);
         }
+
+        /// <summary>
+        /// 删除成员
+        /// <param name="userID">userID</param>
+        /// <param name="groupID">groupID</param>
+        /// </summary>
+        public bool Delete(Guid userID, Guid groupID)
+        {
+            return dal.Delete(userID, groupID);
+        }
         #endregion  ExtensionMethod
     }
 }

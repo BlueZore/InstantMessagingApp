@@ -16,9 +16,24 @@ namespace InstantMessagingApp
         {
             if (!IsPostBack)
             {
-                gv.DataSource = new IM_GroupMemberBLL().GetListForMenber(userInfo.UserID, new Guid(Request["GroupID"]));
-                gv.DataBind();
+                hidAdmin.Value = new IM_GroupBLL().GetModel(new Guid(Request["GroupID"])).UserID.ToString();
+                Bind();
             }
+        }
+
+        void Bind()
+        {
+            gv.DataSource = new IM_GroupMemberBLL().GetListForMenber(userInfo.UserID, new Guid(Request["GroupID"]));
+            gv.DataBind();
+        }
+
+        protected void gv_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            new IM_GroupMemberBLL().Delete(new Guid(e.CommandArgument.ToString()), new Guid(Request["GroupID"]));
+
+            lbError.Text = "删除成功";
+
+            Bind();
         }
     }
 }

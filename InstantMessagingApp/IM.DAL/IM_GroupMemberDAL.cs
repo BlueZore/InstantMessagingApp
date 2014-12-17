@@ -340,6 +340,35 @@ on [IM_GroupMember].UserID=[IM_User].ID
             return list;
         }
 
+
+        /// <summary>
+        /// 删除成员
+        /// <param name="userID">userID</param>
+        /// <param name="groupID">groupID</param>
+        /// </summary>
+        public bool Delete(Guid userID, Guid groupID)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from IM_GroupMember ");
+            strSql.Append(" where UserID=@UserID and GroupID=@GourpID");
+            SqlParameter[] parameters = {
+					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16),
+                    new SqlParameter("@GourpID", SqlDbType.UniqueIdentifier,16)};
+            parameters[0].Value = userID;
+            parameters[1].Value = groupID;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion  ExtensionMethod
     }
 }

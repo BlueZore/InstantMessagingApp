@@ -38,6 +38,7 @@
             height: 43px;
             float: left;
             margin-left: 12px;
+            border: 1px solid #fff;
         }
 
         .self_name {
@@ -373,7 +374,7 @@
                 height: 25px;
                 line-height: 25px;
                 font-size: 14px;
-                border-bottom:1px solid #c9c9c9;
+                border-bottom: 1px solid #c9c9c9;
             }
 
                 #ULLayer li.header b {
@@ -401,7 +402,7 @@
                 height: 25px;
                 line-height: 25px;
                 text-align: right;
-                border-top:1px solid #c9c9c9;
+                border-top: 1px solid #c9c9c9;
             }
 
                 #ULLayer li.footer a {
@@ -492,7 +493,7 @@
 
             //用户组菜单
             $("#TeamListDIV .team_user:eq(0)").show();
-            $("#TeamListDIV,#GroupListDIV").delegate(".team_item_info", "click", function () {
+            $("#TeamListDIV").delegate(".team_item_info", "click", function () {
                 $(".team .team_user").hide();
                 $(".team .team_item_info img").attr("src", "/Image/sanjian.png");
                 $(this).next().show();
@@ -504,28 +505,48 @@
             $("#TeamListDIV,#FoundListDIV").delegate("li", "dblclick", function () {
                 //窗口
                 $("#talk>div").hide();//talkType='1'单聊
+                $(".talktab li").removeClass("talktab_li_selected");
+
+                if ($("[talkID='" + $(this).attr("uID") + "']").size() > 0) {//查看是否已存在窗口
+                    $("[talkID='" + $(this).attr("uID") + "']").show();
+                    $("[talkTabID='" + $(this).attr("uID") + "']").addClass("talktab_li_selected");
+                    $("#talk,.uploadify").show();
+
+                    return;
+                }
+
                 var html = "<div class='talk' talkID='" + $(this).attr("uID") + "' talkType='1'><div class='talk_re_note'></div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
-                $("#talk").html($("#talk").html() + html);
+                $("#talk").append(html);
                 $("#talk,.uploadify").show();
 
                 //页签
-                $(".talktab li").removeClass("talktab_li_selected");
-                html = "<li class='talktab_li_selected' talkTabID='" + $(this).attr("uID") + "'>" + $(this).find("span").html() + "</li>";
-                $(".talktab").html($(".talktab").html() + html);
+                var tabValue = $(this).find("span").html();
+                html = "<li class='talktab_li_selected' talkTabID='" + $(this).attr("uID") + "'>" + (tabValue.length > 3 ? tabValue.substring(0, 3) : tabValue) + "</li>";
+                $(".talktab").append(html);
             });
 
             //显示群聊窗口
             $("#GroupListDIV").delegate(".team_item_info", "dblclick", function () {
                 //窗口
                 $("#talk>div").hide();//talkType='2'群聊
+                $(".talktab li").removeClass("talktab_li_selected");
+
+                if ($("[talkID='" + $(this).attr("gID") + "']").size() > 0) {//查看是否已存在窗口
+                    $("[talkID='" + $(this).attr("gID") + "']").show();
+                    $("[talkTabID='" + $(this).attr("gID") + "']").addClass("talktab_li_selected");
+                    $("#talk,.uploadify").show();
+
+                    return;
+                }
+
                 var html = "<div class='talk' talkID='" + $(this).attr("gID") + "' talkType='2'><div class='talk_re_note'></div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
-                $("#talk").html($("#talk").html() + html);
+                $("#talk").append(html);
                 $("#talk,.uploadify").show();
 
                 //页签
-                $(".talktab li").removeClass("talktab_li_selected");
-                html = "<li class='talktab_li_selected' talkTabID='" + $(this).attr("gID") + "'>" + $(this).find("span").html() + "</li>";
-                $(".talktab").html($(".talktab").html() + html);
+                var tabValue = $(this).find("span").html();
+                html = "<li class='talktab_li_selected' talkTabID='" + $(this).attr("gID") + "'>" + (tabValue.length > 3 ? tabValue.substring(0, 3) : tabValue) + "</li>";
+                $(".talktab").append(html);
             });
 
             //页签切换控制显示聊天窗口
@@ -711,8 +732,8 @@
                     //获取序号
                     userIDSelected = $(this).attr("uid");
                     teamIDSelected = $(this).parents().prev().attr("tid");
-                    $(".fm_main_menu").css({ "margin-top": e.clientY - 5, "margin-left": e.clientX - 5, "height": 52 }).show();
-                    $(".fm_main_menu").html("<li><a>移动</a></li><li><a>删除</a></li>");
+                    $(".fm_main_menu").css({ "margin-top": e.clientY - 5, "margin-left": e.clientX - 5, "height": 78 }).show();
+                    $(".fm_main_menu").html("<li><a>移动</a></li><li><a>删除</a></li><li><a>好友信息</a></li>");
                 }
                 return false;
             });
@@ -757,6 +778,16 @@
                         }
                     });
                 }
+            });
+
+            //好友信息
+            $(".fm_main_menu").delegate("li:eq(2)", "click", function (e) {
+                layer.tab({
+                    area: ['300px', '220px'],
+                    data: [
+                        { title: '好友信息', content: '<iframe src=\"Iframe/BaseUserView.aspx?UserID=' + userIDSelected + '\" frameborder=\"no\" width=\"100%\" height=\"220px\" />' }
+                    ]
+                });
             });
 
             var groupIDSelected = "";
@@ -1004,11 +1035,17 @@
             <li style="text-decoration: line-through;">3.左侧加一个新闻的图标。</li>
             <li>5.单开切换用户，接受消息时的cookie处理。</li>
             <li style="text-decoration: line-through;">6.创建新组后，移动好友。</li>
-            <li>7.点击群名称，下面显示成员名单，右键可以删除成员。</li>
-            <li>9.在人员和群上点右键的菜单项上，加一项详细资料，点击后出现div，里面显示基本信息</li>
+            <li style="text-decoration: line-through;">7.点击群名称，下面显示成员名单，右键可以删除成员。</li>
+            <li style="text-decoration: line-through;">9.在人员和群上点右键的菜单项上，加一项详细资料，点击后出现div，里面显示基本信息</li>
             <li style="text-decoration: line-through;">10.提示框颜色，提示关闭按钮样式</li>
             <li style="text-decoration: line-through;">11.把好友移动到另一个组，然后，使用该账户再次登陆，发现有重复姓名的。</li>
         </ul>
+
+
+
+        
+
+        
     </form>
 </body>
 </html>

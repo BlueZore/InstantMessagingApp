@@ -75,6 +75,7 @@
     <Content Include="Iframe\AboutUsView.aspx" />
     <Content Include="Iframe\AddGroup.aspx" />
     <Content Include="Iframe\AddUser.aspx" />
+    <Content Include="Iframe\BaseUserView.aspx" />
     <Content Include="Iframe\ConfirmGroup.aspx" />
     <Content Include="Iframe\ConfirmUser.aspx" />
     <Content Include="Iframe\GroupMemberView.aspx" />
@@ -90,6 +91,7 @@
     <Content Include="Image\leftmenu4.png" />
     <Content Include="Image\tab3.png" />
     <Content Include="Image\upload.png" />
+    <Content Include="Image\userbg.jpg" />
     <Content Include="JS\jquery-1.11.1.js" />
     <Content Include="JS\jquery-1.11.1.min.js" />
     <Content Include="JS\layer\extend\layer.ext.js" />
@@ -166,7 +168,6 @@
     <Content Include="Image\userpic2.png" />
     <Content Include="Index.aspx" />
     <Content Include="InitData.aspx" />
-    <Content Include="MessagingWebService.asmx" />
     <Content Include="UpLoadFiles\UserPic\2014111519071258.jpg" />
     <Content Include="UpLoadFiles\UserPic\2014111519071523.jpg" />
     <Content Include="UpLoadFiles\UserPic\2014111519075976.jpg" />
@@ -211,6 +212,13 @@
     </Compile>
     <Compile Include="Iframe\AddUser.aspx.designer.cs">
       <DependentUpon>AddUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Iframe\BaseUserView.aspx.cs">
+      <DependentUpon>BaseUserView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Iframe\BaseUserView.aspx.designer.cs">
+      <DependentUpon>BaseUserView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Iframe\ConfirmGroup.aspx.cs">
       <DependentUpon>ConfirmGroup.aspx</DependentUpon>
@@ -295,10 +303,6 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MessagingWebService.asmx.cs">
-      <DependentUpon>MessagingWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

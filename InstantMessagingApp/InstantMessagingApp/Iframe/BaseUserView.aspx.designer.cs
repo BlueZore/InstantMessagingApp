@@ -10,7 +10,7 @@
 namespace InstantMessagingApp {
     
     
-    public partial class GroupMemberView {
+    public partial class BaseUserView {
         
         /// <summary>
         /// form1 控件。
@@ -22,30 +22,30 @@ namespace InstantMessagingApp {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// hidAdmin 控件。
+        /// imgPic 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidAdmin;
+        protected global::System.Web.UI.WebControls.Image imgPic;
         
         /// <summary>
-        /// lbError 控件。
+        /// lbUserName1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbError;
+        protected global::System.Web.UI.WebControls.Label lbUserName1;
         
         /// <summary>
-        /// gv 控件。
+        /// lbUserName2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gv;
+        protected global::System.Web.UI.WebControls.Label lbUserName2;
     }
 }
