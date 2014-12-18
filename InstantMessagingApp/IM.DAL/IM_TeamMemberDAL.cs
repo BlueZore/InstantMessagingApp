@@ -242,8 +242,12 @@ namespace IM.DAL
             StringBuilder strSql = new StringBuilder();
             int n = 0;
             strSql.Append(" declare @TeamID uniqueidentifier ");
-
             strSql.Append(" select top 1 @TeamID=ID from [dbo].[IM_Team] where UserID=@SendUser order by CreateDate asc ");
+            strSql.Append(@" if exists(select 1 from IM_TeamMember where UserID=@CurrUser and TeamID=@TeamID)
+                             begin
+                                    select -1 as ifCanDo
+                                    return
+                             end ");
             strSql.Append(" insert into IM_TeamMember(");
             strSql.Append("TeamID,UserID)");
             strSql.Append(" values (");
