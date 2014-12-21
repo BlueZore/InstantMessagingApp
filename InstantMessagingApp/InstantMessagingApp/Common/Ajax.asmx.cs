@@ -6,7 +6,6 @@ using System.Web.Services;
 using IM.BLL;
 using IM.Model;
 using XSAT.Lib2014.System.Data;
-using Newtonsoft.Json;
 
 namespace InstantMessagingApp
 {
@@ -48,6 +47,7 @@ namespace InstantMessagingApp
                 jsonItem += ",SendUserID:'" + newsModel.SendUserID + "'";
                 jsonItem += ",ReceiveUserID:'" + newsModel.ReceiveUserID + "'";
                 jsonItem += ",BusinessType:'" + (newsModel.BusinessType == 3 ? 2 : newsModel.BusinessType) + "'";//修改加入群
+                jsonItem += ",BusinessID:'" + newsModel.BusinessID + "'";
                 jsonItem += ",Note:'" + newsModel.Note + "'";
                 jsonItem += "}";
             }
@@ -227,6 +227,42 @@ namespace InstantMessagingApp
         public string DeleteUser(string userID, string teamID)
         {
             return new IM_TeamMemberBLL().Delete(new Guid(userID), new Guid(teamID)) ? "1" : "0";
+        }
+
+        /// <summary>
+        /// 删除群
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string DeleteGroup(string userID, string groupID)
+        {
+            IM_GroupBLL groupBLL = new IM_GroupBLL();
+            IM_GroupInfo groupModel = groupBLL.GetModel(new Guid(groupID));
+            if (groupModel.UserID.ToString() == userID)
+            {
+                List<IM_GroupMemberInfo> groupMemberList = new IM_GroupMemberBLL().GetListAllMenberForUser(new Guid(userID));
+
+
+                if (groupBLL.DeleteForGroup(new Guid(groupID)))
+                {
+                    foreach (IM_GroupMemberInfo groupMemberModel in groupMemberList)
+                    {
+                        //对方通过信息添加群
+                        IM_NewsInfo newModel = new IM_NewsInfo();
+                        newModel.SendUserID = groupModel.ID;
+                        newModel.ReceiveUserID = groupMemberModel.UserID;
+                        newModel.BusinessType = 6;
+                        newModel.BusinessID = "";
+                        newModel.Note = "\"" + groupModel.GroupName + "\"群解散";
+                        newModel.State = 0;
+                        new IM_NewsBLL().Add(newModel);
+                    }
+                    return "1";
+                }
+
+            }
+            return "0";
         }
     }
 }

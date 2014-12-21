@@ -15,8 +15,8 @@
     //用户组菜单
     $("#TeamListDIV .team_user:eq(0)").show();
     $("#TeamListDIV").delegate(".team_item_info", "click", function () {
-        $(".team .team_user").hide();
-        $(".team .team_item_info img").attr("src", "/Image/sanjian.png");
+        $("#TeamListDIV .team_user").hide();
+        $("#TeamListDIV .team_item_info img").attr("src", "/Image/sanjian.png");
         $(this).next().show();
         $(this).find("img").attr("src", "/Image/sanjian2.png");
         return false;
@@ -285,20 +285,41 @@
 
     //删除好友
     $(".fm_main_menu").delegate("li:eq(1)", "click", function (e) {
-        if (confirm("确定删除？")) {
-            $.ajax({
-                type: "post",
-                contentType: "application/json",
-                url: "/Common/Ajax.asmx/DeleteUser",
-                data: "{userID:'" + userIDSelected + "',teamID:'" + teamIDSelected + "'}",
-                dataType: "json",
-                success: function (result) {
-                    if (result.d == "1") {
-                        $("[uid='" + userIDSelected + "']").remove();
-                        $(".fm_main_menu").hide();
-                    }
+        switch ($(this).find("a").html()) {
+            case "删除":
+                if (confirm("确定删除？")) {
+                    $.ajax({
+                        type: "post",
+                        contentType: "application/json",
+                        url: "/Common/Ajax.asmx/DeleteUser",
+                        data: "{userID:'" + userIDSelected + "',teamID:'" + teamIDSelected + "'}",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.d == "1") {
+                                $("[uid='" + userIDSelected + "']").remove();
+                                $(".fm_main_menu").hide();
+                            }
+                        }
+                    });
                 }
-            });
+                break;
+            case "解散群":
+                if (confirm("确定解散群？")) {
+                    $.ajax({
+                        type: "post",
+                        contentType: "application/json",
+                        url: "/Common/Ajax.asmx/DeleteGroup",
+                        data: "{userID:'" + $("#hidID").val() + "',groupID:'" + groupIDSelected + "'}",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.d == "1") {
+                                $("[gid='" + groupIDSelected + "']").remove();
+                                $(".fm_main_menu").hide();
+                            }
+                        }
+                    });
+                }
+                break;
         }
     });
 
@@ -320,6 +341,10 @@
             groupIDSelected = $(this).attr("gid");
             $(".fm_main_menu").css({ "margin-top": e.clientY - 5, "margin-left": e.clientX - 5, "height": 26 }).show();
             $(".fm_main_menu").html("<li><a>查看成员</a></li>");
+            if ($(this).attr("isSelf")) {
+                $(".fm_main_menu").append("<li><a>解散群</a></li>");
+                $(".fm_main_menu").css({ "margin-top": e.clientY - 5, "margin-left": e.clientX - 5, "height": 52 }).show();
+            }
         }
         return false;
     });
@@ -346,7 +371,40 @@ function getUserAboutNews() {
                 var newsList = eval(result.d)[0].NewsList;
                 var html = "";
                 for (var i = 0; i < newsList.length; i++) {
-                    html += "<ul class='ULLayer' newID='" + newsList[i].ID + "' sendID='" + newsList[i].SendUserID + "' BusinessType='" + newsList[i].BusinessType + "'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>" + newsList[i].Note + "，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
+                    switch (parseInt(newsList[i].BusinessType)) {
+                        case 4://对方通过成为好友
+                            if ($("[uid='" + newsList[i].SendUserID + "']").size() == 0) {
+                                $("#TeamListDIV .team_user:eq(0)").append("<li uid='" + newsList[i].SendUserID + "'><img width='17px' height='17' src='/UpLoadFiles" + newsList[i].Note + "'><span>" + newsList[i].BusinessID + "</span></li>");
+                                //提示
+                                html += "<ul class='ULLayer'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>" + "\"" + newsList[i].BusinessID + "\"通过申请！</li><li class='footer'></li></ul>";
+                            }
+                            break;
+                        case 5://对方通过加入群
+                            if ($("[gid='" + newsList[i].SendUserID + "']").size() == 0) {
+                                $("#GroupListDIV").append("<div class='team_item'><div gid='" + newsList[i].SendUserID + "' class='team_item_info'><img src='Image/leftmenu2.png' style='margin-top: 3px;' /><span>" + newsList[i].Note + "</span></div></div>");
+                                //提示
+                                html += "<ul class='ULLayer'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>" + "\"" + newsList[i].Note + "\"通过申请！</li><li class='footer'></li></ul>";
+                            }
+                            break;
+                        case 6://群解散
+                            if ($("[gid='" + newsList[i].SendUserID + "']").size() > 0) {
+                                $("[gid='" + newsList[i].SendUserID + "']").remove();
+
+                                html += "<ul class='ULLayer'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>" + newsList[i].Note + "</li><li class='footer'></li></ul>";
+                            }
+                            break;
+                        case 7://提出群
+                            if ($("[gid='" + newsList[i].SendUserID + "']").size() > 0) {
+                                $("[gid='" + newsList[i].SendUserID + "']").remove();
+
+                                html += "<ul class='ULLayer'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>" + newsList[i].Note + "</li><li class='footer'></li></ul>";
+                            }
+                            break;
+                        default:
+                            html += "<ul class='ULLayer' newID='" + newsList[i].ID + "' sendID='" + newsList[i].SendUserID + "' BusinessType='" + newsList[i].BusinessType + "'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>" + newsList[i].Note + "，需要您的处理！</li><li class='footer'><a>查看</a></li></ul>";
+                            break;
+                    }
+
                 }
                 if (html.length > 0) {
                     $("#ULLayer").html($("#ULLayer").html() + html);
@@ -400,9 +458,9 @@ function addUserForTeam(userID, teamID, userName, pic) {
     }
 }
 
-function addGroup(groupID, groupName) {
+function addGroup(groupID, groupName, isSelf) {
     if ($("[gid='" + groupID + "']").size() == 0) {
-        var html = "<div class='team_item'><div gid='" + groupID + "' class='team_item_info'><img src='Image/leftmenu2.png' style='margin-top: 3px;' /><span>" + groupName + "</span></div></div>";
+        var html = "<div class='team_item'><div gid='" + groupID + "' class='team_item_info' " + isSelf + "><img src='Image/leftmenu2.png' style='margin-top: 3px;' /><span>" + groupName + "</span></div></div>";
         $("#GroupListDIV").append(html);
     }
 }

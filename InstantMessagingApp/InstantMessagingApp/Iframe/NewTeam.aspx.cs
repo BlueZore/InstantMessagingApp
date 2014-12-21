@@ -18,6 +18,12 @@ namespace InstantMessagingApp
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
+            if (txtTeamName.Text.Trim().Length == 0)
+            {
+                lbError.Text = "组名不能为空";
+                return;
+            }
+
             IM_TeamInfo teamModel = new IM_TeamInfo();
             teamModel.ID = Guid.NewGuid();
             teamModel.TeamName = txtTeamName.Text;

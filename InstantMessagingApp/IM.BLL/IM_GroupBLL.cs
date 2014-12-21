@@ -91,6 +91,15 @@ namespace IM.BLL
         {
             return dal.GetListForNoAddGroup(userID, groupName);
         }
+
+        /// <summary>
+        /// 删除一条数据
+        /// <param name="ID">ID</param>
+        /// </summary>
+        public bool DeleteForGroup(Guid ID)
+        {
+            return dal.DeleteForGroup(ID);
+        }
         #endregion  ExtensionMethod
     }
 }

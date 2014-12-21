@@ -54,6 +54,7 @@ namespace InstantMessagingApp
                     UserInfo ui = new UserInfo();
                     ui.UserID = userModel.ID;
                     ui.UserName = userModel.UserName;
+                    ui.Pic = userModel.Pic;
                     userInfo = ui;
                     Session[CookieName] = ui;
                     return true;
@@ -74,6 +75,12 @@ namespace InstantMessagingApp
         }
 
         public string UserName
+        {
+            get;
+            set;
+        }
+
+        public string Pic
         {
             get;
             set;

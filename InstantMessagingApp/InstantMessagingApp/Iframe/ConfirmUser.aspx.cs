@@ -53,7 +53,19 @@ namespace InstantMessagingApp
 
             IM_UserInfo userModel = new IM_UserBLL().GetModel(newModel.SendUserID);
 
+
             ClientScript.RegisterStartupScript(this.GetType(), "JS", "<script>window.onload = function () { window.parent.window.addUserForTeam('" + newModel.SendUserID.ToString() + "','" + ddlTeam.SelectedValue + "','" + userModel.UserName + "','" + (string.IsNullOrEmpty(userModel.Pic) ? "/UserPic/default.jpg" : userModel.Pic) + "');};</script>");
+
+
+            //对方通过信息添加
+            newModel = new IM_NewsInfo();
+            newModel.SendUserID = userInfo.UserID;
+            newModel.ReceiveUserID = userModel.ID;
+            newModel.BusinessType = 4;
+            newModel.BusinessID = userInfo.UserName;
+            newModel.Note = string.IsNullOrEmpty(userInfo.Pic) ? "/UserPic/default.jpg" : userInfo.Pic;
+            newModel.State = 0;
+            new IM_NewsBLL().Add(newModel);
         }
 
         protected void btnReject_Click(object sender, EventArgs e)

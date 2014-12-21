@@ -49,6 +49,9 @@
                         <li title="新闻">
                             <img src="Image/leftmenu4.png" />
                         </li>
+                        <li title="支付">
+                            <img src="Image/leftmenu5.png" />
+                        </li>
                     </ul>
                     <div class="left_user">
                         <div class="searchadd">

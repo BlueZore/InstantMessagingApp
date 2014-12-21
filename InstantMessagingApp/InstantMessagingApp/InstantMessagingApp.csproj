@@ -13,12 +13,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>InstantMessagingApp</RootNamespace>
     <AssemblyName>InstantMessagingApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,29 +42,33 @@
     <Reference Include="AspNetPager">
       <HintPath>..\..\DLL\AspNetPager.dll</HintPath>
     </Reference>
+    <Reference Include="IM.BLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\IM.BLL\bin\Debug\IM.BLL.dll</HintPath>
+    </Reference>
+    <Reference Include="IM.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\IM.BLL\bin\Debug\IM.Model.dll</HintPath>
+    </Reference>
     <Reference Include="LitJson">
       <HintPath>..\..\DLL\LitJson.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="XSAT.Lib2014.System">
       <HintPath>..\IM.BLL\bin\Debug\XSAT.Lib2014.System.dll</HintPath>
     </Reference>
@@ -90,6 +95,7 @@
     <Content Include="Image\error.jpg" />
     <Content Include="Image\leftmenu3.png" />
     <Content Include="Image\leftmenu4.png" />
+    <Content Include="Image\leftmenu5.png" />
     <Content Include="Image\tab3.png" />
     <Content Include="Image\upload.png" />
     <Content Include="Image\userbg.jpg" />
@@ -137,6 +143,7 @@
     <Content Include="packages.config" />
     <Content Include="JS\uploadify\Uploadify 3.2 参数.docx" />
     <Content Include="Common\UploadHandler.ashx" />
+    <None Include="Properties\PublishProfiles\IMApp.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -174,7 +181,9 @@
     <Content Include="UpLoadFiles\UserPic\2014111519071523.jpg" />
     <Content Include="UpLoadFiles\UserPic\2014111519075976.jpg" />
     <Content Include="UpLoadFiles\UserPic\default.jpg" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Ajax.asmx.cs">
@@ -310,20 +319,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UpLoadFiles\Files\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IM.BLL\IM.BLL.csproj">
-      <Project>{502b7766-a0b4-4db9-a11b-b7aa9414fa4d}</Project>
-      <Name>IM.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IM.DAL\IM.DAL.csproj">
-      <Project>{6256bde7-9d3f-4c05-a4f9-579342f219c4}</Project>
-      <Name>IM.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IM.Model\IM.Model.csproj">
-      <Project>{d6c2bf18-1c0f-4b90-a614-cd7731c43b39}</Project>
-      <Name>IM.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -11,7 +11,7 @@
         fileTypeExts: '*.jpg;*.jpge;*.gif;*.png;*.docx;*.doc;*.rar;*.xlsx;*.xls;*.zip;*.txt;*.pdf',
         formData: { 'ReceiveID': $("#hidReceiveID").val(), 'UserID': $("#hidID").val(), 'Type': 1 },
         removeTimeout: 10,
-        fileSizeLimit: '500MB',
+        fileSizeLimit: '2MB',
         removeCompleted: true,
         width: 96,
         height: 28,

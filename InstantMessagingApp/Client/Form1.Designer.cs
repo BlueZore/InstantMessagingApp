@@ -56,7 +56,7 @@
             this.chromeWebBrowser1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.chromeWebBrowser1.Location = new System.Drawing.Point(2, 33);
             this.chromeWebBrowser1.Name = "chromeWebBrowser1";
-            this.chromeWebBrowser1.Size = new System.Drawing.Size(627, 438);
+            this.chromeWebBrowser1.Size = new System.Drawing.Size(627, 464);
             this.chromeWebBrowser1.TabIndex = 2;
             this.chromeWebBrowser1.Load += new System.EventHandler(this.Form1_Load);
             // 
@@ -64,7 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 470);
+            this.ClientSize = new System.Drawing.Size(631, 498);
             this.Controls.Add(this.chromeWebBrowser1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);

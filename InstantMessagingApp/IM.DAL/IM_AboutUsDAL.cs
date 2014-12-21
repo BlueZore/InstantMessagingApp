@@ -5,15 +5,14 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using XSAT.Lib2014.System.Data;//Please add references
 using IM.Model;
-
 namespace IM.DAL
 {
     /// <summary>
-    /// 数据访问类:IM_GroupDAL
+    /// 数据访问类:IM_AboutUsDAL
     /// </summary>
-    public partial class IM_GroupDAL
+    public partial class IM_AboutUsDAL
     {
-        public IM_GroupDAL()
+        public IM_AboutUsDAL()
         { }
         #region  BasicMethod
 
@@ -21,23 +20,25 @@ namespace IM.DAL
         /// 增加一条数据
         /// <param name="model">实体</param>
         /// </summary>
-        public bool Add(IM_GroupInfo model)
+        public bool Add(IM_AboutUsInfo model)
         {
             StringBuilder strSql = new StringBuilder();
             int n = 0;
-            strSql.Append("insert into IM_Group(");
-            strSql.Append("ID,UserID,GroupName,OrderIndex)");
+            strSql.Append("insert into IM_AboutUs(");
+            strSql.Append("ID,Title,Note,IsDelete,CreateDate)");
             strSql.Append(" values (");
-            strSql.Append("@ID,@UserID,@GroupName,@OrderIndex)");
+            strSql.Append("@ID,@Title,@Note,@IsDelete,@CreateDate)");
             SqlParameter[] parameters = {
-                    new SqlParameter("@ID", SqlDbType.UniqueIdentifier,16),
-					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16),
-					new SqlParameter("@GroupName", SqlDbType.NVarChar,50),
-					new SqlParameter("@OrderIndex", SqlDbType.Int,4)};
-            parameters[n++].Value = model.ID;
-            parameters[n++].Value = model.UserID;
-            parameters[n++].Value = model.GroupName;
-            parameters[n++].Value = model.OrderIndex;
+					new SqlParameter("@ID", SqlDbType.UniqueIdentifier,16),
+					new SqlParameter("@Title", SqlDbType.NVarChar,100),
+					new SqlParameter("@Note", SqlDbType.NVarChar),
+					new SqlParameter("@IsDelete", SqlDbType.Int,4),
+					new SqlParameter("@CreateDate", SqlDbType.DateTime)};
+            parameters[n++].Value = Guid.NewGuid();
+            parameters[n++].Value = model.Title;
+            parameters[n++].Value = model.Note;
+            parameters[n++].Value = model.IsDelete;
+            parameters[n++].Value = model.CreateDate;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -53,25 +54,25 @@ namespace IM.DAL
         /// 更新一条数据
         /// <param name="model">实体</param>
         /// </summary>
-        public bool Update(IM_GroupInfo model)
+        public bool Update(IM_AboutUsInfo model)
         {
             StringBuilder strSql = new StringBuilder();
             int n = 0;
-            strSql.Append("update IM_Group set ");
-            strSql.Append("UserID=@UserID,");
-            strSql.Append("GroupName=@GroupName,");
-            strSql.Append("OrderIndex=@OrderIndex,");
+            strSql.Append("update IM_AboutUs set ");
+            strSql.Append("Title=@Title,");
+            strSql.Append("Note=@Note,");
+            strSql.Append("IsDelete=@IsDelete,");
             strSql.Append("CreateDate=@CreateDate");
             strSql.Append(" where ID=@ID ");
             SqlParameter[] parameters = {
-					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16),
-					new SqlParameter("@GroupName", SqlDbType.NVarChar,50),
-					new SqlParameter("@OrderIndex", SqlDbType.Int,4),
+					new SqlParameter("@Title", SqlDbType.NVarChar,100),
+					new SqlParameter("@Note", SqlDbType.NVarChar),
+					new SqlParameter("@IsDelete", SqlDbType.Int,4),
 					new SqlParameter("@CreateDate", SqlDbType.DateTime),
 					new SqlParameter("@ID", SqlDbType.UniqueIdentifier,16)};
-            parameters[n++].Value = model.UserID;
-            parameters[n++].Value = model.GroupName;
-            parameters[n++].Value = model.OrderIndex;
+            parameters[n++].Value = model.Title;
+            parameters[n++].Value = model.Note;
+            parameters[n++].Value = model.IsDelete;
             parameters[n++].Value = model.CreateDate;
             parameters[n++].Value = model.ID;
 
@@ -94,7 +95,7 @@ namespace IM.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("update IM_Group set IsDelete=1 ");
+            strSql.Append("update IM_AboutUs set IsDelete=1 ");
             strSql.Append(" where ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.UniqueIdentifier,16)			};
@@ -116,17 +117,17 @@ namespace IM.DAL
         /// 得到一个对象实体
         /// <param name="ID">ID</param>
         /// </summary>
-        public IM_GroupInfo GetModel(Guid ID)
+        public IM_AboutUsInfo GetModel(Guid ID)
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 ID,UserID,GroupName,OrderIndex,CreateDate from IM_Group ");
+            strSql.Append("select  top 1 ID,Title,Note,IsDelete,CreateDate from IM_AboutUs ");
             strSql.Append(" where ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.UniqueIdentifier,16)			};
             parameters[0].Value = ID;
 
-            IM_GroupInfo model = new IM_GroupInfo();
+            IM_AboutUsInfo model = new IM_AboutUsInfo();
             DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -142,26 +143,26 @@ namespace IM.DAL
         /// <summary>
         /// 得到一个对象实体
         /// </summary>
-        public IM_GroupInfo DataRowToModel(DataRow row)
+        public IM_AboutUsInfo DataRowToModel(DataRow row)
         {
-            IM_GroupInfo model = new IM_GroupInfo();
+            IM_AboutUsInfo model = new IM_AboutUsInfo();
             if (row != null)
             {
                 if (row["ID"] != null && row["ID"].ToString() != "")
                 {
                     model.ID = new Guid(row["ID"].ToString());
                 }
-                if (row["UserID"] != null && row["UserID"].ToString() != "")
+                if (row["Title"] != null)
                 {
-                    model.UserID = new Guid(row["UserID"].ToString());
+                    model.Title = row["Title"].ToString();
                 }
-                if (row["GroupName"] != null)
+                if (row["Note"] != null)
                 {
-                    model.GroupName = row["GroupName"].ToString();
+                    model.Note = row["Note"].ToString();
                 }
-                if (row["OrderIndex"] != null && row["OrderIndex"].ToString() != "")
+                if (row["IsDelete"] != null && row["IsDelete"].ToString() != "")
                 {
-                    model.OrderIndex = int.Parse(row["OrderIndex"].ToString());
+                    model.IsDelete = int.Parse(row["IsDelete"].ToString());
                 }
                 if (row["CreateDate"] != null && row["CreateDate"].ToString() != "")
                 {
@@ -176,7 +177,7 @@ namespace IM.DAL
         /// 获得前几行数据
         /// <param name="QueryBuilder"></param>
         /// </summary>
-        public List<IM_GroupInfo> GetList(QueryBuilder queryBuilder)
+        public List<IM_AboutUsInfo> GetList(QueryBuilder queryBuilder)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select ");
@@ -184,12 +185,12 @@ namespace IM.DAL
             {
                 strSql.Append(" top " + queryBuilder.Top);
             }
-            strSql.Append(" ID,UserID,GroupName,OrderIndex,CreateDate ");
-            strSql.Append(" FROM IM_Group ");
+            strSql.Append(" ID,Title,Note,IsDelete,CreateDate ");
+            strSql.Append(" FROM IM_AboutUs ");
             strSql.Append(queryBuilder.Where);
             strSql.Append(queryBuilder.Order);
             DataSet ds = DbHelperSQL.Query(strSql.ToString());
-            List<IM_GroupInfo> list = new List<IM_GroupInfo>();
+            List<IM_AboutUsInfo> list = new List<IM_AboutUsInfo>();
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 list.Add(DataRowToModel(dr));
@@ -205,7 +206,7 @@ namespace IM.DAL
         public DataTable GetListByPage(QueryBuilder queryBuilder, ref int iRecordCount)
         {
             StringBuilder sbSql = new StringBuilder();
-            sbSql.Append("SELECT * FROM IM_Group" + queryBuilder.Where);
+            sbSql.Append("SELECT * FROM IM_AboutUs" + queryBuilder.Where);
             IDataParameter[] para = new IDataParameter[] 
 			{
 				new SqlParameter("@PageIndex",SqlDbType.Int),
@@ -219,7 +220,7 @@ namespace IM.DAL
             para[2].Value = sbSql.ToString();
             para[3].Value = queryBuilder.OrderField;
             para[4].Value = queryBuilder.OrderType;
-            DataSet ds = DbHelperSQL.RunProcedure("ExecutePaging", para, "IM_Group");
+            DataSet ds = DbHelperSQL.RunProcedure("ExecutePaging", para, "IM_AboutUs");
             try
             {
                 iRecordCount = Convert.ToInt32(ds.Tables[1].Rows[0][0]);
@@ -233,82 +234,7 @@ namespace IM.DAL
 
         #endregion  BasicMethod
         #region  ExtensionMethod
-        /// <summary>
-        /// 获取群
-        /// <param name="userID"></param>
-        /// </summary>
-        public List<IM_GroupInfo> GetListGroupForUser(Guid userID)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append(@"
-select [IM_Group].* from [dbo].[IM_GroupMember]
-inner join [dbo].[IM_Group]
-on [IM_GroupMember].GroupID=[IM_Group].ID
-where [IM_GroupMember].UserID=@UserID order by [IM_Group].GroupName asc ");
-            SqlParameter[] parameters = {
-					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16)			};
-            parameters[0].Value = userID;
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
-            List<IM_GroupInfo> list = new List<IM_GroupInfo>();
-            foreach (DataRow dr in ds.Tables[0].Rows)
-            {
-                list.Add(DataRowToModel(dr));
-            }
-            return list;
-        }
 
-        /// <summary>
-        /// 查找未添加群
-        /// <param name="userID"></param>
-        /// <param name="groupName"></param>
-        /// </summary>
-        public List<IM_GroupInfo> GetListForNoAddGroup(Guid userID, string groupName)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append(@"
-select distinct [IM_Group].* from [dbo].[IM_Group]
-inner join [dbo].[IM_GroupMember]
-on [IM_Group].ID=[GroupID]
-where [IM_GroupMember].[UserID]<>@UserID and IM_Group.UserID<>@UserID and GroupName like '%" + groupName + @"%'
-order by GroupName asc");
-            SqlParameter[] parameters = {
-					new SqlParameter("@UserID", SqlDbType.UniqueIdentifier,16)			};
-            parameters[0].Value = userID;
-            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
-            List<IM_GroupInfo> list = new List<IM_GroupInfo>();
-            foreach (DataRow dr in ds.Tables[0].Rows)
-            {
-                list.Add(DataRowToModel(dr));
-            }
-            return list;
-        }
-
-        /// <summary>
-        /// 删除一条数据
-        /// <param name="ID">ID</param>
-        /// </summary>
-        public bool DeleteForGroup(Guid ID)
-        {
-
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("delete from IM_Group ");
-            strSql.Append(" where ID=@ID ");
-            strSql.Append("delete from IM_GroupMember ");
-            strSql.Append(" where GroupID=@ID ");
-            SqlParameter[] parameters = {
-					new SqlParameter("@ID", SqlDbType.UniqueIdentifier,16)			};
-            parameters[0].Value = ID;
-
-            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
-            if (rows > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         #endregion  ExtensionMethod
     }
 }

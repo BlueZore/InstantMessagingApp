@@ -42,7 +42,18 @@ namespace InstantMessagingApp
 
             IM_GroupInfo groupModel = new IM_GroupBLL().GetModel(groupMemberModel.GroupID);
 
-            ClientScript.RegisterStartupScript(this.GetType(), "JS", "<script>window.onload = function () {window.parent.window.addGroup('" + groupMemberModel.GroupID + "','" + groupModel.GroupName + "');};</script>");
+
+            ClientScript.RegisterStartupScript(this.GetType(), "JS", "<script>window.onload = function () {window.parent.window.addGroup('" + groupMemberModel.GroupID + "','" + groupModel.GroupName + "','');};</script>");
+
+            //对方通过信息添加群
+            IM_NewsInfo newModel2 = new IM_NewsInfo();
+            newModel2.SendUserID = groupModel.ID;
+            newModel2.ReceiveUserID = newModel.SendUserID;
+            newModel2.BusinessType = 5;
+            newModel2.BusinessID = "";
+            newModel2.Note = groupModel.GroupName;
+            newModel2.State = 0;
+            new IM_NewsBLL().Add(newModel2);
         }
 
         protected void btnReject_Click(object sender, EventArgs e)

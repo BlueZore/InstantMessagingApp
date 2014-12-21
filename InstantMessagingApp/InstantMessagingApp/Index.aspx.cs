@@ -77,22 +77,22 @@ namespace InstantMessagingApp
             {
                 groupHtml += @"
 <div class='team_item'>
-    <div class='team_item_info' gID='" + groupModel.ID + @"'>
+    <div class='team_item_info' gID='" + groupModel.ID + @"' " + (groupModel.UserID == userInfo.UserID ? "isSelf='1'" : "") + @">
         <img src='Image/leftmenu2.png' style='margin-top: 3px;' />
         <span>" + groupModel.GroupName + @"</span>
     </div>
     <ul class='team_user'>
 ";
-//                var tmpList = groupMemberList.Where(p => p.GroupID == groupModel.ID);
-//                foreach (var item in tmpList)
-//                {
-//                    groupHtml += @"
-//        <li uID='" + item.UserID + @"'>
-//            <img src='" + ("/UpLoadFiles" + (string.IsNullOrEmpty(item.Pic) ? "/UserPic/default.jpg" : item.Pic)) + @"' width='17px' height='17' />
-//            <span>" + item.UserName + @"</span>
-//        </li>
-//";
-//                }
+                //                var tmpList = groupMemberList.Where(p => p.GroupID == groupModel.ID);
+                //                foreach (var item in tmpList)
+                //                {
+                //                    groupHtml += @"
+                //        <li uID='" + item.UserID + @"'>
+                //            <img src='" + ("/UpLoadFiles" + (string.IsNullOrEmpty(item.Pic) ? "/UserPic/default.jpg" : item.Pic)) + @"' width='17px' height='17' />
+                //            <span>" + item.UserName + @"</span>
+                //        </li>
+                //";
+                //                }
 
                 groupHtml += @"
     </ul>

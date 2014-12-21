@@ -18,6 +18,11 @@ namespace InstantMessagingApp
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
+            if (txtGroupName.Text.Trim().Length == 0)
+            {
+                lbError.Text = "群名不能为空";
+                return;
+            }
             IM_GroupInfo groupModel = new IM_GroupInfo();
             groupModel.ID = Guid.NewGuid();
             groupModel.GroupName = txtGroupName.Text;
@@ -31,7 +36,7 @@ namespace InstantMessagingApp
             txtGroupName.Text = string.Empty;
             lbError.Text = "完成添加";
 
-            ClientScript.RegisterStartupScript(this.GetType(), "JS", "<script>window.onload = function () {window.parent.window.addGroup('" + groupModel.ID + "','" + groupModel.GroupName + "');};</script>");
+            ClientScript.RegisterStartupScript(this.GetType(), "JS", "<script>window.onload = function () {window.parent.window.addGroup('" + groupModel.ID + "','" + groupModel.GroupName + "','isSelf=\"1\"');};</script>");
         }
 
         protected void btnReturn_Click(object sender, EventArgs e)
