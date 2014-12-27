@@ -23,12 +23,6 @@ namespace InstantMessagingApp
                 queryBuilder.AddOrderASC("UserName");
                 ddlUser.DataSource = new IM_UserBLL().GetList(queryBuilder);
                 ddlUser.DataBind();
-                //if (!string.IsNullOrEmpty(Request["UserID"]))
-                //{
-                //    _FWCookieAdd(CookieName, Request["UserID"], 0, false);
-                //    Session[CookieName] = null;
-                //    Response.Redirect("~/Index.aspx");
-                //}
             }
         }
 
@@ -38,7 +32,7 @@ namespace InstantMessagingApp
         {
             _FWCookieAdd(CookieName, ddlUser.SelectedValue, 0, false);
             Session[CookieName] = null;
-            Response.Redirect("~/Index.aspx");
+            Response.Redirect("~/IndexWeb.aspx");
         }
     }
 }

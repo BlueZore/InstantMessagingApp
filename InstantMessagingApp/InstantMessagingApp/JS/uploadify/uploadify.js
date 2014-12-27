@@ -55,7 +55,7 @@
                 if ($("[talkID='" + arr[0] + "']").size() > 0) {
                     var html = "<li class='otheruser_note'><p>" + $("#divSelfName").html() + " " + arr[3] + "</p> <span>" + ("<a href='" + arr[2] + "' target='_blank'>" + arr[1] + "</a>") + "</span></li>";
 
-                    $("[talkID='" + arr[0] + "']").find(".talk_re_note").html($("[talkID='" + arr[0] + "']").find(".talk_re_note").html() + html);
+                    $("[talkID='" + arr[0] + "']").find(".talk_re_note").append(html);
                 }
             }
         },

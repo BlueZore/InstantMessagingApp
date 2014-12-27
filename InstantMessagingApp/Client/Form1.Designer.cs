@@ -31,6 +31,10 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.chromeWebBrowser1 = new Sashulin.ChromeWebBrowser();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.lbUpdateState = new System.Windows.Forms.Label();
+            this.panel = new System.Windows.Forms.Panel();
+            this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -56,20 +60,47 @@
             this.chromeWebBrowser1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.chromeWebBrowser1.Location = new System.Drawing.Point(2, 33);
             this.chromeWebBrowser1.Name = "chromeWebBrowser1";
-            this.chromeWebBrowser1.Size = new System.Drawing.Size(627, 464);
+            this.chromeWebBrowser1.Size = new System.Drawing.Size(612, 427);
             this.chromeWebBrowser1.TabIndex = 2;
             this.chromeWebBrowser1.Load += new System.EventHandler(this.Form1_Load);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // lbUpdateState
+            // 
+            this.lbUpdateState.AutoSize = true;
+            this.lbUpdateState.BackColor = System.Drawing.Color.Transparent;
+            this.lbUpdateState.ForeColor = System.Drawing.Color.White;
+            this.lbUpdateState.Location = new System.Drawing.Point(4, 4);
+            this.lbUpdateState.Name = "lbUpdateState";
+            this.lbUpdateState.Size = new System.Drawing.Size(53, 12);
+            this.lbUpdateState.TabIndex = 3;
+            this.lbUpdateState.Text = "上传状态";
+            // 
+            // panel
+            // 
+            this.panel.Controls.Add(this.lbUpdateState);
+            this.panel.Location = new System.Drawing.Point(2, 439);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(612, 20);
+            this.panel.TabIndex = 4;
+            this.panel.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 498);
+            this.ClientSize = new System.Drawing.Size(614, 460);
+            this.Controls.Add(this.panel);
             this.Controls.Add(this.chromeWebBrowser1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.panel.ResumeLayout(false);
+            this.panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -79,6 +110,9 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
         private Sashulin.ChromeWebBrowser chromeWebBrowser1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Label lbUpdateState;
+        private System.Windows.Forms.Panel panel;
     }
 }
 

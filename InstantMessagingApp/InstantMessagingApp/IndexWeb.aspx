@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="InstantMessagingApp.Index" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="IndexWeb.aspx.cs" Inherits="InstantMessagingApp.IndexWeb" %>
 
 <!DOCTYPE html>
 
@@ -10,7 +10,9 @@
     <script src="JS/jquery-1.11.1.min.js"></script>
     <script src="JS/layer/layer.min.js" type="text/javascript"></script>
     <script src="JS/layer/extend/layer.ext.js" type="text/javascript"></script>
-    <link href="/JS/uploadify/uploadify2.css" rel="stylesheet" />
+    <script src="JS/uploadify/jquery.uploadify.min.js"></script>
+    <script src="JS/uploadify/uploadify.js"></script>
+    <link href="/JS/uploadify/uploadify.css" rel="stylesheet" />
     <script src="/JS/IM.js"></script>
 </head>
 <body>
@@ -99,11 +101,7 @@
             </div>
 
             <div class="right">
-                <div id="fileupload" class="uploadify">
-                    <div id="file_upload-button" class="uploadify-button ">
-                        <span class="uploadify-button-text"></span>
-
-                    </div>
+                <div id="file_upload" class="uploadify">
                 </div>
                 <div id="talk">
                     <%--<div class="talk">
@@ -154,3 +152,4 @@
     </form>
 </body>
 </html>
+

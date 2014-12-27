@@ -186,6 +186,12 @@
             margin-left: 7px;
         }
 
+            .team_user li span:hover {
+                color: #ff6868;
+                font-weight: bold;
+                font-size: 12px;
+            }
+
 #GroupListDIV {
     display: none;
 }
@@ -302,14 +308,35 @@
     float: left;
     padding-right: 5px;
     width: 100%;
+    padding-top: 3px;
 }
 
-    .talk_run button {
+    .talk_run a {
+        background-color: #e4e4e4;
+        border: 1px solid #dadada;
+        border-radius: 5px;
+        color: #242424;
+        display: block;
         float: right;
+        font-size: 14px;
+        height: 21px;
         margin-right: 5px;
-        margin-top: 5px;
-        font-size: 12px;
+        margin-top: 6px;
+        text-align: center;
+        width: 52px;
+        cursor: pointer;
     }
+
+        .talk_run a:hover {
+            background-color: #50aaf6;
+            color: #ebf2fa;
+        }
+
+.talk_run_send {
+}
+
+.talk_run_close {
+}
 
 .talktab {
     float: left;

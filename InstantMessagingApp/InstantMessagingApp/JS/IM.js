@@ -36,7 +36,7 @@
             return;
         }
 
-        var html = "<div class='talk' talkID='" + $(this).attr("uID") + "' talkType='1'><div class='talk_re_note'></div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+        var html = "<div class='talk' talkID='" + $(this).attr("uID") + "' talkType='1'><div class='talk_re_note'></div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><a class='talk_run_close'>关闭</a><a class='talk_run_send'>发送</a></div></div>";
         $("#talk").append(html);
         $("#talk,.uploadify").show();
 
@@ -60,7 +60,7 @@
             return;
         }
 
-        var html = "<div class='talk' talkID='" + $(this).attr("gID") + "' talkType='2'><div class='talk_re_note'></div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+        var html = "<div class='talk' talkID='" + $(this).attr("gID") + "' talkType='2'><div class='talk_re_note'></div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><a class='talk_run_close'>关闭</a><a class='talk_run_send'>发送</a></div></div>";
         $("#talk").append(html);
         $("#talk,.uploadify").show();
 
@@ -78,46 +78,47 @@
         $("#talk").find("[talkID='" + $(this).attr("talkTabID") + "']").show();
     });
 
-    //移除通话
-    $("#talk").delegate("button", "click", function () {
+    //发送信息
+    $("#talk").delegate(".talk_run_send", "click", function () {
         var $talk = $(this).parents(".talk");
         var talkID = $talk.attr("talkID");
-        switch ($(this).html()) {
-            case "关闭":
-                $("[talkID='" + talkID + "']").remove();
-                $("[talkTabID='" + talkID + "']").remove();
+        var $textArea = $talk.find("textarea");
+        var note = $textArea.val();
+        var talkType = $talk.attr("talkType");
+        if ($.trim(note).length == 0) return false;//发空过滤
+        $.ajax({
+            type: "post",
+            contentType: "application/json",
+            url: "/Common/Ajax.asmx/sendUserTalk",
+            data: "{SendUserID:'" + $("#hidID").val() + "',ReceiveUserID:'" + talkID + "',Type:'" + talkType + "',Note:'" + note + "'}",
+            dataType: "json",
+            success: function (result) {
+                if (result.d != "") {
+                    var html = "<li class='curruser_note'><p>" + $("#divSelfName").html() + " " + result.d + "</p><span>" + note + "</span></li>";
 
-                if ($("#talk>div").size() > 0) {//第一页签显示
-                    $("#talk>div:eq(0)").show();
-                    $(".talktab>li:eq(0)").addClass("talktab_li_selected");
+                    $talk.find(".talk_re_note").html($(".talk_re_note").html() + html);
+                    $talk.find(".talk_re_note").attr("scrollTop", "1000000");
+                    $textArea.val("");
                 }
-                else {//隐藏整个聊天窗口
-                    $("#talk,.uploadify").hide();
+            }
+        });
+        return false;
+    });
 
-                }
-                break;
-            case "发送"://支持单聊和群聊，通过talkType控制
-                var $textArea = $talk.find("textarea");
-                var note = $textArea.val();
-                var talkType = $talk.attr("talkType");
-                if ($.trim(note).length == 0) return false;//发空过滤
-                $.ajax({
-                    type: "post",
-                    contentType: "application/json",
-                    url: "/Common/Ajax.asmx/sendUserTalk",
-                    data: "{SendUserID:'" + $("#hidID").val() + "',ReceiveUserID:'" + talkID + "',Type:'" + talkType + "',Note:'" + note + "'}",
-                    dataType: "json",
-                    success: function (result) {
-                        if (result.d != "") {
-                            var html = "<li class='curruser_note'><p>" + $("#divSelfName").html() + " " + result.d + "</p><span>" + note + "</span></li>";
+    //移除通话
+    $("#talk").delegate(".talk_run_close", "click", function () {
+        var $talk = $(this).parents(".talk");
+        var talkID = $talk.attr("talkID");
+        $("[talkID='" + talkID + "']").remove();
+        $("[talkTabID='" + talkID + "']").remove();
 
-                            $talk.find(".talk_re_note").html($(".talk_re_note").html() + html);
-                            $talk.find(".talk_re_note").attr("scrollTop", "1000000");
-                            $textArea.val("");
-                        }
-                    }
-                });
-                break;
+        if ($("#talk>div").size() > 0) {//第一页签显示
+            $("#talk>div:eq(0)").show();
+            $(".talktab>li:eq(0)").addClass("talktab_li_selected");
+        }
+        else {//隐藏整个聊天窗口
+            $("#talk,.uploadify").hide();
+
         }
         return false;
     });
@@ -354,6 +355,12 @@
         $(".fm_main_menu").hide();
     });
 
+
+    //文件上传
+    $("#fileupload").delegate("#file_upload-button", "click", function () {
+        window.CallCSharpMethod("UploadFile", $(".talk:visible").attr("talkID") + "|" + $("#divSelfName").html() + "|" + $("#hidID").val() + "|" + $(".talk:visible").attr("talkType"));
+    });
+
     setInterval("getUserAboutNews()", 6000);
 
 });
@@ -407,7 +414,7 @@ function getUserAboutNews() {
 
                 }
                 if (html.length > 0) {
-                    $("#ULLayer").html($("#ULLayer").html() + html);
+                    $("#ULLayer").append(html);
                     $("#ULLayer").show();
                 }
 
@@ -418,12 +425,12 @@ function getUserAboutNews() {
                     var $talk = $("#talk").find("[talkID='" + talkList[i].SendUserID + "']");
                     if ($talk.size() > 0) {//写入聊天窗口
                         html = "<li class='otheruser_note'><p>" + talkList[i].SendUserName + " " + talkList[i].CreateDate + "</p> <span>" + talkList[i].Note + "</span></li>";
-                        $talk.find(".talk_re_note").html($talk.find(".talk_re_note").html() + html);
+                        $talk.find(".talk_re_note").append(html);
                     }
                     else {
                         if ($("[UL_talkID='" + talkList[i].SendUserID + "']").size() == 0) {//在ULLayer没有发送用户的提示，显示提示框
                             html += "<ul class='ULLayer' UL_talkID='" + talkList[i].SendUserID + "' UL_talkName='" + talkList[i].SendUserName + "' UL_talkType='1'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>“" + talkList[i].SendUserName + "”向你发出聊天申请！</li><li class='footer'><a>查看</a></li></ul>";
-                            $("#ULLayer").html($("#ULLayer").html() + html);
+                            $("#ULLayer").append(html);
                             $("#ULLayer").show();
                         }
                     }
@@ -436,12 +443,12 @@ function getUserAboutNews() {
                     var $talk = $("#talk").find("[talkID='" + talkGroupList[i].GroupID + "']");
                     if ($talk.size() > 0) {//写入聊天窗口
                         html = "<li class='otheruser_note'><p>" + talkGroupList[i].UserName + " " + talkGroupList[i].CreateDate + "</p> <span>" + talkGroupList[i].Note + "</span></li>";
-                        $talk.find(".talk_re_note").html($talk.find(".talk_re_note").html() + html);
+                        $talk.find(".talk_re_note").append(html);
                     }
                     else {
                         if ($("[UL_talkID='" + talkGroupList[i].GroupID + "']").size() == 0) {//在ULLayer没有发送用户的提示，显示提示框
                             html += "<ul class='ULLayer' UL_talkID='" + talkGroupList[i].GroupID + "' UL_talkName='" + talkGroupList[i].GroupName + "' UL_talkType='2'><li class='header'><b>系统提醒</b><a><img src='/Image/close.png'/></a></li><li class='body'>“" + talkGroupList[i].GroupName + "”群有人聊天！</li><li class='footer'><a>查看</a></li></ul>";
-                            $("#ULLayer").html($("#ULLayer").html() + html);
+                            $("#ULLayer").append(html);
                             $("#ULLayer").show();
                         }
                     }
@@ -476,4 +483,18 @@ function moveUser(teamID, userID) {
     var $uid = $("[uid='" + userID + "']");
     $("[uid='" + userID + "']").remove();
     $("[tid='" + teamID + "']").next().append($uid);
+}
+
+function addTalkRec(data) {
+    var arr = data.split('|');
+    if ($("[talkID='" + arr[0] + "']").size() > 0) {
+        var html = "<li class='otheruser_note'><p>" + $("#divSelfName").html() + " " + arr[3] + "</p> <span>" + ("<a href='/UpLoadFiles/Files" + arr[2] + "' target='_blank'>" + arr[1] + "</a>") + "</span></li>";
+        $("[talkID='" + arr[0] + "']").find(".talk_re_note").append(html);
+        talkTop($("[talkID='" + arr[0] + "']"));
+    }
+}
+
+//控制显示内容距底
+function talkTop($talk) {
+    $talk.find(".talk_re_note").attr("scrollTop", $talk.find(".talk_re_note").height());
 }

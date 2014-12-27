@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\Ajax.asmx" />
+    <Content Include="Common\ReceiveFile.aspx" />
     <Content Include="CSS\AspNetPageStyle.css" />
     <Content Include="CSS\Style.css" />
     <Content Include="Iframe\AboutUsDetail.aspx" />
@@ -92,13 +93,18 @@
     <Content Include="Iframe\TalkRecDetail.aspx" />
     <Content Include="Iframe\TalkRecView.aspx" />
     <Content Include="Image\close.png" />
+    <Content Include="Image\close001.png" />
+    <Content Include="Image\close002.png" />
     <Content Include="Image\error.jpg" />
     <Content Include="Image\leftmenu3.png" />
     <Content Include="Image\leftmenu4.png" />
     <Content Include="Image\leftmenu5.png" />
+    <Content Include="Image\send001.png" />
+    <Content Include="Image\send002.png" />
     <Content Include="Image\tab3.png" />
     <Content Include="Image\upload.png" />
     <Content Include="Image\userbg.jpg" />
+    <Content Include="IndexWeb.aspx" />
     <Content Include="JS\IM.js" />
     <Content Include="JS\jquery-1.11.1.js" />
     <Content Include="JS\jquery-1.11.1.min.js" />
@@ -114,6 +120,7 @@
     <Content Include="JS\layer\skin\default\xubox_title0.png" />
     <Content Include="JS\layer\skin\layer.css" />
     <Content Include="JS\layer\skin\layer.ext.css" />
+    <Content Include="JS\uploadify\uploadify2.css" />
     <Content Include="JS\zTree\demo.css" />
     <Content Include="JS\zTree\img\diy\1_close.png" />
     <Content Include="JS\zTree\img\diy\1_open.png" />
@@ -139,6 +146,7 @@
     <Content Include="JS\uploadify\uploadify.css" />
     <Content Include="JS\uploadify\uploadify.js" />
     <Content Include="JS\uploadify\uploadify.swf" />
+    <Content Include="Load.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="packages.config" />
     <Content Include="JS\uploadify\Uploadify 3.2 参数.docx" />
@@ -192,6 +200,13 @@
     </Compile>
     <Compile Include="Common\BasePager.cs">
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\ReceiveFile.aspx.cs">
+      <DependentUpon>ReceiveFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\ReceiveFile.aspx.designer.cs">
+      <DependentUpon>ReceiveFile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Common\UploadHandler.ashx.cs">
       <DependentUpon>UploadHandler.ashx</DependentUpon>
@@ -301,12 +316,26 @@
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="IndexWeb.aspx.cs">
+      <DependentUpon>IndexWeb.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IndexWeb.aspx.designer.cs">
+      <DependentUpon>IndexWeb.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InitData.aspx.cs">
       <DependentUpon>InitData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="InitData.aspx.designer.cs">
       <DependentUpon>InitData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Load.aspx.cs">
+      <DependentUpon>Load.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Load.aspx.designer.cs">
+      <DependentUpon>Load.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
