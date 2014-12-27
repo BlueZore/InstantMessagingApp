@@ -49,8 +49,6 @@ namespace Client
             fileList = new List<FileCtr>();
         }
 
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             chromeWebBrowser1.OpenUrl("http://localhost:8891/Load.aspx?UserID=" + comboBox1.SelectedValue);
@@ -65,7 +63,7 @@ namespace Client
         {
             //初始化一个OpenFileDialog类
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "(*.xls)|*.xls|(*.rar)|*.rar|(*.doc)|*.doc|(*.jpg)|*.jpg";
+            fileDialog.Filter = "(*.xls;*.xlsx;*.rar;*.doc;*.docx;*.jpg;*.png;*.txt;)|*.xls;*.xlsx;*.rar*;*.doc;*.docx;*.jpg;*.png;*.txt;";
             //判断用户是否正确的选择了文件
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -101,7 +99,7 @@ namespace Client
         {
             while (fileList.Count() > 0)
             {
-                panel.Visible = true;
+                panel.Invoke(new Action(() => panel.Visible = true));
                 FileCtr item = fileList[0];
                 lbUpdateState.Invoke(new Action(() => lbUpdateState.Text = item.FileName + "[上传文件]"));
                 WebClient webClient = new WebClient();
@@ -134,7 +132,7 @@ namespace Client
 
             }
 
-            panel.Visible = false;
+            panel.Invoke(new Action(() => panel.Visible = false));
         }
     }
 
