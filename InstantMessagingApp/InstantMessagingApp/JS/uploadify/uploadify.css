@@ -13,6 +13,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
     position: fixed;
     margin-top: 261px;
     margin-left: 6px;
+    z-index:98;
 }
 
 .uploadify-button {

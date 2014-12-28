@@ -358,7 +358,10 @@
 
     //文件上传
     $("#fileupload").delegate("#file_upload-button", "click", function () {
-        window.CallCSharpMethod("UploadFile", $(".talk:visible").attr("talkID") + "|" + $("#divSelfName").html() + "|" + $("#hidID").val() + "|" + $(".talk:visible").attr("talkType"));
+        var result = window.CallCSharpMethod("UploadFile", $(".talk:visible").attr("talkID") + "|" + $("#divSelfName").html() + "|" + $("#hidID").val() + "|" + $(".talk:visible").attr("talkType"));
+        if (result.length > 0) {
+            alert(result);
+        }
     });
 
     setInterval("getUserAboutNews()", 6000);
@@ -488,7 +491,7 @@ function moveUser(teamID, userID) {
 function addTalkRec(data) {
     var arr = data.split('|');
     if ($("[talkID='" + arr[0] + "']").size() > 0) {
-        var html = "<li class='otheruser_note'><p>" + $("#divSelfName").html() + " " + arr[3] + "</p> <span>" + ("<a href='/UpLoadFiles/Files" + arr[2] + "' target='_blank'>" + arr[1] + "</a>") + "</span></li>";
+        var html = "<li class='otheruser_note'><p>" + $("#divSelfName").html() + " " + arr[3] + "</p> <span>" + ("<a href='/UpLoadFiles/Files/" + arr[2] + "' target='_blank'>" + arr[1] + "</a>") + "</span></li>";
         $("[talkID='" + arr[0] + "']").find(".talk_re_note").append(html);
         talkTop($("[talkID='" + arr[0] + "']"));
     }
