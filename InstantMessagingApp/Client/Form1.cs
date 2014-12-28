@@ -23,6 +23,7 @@ namespace Client
     {
         BackgroundWorker bw;
         List<FileCtr> fileList;
+        string webAddress = "http://kally32.w222.mc-test.com/";
 
         public Form1()
         {
@@ -51,7 +52,7 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            chromeWebBrowser1.OpenUrl("http://localhost:8891/Load.aspx?UserID=" + comboBox1.SelectedValue);
+            chromeWebBrowser1.OpenUrl(webAddress + "Load.aspx?UserID=" + comboBox1.SelectedValue);
         }
 
         public string ShowMessage(string data)
@@ -104,7 +105,7 @@ namespace Client
                 lbUpdateState.Invoke(new Action(() => lbUpdateState.Text = item.FileName + "[上传文件]"));
                 WebClient webClient = new WebClient();
 
-                byte[] RemoteByte = webClient.UploadFile("http://172.31.132.44:8891/Common/ReceiveFile.aspx", "POST", item.FileName);//提交
+                byte[] RemoteByte = webClient.UploadFile(webAddress + "Common/ReceiveFile.aspx", "POST", item.FileName);//提交
                 string html = Encoding.Default.GetString(RemoteByte, 0, RemoteByte.Length);
 
                 lbUpdateState.Invoke(new Action(() => lbUpdateState.Text = item.FileName + "[同步数据]"));
@@ -121,7 +122,7 @@ namespace Client
                 VarPost.Add("Type", item.TalkType);
                 VarPost.Add("FileID", item.FileID);//截取FileID
 
-                RemoteByte = webClient.UploadValues("http://172.31.132.44:8891/Common/ReceiveFile.aspx", "POST", VarPost);//提交
+                RemoteByte = webClient.UploadValues(webAddress + "Common/ReceiveFile.aspx", "POST", VarPost);//提交
 
                 lbUpdateState.Invoke(new Action(() => lbUpdateState.Text = item.FileName + "[完成]"));
                 fileList.RemoveAt(0);
