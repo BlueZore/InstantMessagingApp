@@ -98,7 +98,8 @@ namespace Client
                 fileDialog.Dispose();
                 return "";
             }
-            catch {
+            catch
+            {
                 return "上传文件存在问题";
             }
         }
@@ -123,7 +124,7 @@ namespace Client
 
                 item.FileID = html.Substring(html.IndexOf("[guid='") + 7).Substring(0, html.Substring(html.IndexOf("[guid='") + 7).IndexOf("']"));
 
-                VarPost.Add("FileName", item.FileName.Substring(item.FileName.LastIndexOf("\\")));
+                VarPost.Add("FileName", item.FileName.Substring(item.FileName.LastIndexOf("\\") + 1));
                 VarPost.Add("ReceiveID", item.ReceiveID);
                 VarPost.Add("UserID", item.UserID);
                 VarPost.Add("Type", item.TalkType);

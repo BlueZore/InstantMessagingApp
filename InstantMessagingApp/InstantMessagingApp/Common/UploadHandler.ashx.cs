@@ -93,7 +93,7 @@ namespace InstantMessagingApp
                 }
 
             }
-            context.Response.Write(ReceiveID + "|" + FileName + "|" + "/UpLoadFiles/Files/" + FileID + "." + FileType + "|" + DateTime.Now);
+            context.Response.Write(ReceiveID + "|" + FileName + "|" + ("/UpLoadFiles/Files/" + FileID + "." + FileType).Replace("..", ".") + "|" + DateTime.Now);
         }
 
         public bool IsReusable

@@ -136,17 +136,6 @@
             <div id="ULLayer">
             </div>
         </div>
-        <div class="fm_main_queue">
-            <div class="fm_main_queue_head">
-                <span>上传完成</span>
-
-                <a class="fm_main_queue_head_close"></a>
-                <a class="fm_main_queue_head_max"></a>
-                <a class="fm_main_queue_head_min"></a>
-            </div>
-            <div id="uploadfileQueue">
-            </div>
-        </div>
 
         <asp:HiddenField ID="hidID" runat="server" />
         <asp:HiddenField ID="hidReceiveID" runat="server" Value="6AC2AEED-DB26-4AD5-BEE8-292CEFEA9356" />

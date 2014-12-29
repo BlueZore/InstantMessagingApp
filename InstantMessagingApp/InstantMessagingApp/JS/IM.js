@@ -155,7 +155,7 @@
 
                 //窗口
                 $("#talk>div").hide();
-                var html = "<div class='talk' talkID='" + ID + "' talkType='" + talkType + "'><div class='talk_re_note'>加载中...</div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><button>关闭</button><button>发送</button></div></div>";
+                var html = "<div class='talk' talkID='" + ID + "' talkType='" + talkType + "'><div class='talk_re_note'>加载中...</div><div class='talk_op'></div><div class='talk_note'><textarea/></div><div class='talk_run'><a class='talk_run_close'>关闭</a><a class='talk_run_send'>发送</a></div></div>";
                 $("#talk").html($("#talk").html() + html);
                 $("#talk,.uploadify").show();
 
