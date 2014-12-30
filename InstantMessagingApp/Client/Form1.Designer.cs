@@ -72,12 +72,11 @@
             // 
             this.lbUpdateState.AutoSize = true;
             this.lbUpdateState.BackColor = System.Drawing.Color.Transparent;
-            this.lbUpdateState.ForeColor = System.Drawing.Color.White;
+            this.lbUpdateState.ForeColor = System.Drawing.Color.Black;
             this.lbUpdateState.Location = new System.Drawing.Point(4, 4);
             this.lbUpdateState.Name = "lbUpdateState";
-            this.lbUpdateState.Size = new System.Drawing.Size(53, 12);
+            this.lbUpdateState.Size = new System.Drawing.Size(0, 12);
             this.lbUpdateState.TabIndex = 3;
-            this.lbUpdateState.Text = "上传状态";
             // 
             // panel
             // 

@@ -30,6 +30,7 @@ namespace Sashulin.common
                                      downloadItem.Url,
                                      downloadItem.SuggestedFileName,
                                      downloadItem.MimeType,
+                                     downloadItem.IsCanceled,
                                      downloadItem.IsComplete,
                                      downloadItem.IsInProgress);
             

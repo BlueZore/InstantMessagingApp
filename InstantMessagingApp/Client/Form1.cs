@@ -23,8 +23,8 @@ namespace Client
     {
         BackgroundWorker bw;
         List<FileCtr> fileList;
-        string webAddress = "http://kally32.w222.mc-test.com/";
-        //string webAddress = "http://localhost:8891/";
+        //string webAddress = "http://kally32.w222.mc-test.com/";
+        string webAddress = "http://172.31.132.44:8891/";
 
         public Form1()
         {
@@ -73,29 +73,31 @@ namespace Client
                 {
                     //获取用户选择的文件，并判断文件大小不能超过20K，fileInfo.Length是以字节为单位的
                     FileInfo fileInfo = new FileInfo(fileDialog.FileName);
+                    if (fileInfo.Length == 0)
+                    {
+                        return "上传的图片不能小于0K";
+                    }
                     if (fileInfo.Length > 204800)
                     {
                         return "上传的图片不能大于200K";
                     }
-                    else
+                    //在这里就可以写获取到正确文件后的代码了
+                    string[] arr = data.Split('|');
+                    FileCtr item = new FileCtr();
+                    item.ReceiveID = arr[0];
+                    item.FileName = fileDialog.FileName;
+                    item.UserName = arr[1];
+                    item.UserID = arr[2];
+                    item.TalkType = arr[3];
+                    item.FileID = Guid.NewGuid().ToString();
+                    fileList.Add(item);
+                    if (!bw.IsBusy)
                     {
-                        //在这里就可以写获取到正确文件后的代码了
-                        string[] arr = data.Split('|');
-                        FileCtr item = new FileCtr();
-                        item.ReceiveID = arr[0];
-                        item.FileName = fileDialog.FileName;
-                        item.UserName = arr[1];
-                        item.UserID = arr[2];
-                        item.TalkType = arr[3];
-                        item.FileID = Guid.NewGuid().ToString();
-                        fileList.Add(item);
-                        if (!bw.IsBusy)
-                        {
-                            bw.RunWorkerAsync();
-                        }
+                        bw.RunWorkerAsync();
                     }
+                    fileDialog.Dispose();
                 }
-                fileDialog.Dispose();
+
                 return "";
             }
             catch

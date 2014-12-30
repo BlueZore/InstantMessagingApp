@@ -13,13 +13,13 @@ using Sashulin.Core;
 
 namespace Sashulin
 {
-    public partial class ChromeWebBrowser: UserControl
+    public partial class ChromeWebBrowser : UserControl
     {
         private const string DumpRequestDomain = "dump-request.app.cefglue.sashulin.local";//"dump-request.clientapp.cefglue.sashulin.local";
         private CefClient client;
         private bool created = false;
         private static bool initialized = false;
-        private string  _homeUrl = "about:blank";
+        private string _homeUrl = "about:blank";
         private IntPtr browserHandle;
         private string cookiePath = "/";
         private string _title = string.Empty;
@@ -37,15 +37,16 @@ namespace Sashulin
         {
             InitializeComponent();
             Global.instance = this;
-            
+
         }
 
-        public ChromeWebBrowser(CSharpBrowserSettings settings) : this()
+        public ChromeWebBrowser(CSharpBrowserSettings settings)
+            : this()
         {
             browserSettings = settings;
             Initialize();
         }
-        
+
         private void CreateBrowser()
         {
             CefWindowInfo windowInfo = CefWindowInfo.Create();
@@ -79,7 +80,7 @@ namespace Sashulin
             settings.WebSecurity = CefState.Enabled;
 
             CefBrowserHost.CreateBrowser(windowInfo, client, settings, browserSettings.DefaultUrl);
-            
+
         }
 
 
@@ -98,7 +99,7 @@ namespace Sashulin
                     CreateBrowser();
                 }
                 return 0;
-            } 
+            }
             CefRuntime.Load();
             var settings = new CefSettings();
             settings.MultiThreadedMessageLoop = CefRuntime.Platform == CefRuntimePlatform.Windows;
@@ -172,7 +173,7 @@ namespace Sashulin
             if (browser != null)
             {
                 OnNavigating();
-                
+
                 CefCookie cookie = new CefCookie();
                 cookie.Name = "cwberCookieName";
                 cookie.Value = "cwberCookie";
@@ -199,7 +200,7 @@ namespace Sashulin
             {
                 OnNavigating();
 
-                
+
                 //browser.GetMainFrame().LoadUrl(((CefRequest)request).Url);
                 browser.GetMainFrame().LoadRequest((CefRequest)request);
                 //browser.Reload();
@@ -366,7 +367,7 @@ namespace Sashulin
             string devUrl = browser.GetHost().GetDevToolsUrl(true);
             browser.GetMainFrame().ExecuteJavaScript(
                     "window.open('" + devUrl + "');", "about:blank", 0);
-            
+
         }
 
         public void CloseDevTool()
@@ -382,7 +383,7 @@ namespace Sashulin
             if (browserHandle != IntPtr.Zero)
             {
                 WinApi.SetWindowPos(browserHandle, IntPtr.Zero,
-                    (Width-w)/2, (Height-h)/2, w, h,
+                    (Width - w) / 2, (Height - h) / 2, w, h,
                      SetWindowPosFlags.NoZOrder
                     );
             }
@@ -404,7 +405,7 @@ namespace Sashulin
         }
         public delegate void TCallBackElementEventListener();
         internal List<CwbListenerItem> elementListenerList = new List<CwbListenerItem>();
-        public void AppendElementEventListener(string id,string eventName,TCallBackElementEventListener callFunc)
+        public void AppendElementEventListener(string id, string eventName, TCallBackElementEventListener callFunc)
         {
             string elementID = id.Replace("|0", "");
             foreach (CwbListenerItem t in elementListenerList)
@@ -496,7 +497,7 @@ namespace Sashulin
             return browser.CanGoBack;
         }
 
-        
+
 
         public void SetPopupMenuVisible(bool visibled)
         {
@@ -508,7 +509,7 @@ namespace Sashulin
             menuVisible = false;
             this.ContextMenu = popupMenu;
         }
-        
+
         #endregion
 
 
@@ -555,7 +556,7 @@ namespace Sashulin
             browserHandle = browser.GetHost().GetWindowHandle();
             ResizeWindow(browserHandle, Width, Height);
 
-            
+
 
             var handler = BrowserCreated;
             if (handler != null)
@@ -688,6 +689,7 @@ namespace Sashulin
                                      string fileUrl,
                                      string fileName,
                                      string mimeType,
+                                     bool IsCanceled,
                                      bool isComplete,
                                      bool isInProgress)
         {
@@ -695,11 +697,12 @@ namespace Sashulin
             if (handler != null)
             {
                 handler(this, new FileDownloadEventArgs(totalSize,
-                                     loadSize,speedSize,
+                                     loadSize, speedSize,
                                      percent,
                                      fileUrl,
                                      fileName,
                                      mimeType,
+                                     IsCanceled,
                                      isComplete,
                                      isInProgress));
             }
@@ -744,6 +747,12 @@ namespace Sashulin
                     downloadForm.Dispose();
                     downloadForm = null;
                 }
+
+                if (IsCanceled)
+                {
+                    downloadForm.Dispose();
+                    downloadForm = null;
+                }
             }
         }
 
@@ -782,7 +791,7 @@ namespace Sashulin
 
         #endregion
 
-        #region 
+        #region
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);

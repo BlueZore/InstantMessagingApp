@@ -183,6 +183,7 @@ namespace Sashulin
         private string _fileUrl;
         private string _fileName;
         private string _mimeType;
+        private bool _IsCanceled;
         private bool _IsComplete;
         private bool _IsInProgress;
         public FileDownloadEventArgs(long totalSize,
@@ -192,6 +193,7 @@ namespace Sashulin
                                      string fileUrl,
                                      string fileName,
                                      string mimeType,
+                                     bool IsCanceled,
                                      bool isComplete,
                                      bool isInProgress)
         {
@@ -202,6 +204,7 @@ namespace Sashulin
             _fileUrl = fileUrl;
             _fileName = fileName;
             _mimeType = mimeType;
+            _IsCanceled = IsCanceled;
             _IsComplete = isComplete;
             _IsInProgress = isInProgress;
         }
@@ -239,6 +242,11 @@ namespace Sashulin
         public string MimeType
         {
             get { return _mimeType; }
+        }
+
+        public bool IsCanceled
+        {
+            get { return _IsCanceled; }
         }
 
         public bool IsComplete

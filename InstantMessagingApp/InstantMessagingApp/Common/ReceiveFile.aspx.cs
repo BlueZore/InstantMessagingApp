@@ -41,7 +41,7 @@ namespace InstantMessagingApp
                     IM_FileInfo fileModel = new IM_FileInfo();
                     fileModel.ID = Guid.NewGuid();
                     fileModel.FileName = FileName;
-                    fileModel.FilePath = "/UpLoadFiles/Files/" + FileID + "." + FileName.Substring(FileName.LastIndexOf('.'));
+                    fileModel.FilePath = "/UpLoadFiles/Files/" + FileID + FileName.Substring(FileName.LastIndexOf('.'));
                     fileModel.UserID = new Guid(UserID);
                     fileModel.ReceiveID = new Guid(ReceiveID);
                     fileModel.Type = 1;

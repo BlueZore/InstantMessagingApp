@@ -364,6 +364,17 @@
         }
     });
 
+    $("body").delegate(".curruser_note", "click", function () {
+        alert("");
+        //var oPop = window.open($(this).attr("href"), "", "width=1, height=1, top=5000, left=5000");
+        //for (; oPop.document.readyState != "complete";) {
+        //    if (oPop.document.readyState == "complete") break;
+        //}
+        //oPop.document.execCommand("SaveAs");
+        //oPop.close();
+        return false;
+    });
+
     setInterval("getUserAboutNews()", 6000);
 
 });
@@ -488,10 +499,11 @@ function moveUser(teamID, userID) {
     $("[tid='" + teamID + "']").next().append($uid);
 }
 
+//Winfrom聊天
 function addTalkRec(data) {
     var arr = data.split('|');
     if ($("[talkID='" + arr[0] + "']").size() > 0) {
-        var html = "<li class='otheruser_note'><p>" + $("#divSelfName").html() + " " + arr[3] + "</p> <span>" + ("<a href='/UpLoadFiles/Files/" + arr[2] + "' target='_blank'>" + arr[1] + "</a>") + "</span></li>";
+        var html = "<li class='otheruser_note'><p>" + $("#divSelfName").html() + " " + arr[3] + "</p> <span>" + ("<a href='/UpLoadFiles/Files/" + arr[2] + "' download='" + arr[1] + "'>" + arr[1] + "</a>") + "</span></li>";
         $("[talkID='" + arr[0] + "']").find(".talk_re_note").append(html);
         talkTop($("[talkID='" + arr[0] + "']"));
     }
